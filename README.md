@@ -1,2 +1,3 @@
-# TeamProject
-E-commerce website for wellness and health. 
+# TeamProject GROUP 16
+Our e-commerce website for wellness and health: WELLTH
+
