@@ -1,3 +1,3 @@
 <x-layout>
-    <h5>This is the shop page</h5>
+    <h5>This is the Shop page</h5>
 </x-layout>

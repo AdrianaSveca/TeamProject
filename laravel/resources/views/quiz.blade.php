@@ -1,3 +1,3 @@
 <x-layout>
-    <h5>This is the quiz page</h5>
+    <h5>This is the Quiz page</h5>
 </x-layout>

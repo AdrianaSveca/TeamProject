@@ -11,7 +11,13 @@ Route::get('/shop', function () {
 Route::get('/quiz', function () {
     return view('quiz');
 });
-Route::get('/JoinUs', function () {
+Route::get('/about', function () {
+    return view('about');
+});
+Route::get('/joinus', function () {
     return view('JoinUs');
+});
+Route::get('/contact', function () {
+    return view('contact');
 });
 
