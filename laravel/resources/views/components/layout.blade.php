@@ -29,11 +29,11 @@
             </div>
             <div class="hidden md:block ml-auto">
                 <div class="flex items-baseline space-x-4">
-                    <a href="/" class="{{ request()->is('/') ? 'bg-gray-500/50 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white' }} rounded-md px-3 py-2">Home</a>
-                    <a href="/shop" class="{{ request()->is('shop') ? 'bg-gray-500/50 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white' }} rounded-md px-3 py-2">Shop</a>
-                    <a href="/quiz" class="{{ request()->is('quiz') ? 'bg-gray-500/50 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white' }} rounded-md px-3 py-2">Quiz</a>
-                    <a href="/about" class="{{ request()->is('about') ? 'bg-gray-500/50 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white' }} rounded-md px-3 py-2">About</a>
-                    <a href="/joinus" class="{{ request()->is('joinus') ? 'bg-gray-500/50 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white' }} rounded-md px-3 py-2">Join Us</a>
+                    <a href="/" class="{{ request()->is('/') ? 'bg-gray-950/50 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white' }} rounded-md px-3 py-2">Home</a>
+                    <a href="/shop" class="{{ request()->is('shop') ? 'bg-gray-950/50 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white' }} rounded-md px-3 py-2">Shop</a>
+                    <a href="/quiz" class="{{ request()->is('quiz') ? 'bg-gray-950/50 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white' }} rounded-md px-3 py-2">Quiz</a>
+                    <a href="/about" class="{{ request()->is('about') ? 'bg-gray-950/50 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white' }} rounded-md px-3 py-2">About</a>
+                    <a href="/joinus" class="{{ request()->is('joinus') ? 'bg-gray-950/50 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white' }} rounded-md px-3 py-2">Join Us</a>
                 </div>
             </div>
         
@@ -56,11 +56,11 @@
     <el-disclosure id="mobile-menu" hidden class="block md:hidden">
       <div class="space-y-1 px-2 pt-2 pb-3 sm:px-3">
         <!-- Current: "bg-gray-950/50 text-white", Default: "text-gray-300 hover:bg-white/5 hover:text-white" -->
-        <a href="/" aria-current="page" class="block rounded-md bg-gray-950/50 px-3 py-2 text-base font-medium text-white">Home</a>
-        <a href="/shop" class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-white/5 hover:text-white">Shop</a>
-        <a href="/quiz" class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-white/5 hover:text-white">Quiz</a>
-        <a href="/about" class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-white/5 hover:text-white">About</a>
-        <a href="/joinus" class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-white/5 hover:text-white">Join Us</a>
+        <a href="/" class="block rounded-md px-3 py-2 text-base font-medium {{ request()->is('/') ? 'bg-gray-950/50 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white' }}">Home</a>
+        <a href="/shop" class="block rounded-md px-3 py-2 text-base font-medium {{ request()->is('shop') ? 'bg-gray-950/50 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white' }}">Shop</a>
+        <a href="/quiz" class="block rounded-md px-3 py-2 text-base font-medium {{ request()->is('quiz') ? 'bg-gray-950/50 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white' }}">Quiz</a>
+        <a href="/about" class="block rounded-md px-3 py-2 text-base font-medium {{ request()->is('about') ? 'bg-gray-950/50 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white' }}">About</a>
+        <a href="/joinus" class="block rounded-md px-3 py-2 text-base font-medium {{ request()->is('joinus') ? 'bg-gray-950/50 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white' }}">Join Us</a>
       </div>
       <div class="border-t border-white/10 pt-4 pb-3">
         <div class="flex items-center px-5">
