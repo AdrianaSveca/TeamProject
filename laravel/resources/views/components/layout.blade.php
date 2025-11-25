@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WELLTH</title>
     <script src ="https://cdn.tailwindcss.com"></script>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="h-full">
     <!-- Include this script tag or install `@tailwindplus/elements` via npm: -->
@@ -24,18 +25,66 @@
             <div class="flex items-center">
                 <div class="shrink-0">
                     <!-- Logo placeholder -->
-                     <span class="text-white text-2xl font-semibold tracking-widest">WELLTH</span>
+                     <a href="/"><span class="text-2xl font-semibold tracking-widest text-white hover:text-[#7FA82E] transition duration-150 ease-in-out">WELLTH</span></a>
                 </div>
             </div>
             <div class="hidden md:block ml-auto">
                 <div class="flex items-baseline space-x-4">
-                    <a href="/" class="{{ request()->is('/') ? 'bg-gray-950/50 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white' }} rounded-md px-3 py-2">Home</a>
-                    <a href="/shop" class="{{ request()->is('shop') ? 'bg-gray-950/50 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white' }} rounded-md px-3 py-2">Shop</a>
-                    <a href="/quiz" class="{{ request()->is('quiz') ? 'bg-gray-950/50 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white' }} rounded-md px-3 py-2">Quiz</a>
-                    <a href="/about" class="{{ request()->is('about') ? 'bg-gray-950/50 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white' }} rounded-md px-3 py-2">About</a>
-                    <a href="/joinus" class="{{ request()->is('joinus') ? 'bg-gray-950/50 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white' }} rounded-md px-3 py-2">Join Us</a>
+                    <a href="/" class="rounded-md px-3 py-2 font-medium transition duration-150 ease-in-out {{ request()->is('/') ? 'text-[#7FA82E] font-bold' : 'text-gray-300 hover:bg-white/5 hover:text-[#7FA82E]' }}">Home</a>
+                    <a href="/shop" class="rounded-md px-3 py-2 font-medium transition duration-150 ease-in-out {{ request()->is('shop') ? 'text-[#7FA82E] font-bold' : 'text-gray-300 hover:bg-white/5 hover:text-[#7FA82E]' }}">Shop</a>
+                    <a href="/quiz" class="rounded-md px-3 py-2 font-medium transition duration-150 ease-in-out {{ request()->is('quiz') ? 'text-[#7FA82E] font-bold' : 'text-gray-300 hover:bg-white/5 hover:text-[#7FA82E]' }}">Quiz</a>
+                    <a href="/contact" class="rounded-md px-3 py-2 font-medium transition duration-150 ease-in-out {{ request()->is('contact') ? 'text-[#7FA82E] font-bold' : 'text-gray-300 hover:bg-white/5 hover:text-[#7FA82E]' }}">Contact</a>
+                    <a href="/about" class="rounded-md px-3 py-2 font-medium transition duration-150 ease-in-out {{ request()->is('about') ? 'text-[#7FA82E] font-bold' : 'text-gray-300 hover:bg-white/5 hover:text-[#7FA82E]' }}">About Us</a>
+
+                    @auth
+                      <!-- Dashboard Link (Green Branding) -->
+                      <a href="{{ url('/dashboard') }}" class="rounded-md px-3 py-2 font-bold transition duration-150 ease-in-out {{ request()->is('dashboard') ? 'bg-[#7FA82E] text-white' : 'text-gray-300 hover:text-[#7FA82E]' }}">
+                        Dashboard
+                      </a>
+
+                      <!-- 2. Admin Panel (Custom Branding) -->
+                      @if(Auth::user()->role === 'admin')
+                        <a href="{{ route('admin.dashboard') }}" class="ml-4 rounded-md px-3 py-2 font-bold transition duration-150 ease-in-out {{ request()->routeIs('admin.dashboard')  ? 'bg-[#2B332A] text-[#7FA82E]' : 'text-gray-300 hover:text-[#7FA82E]' }}">
+                          Admin Panel
+                        </a>
+                      @endif
+
+                      {{-- 3. User Dropdown (Profile/Logout) --}}
+                      <div class="relative ml-3">
+                        <x-dropdown align="right" width="48">
+                          <x-slot name="trigger">
+                            <button class="inline-flex items-center px-3 py-2 text-sm font-bold text-white bg-transparent hover:text-[#7FA82E] focus:outline-none transition duration-150">
+                              <div>{{ Auth::user()->name }}</div>
+                              <div class="ml-1">
+                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                  <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                </svg>
+                              </div>
+                            </button>
+                          </x-slot>
+                          <x-slot name="content">
+                            <x-dropdown-link :href="route('profile.edit')">{{ __('Profile') }}</x-dropdown-link>
+                            <form method="POST" action="{{ route('logout') }}">
+                              @csrf
+                              <x-dropdown-link :href="route('logout')" onclick="event.preventDefault(); this.closest('form').submit();">
+                                {{ __('Log Out') }}
+                              </x-dropdown-link>
+                            </form>
+                          </x-slot>
+                        </x-dropdown>
+                      </div>
+
+                    @else
+                      {{-- Guest Links --}}
+                      <a href="{{ route('login') }}" class="text-white hover:text-[#7FA82E] font-bold transition duration-150">
+                        Log in
+                      </a>
+                      <a href="{{ route('register') }}" class="ml-4 bg-[#7FA82E] text-white px-4 py-2 rounded-md font-bold hover:bg-[#6d9126] transition duration-150">
+                        Join Us
+                      </a>
+                    @endauth
                 </div>
-            </div>
+              </div>
         
         <div class="-mr-2 flex md:hidden">
           <!-- Mobile menu button -->
@@ -55,24 +104,89 @@
 
     <el-disclosure id="mobile-menu" hidden class="block md:hidden">
       <div class="space-y-1 px-2 pt-2 pb-3 sm:px-3">
-        <!-- Current: "bg-gray-950/50 text-white", Default: "text-gray-300 hover:bg-white/5 hover:text-white" -->
-        <a href="/" class="block rounded-md px-3 py-2 text-base font-medium {{ request()->is('/') ? 'bg-gray-950/50 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white' }}">Home</a>
-        <a href="/shop" class="block rounded-md px-3 py-2 text-base font-medium {{ request()->is('shop') ? 'bg-gray-950/50 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white' }}">Shop</a>
-        <a href="/quiz" class="block rounded-md px-3 py-2 text-base font-medium {{ request()->is('quiz') ? 'bg-gray-950/50 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white' }}">Quiz</a>
-        <a href="/about" class="block rounded-md px-3 py-2 text-base font-medium {{ request()->is('about') ? 'bg-gray-950/50 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white' }}">About</a>
-        <a href="/joinus" class="block rounded-md px-3 py-2 text-base font-medium {{ request()->is('joinus') ? 'bg-gray-950/50 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white' }}">Join Us</a>
+        
+        <!-- STANDARD LINKS  -->
+        
+        <a href="/" class="block rounded-md px-3 py-2 text-base font-medium transition duration-150 ease-in-out {{ request()->is('/') ? 'text-[#7FA82E] font-bold' : 'text-gray-300 hover:bg-white/5 hover:text-[#7FA82E]' }}">
+          Home
+        </a>
+
+        <a href="/shop" class="block rounded-md px-3 py-2 text-base font-medium transition duration-150 ease-in-out {{ request()->is('shop') ? 'text-[#7FA82E] font-bold' : 'text-gray-300 hover:bg-white/5 hover:text-[#7FA82E]' }}">
+          Shop
+        </a>
+
+        <a href="/quiz" class="block rounded-md px-3 py-2 text-base font-medium transition duration-150 ease-in-out {{ request()->is('quiz') ? 'text-[#7FA82E] font-bold' : 'text-gray-300 hover:bg-white/5 hover:text-[#7FA82E]' }}">
+          Quiz
+        </a>
+
+        <a href="/about" class="block rounded-md px-3 py-2 text-base font-medium transition duration-150 ease-in-out {{ request()->is('about') ? 'text-[#7FA82E] font-bold' : 'text-gray-300 hover:bg-white/5 hover:text-[#7FA82E]' }}">
+          About
+        </a>
+
+        <a href="/contact" class="block rounded-md px-3 py-2 text-base font-medium transition duration-150 ease-in-out {{ request()->is('contact') ? 'text-[#7FA82E] font-bold' : 'text-gray-300 hover:bg-white/5 hover:text-[#7FA82E]' }}">
+          Contact
+        </a>
+
+        <!-- AUTHENTICATION LINKS (Mobile Version) -->
+        
+        @auth
+            <!-- Dashboard: Green Background when Active -->
+            <a href="{{ url('/dashboard') }}" class="block rounded-md px-3 py-2 text-base font-medium transition duration-150 ease-in-out {{ request()->is('dashboard') ? 'bg-[#7FA82E] text-white font-bold' : 'text-gray-300 hover:bg-white/5 hover:text-[#7FA82E]' }}">
+              Dashboard
+            </a>
+
+            <!-- Admin Panel: Black Background when Active -->
+            @if(Auth::user()->role === 'admin')
+                <a href="{{ route('admin.dashboard') }}" class="block rounded-md px-3 py-2 text-base font-medium transition duration-150 ease-in-out {{ request()->routeIs('admin.dashboard') ? 'bg-[#2B332A] text-[#7FA82E] font-bold' : 'text-gray-300 hover:bg-white/5 hover:text-[#7FA82E]' }}">
+                  Admin Panel
+                </a>
+            @endif
+
+        @else
+            <!-- Guest: Log In -->
+            <a href="{{ route('login') }}" class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-white/5 hover:text-[#7FA82E] transition duration-150 ease-in-out">
+              Log in
+            </a>
+
+            <!-- Guest: Join Us -->
+            <a href="{{ route('register') }}" class="block rounded-md px-3 py-2 text-base font-medium transition duration-150 ease-in-out {{ request()->is('register') ? 'text-[#7FA82E] font-bold' : 'text-gray-300 hover:bg-white/5 hover:text-[#7FA82E]' }}">
+              Join Us
+            </a>
+        @endauth
+
       </div>
+
+      <!-- 3. USER PROFILE SECTION (Only visible when logged in) -->
+      @auth
       <div class="border-t border-white/10 pt-4 pb-3">
         <div class="flex items-center px-5">
           <div class="shrink-0">
-            
+            <div class="h-10 w-10 rounded-full bg-gray-700 flex items-center justify-center text-white">
+                <span class="font-bold text-lg">{{ strtoupper(substr(Auth::user()->name, 0, 1)) }}</span>
+            </div>
           </div>
           <div class="ml-3">
-            <!-- Possible User info placeholder -->
+            <div class="text-base font-medium leading-none text-white">{{ Auth::user()->name }}</div>
+            <div class="text-sm font-medium leading-none text-gray-400 mt-1">{{ Auth::user()->email }}</div>
           </div>
-          
+        </div>
+        <div class="mt-3 space-y-1 px-2">
+            {{-- Profile Link --}}
+            <a href="{{ route('profile.edit') }}" class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-white/5 hover:text-[#7FA82E]">
+              Your Profile
+            </a>
+
+            <!-- Log Out -->
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <a href="{{ route('logout') }}" onclick="event.preventDefault(); this.closest('form').submit();" class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-white/5 hover:text-[#7FA82E]">
+                  Log Out
+                </a>
+            </form>
         </div>
       </div>
+      @endauth
+
     </el-disclosure>
   </nav>
   <main>

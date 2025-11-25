@@ -14,12 +14,12 @@ return new class extends Migration
         Schema::create('Performance_Metrics', function (Blueprint $table) {
             $table->id('metric_id');
             
-            $table->foreignId('user_id')->nullable()->constrained('Users', 'user_id')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
 
-            $table->foreignId('admin_id')->nullable()->constrained('Admin', 'admin_id')->onDelete('cascade');
 
             $table->decimal('fully_loaded_time_s')->nullable();
             $table->decimal('error_rate')->nullable();
+            $table->timestamps();
         });
     }
 
