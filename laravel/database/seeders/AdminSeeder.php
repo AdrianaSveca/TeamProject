@@ -17,10 +17,20 @@ class AdminSeeder extends Seeder
                 'email' => 'admin@wellth.com',
                 'password' => Hash::make('password123'),
                 'role' => 'admin', // This unlocks the Admin Dashboard
-                'dob' => '2000-01-01',
+                'dob' => '2006-10-11',
                 'gender' => 'Other',
                 'phone' => '0000000000'
             ]);
         }
+
+        if (!User::where('email', 'admin2@wellth.com')->exists()) {
+            User::create([
+                'name' => 'Second Admin',
+                'email' => 'admin2@wellth.com',
+                'password' => Hash::make('password1234'), // Or a different password
+                'role' => 'admin',
+            ]);
+        }
+
     }
 }
