@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('BMI', function (Blueprint $table) {
             $table->id('bmi_id');
 
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('cascade');
 
 
             $table->decimal('bmi_height');

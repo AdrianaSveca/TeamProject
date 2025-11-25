@@ -11,6 +11,7 @@ Route::get('/quiz', function () { return view('quiz'); });
 Route::get('/about', function () { return view('about'); });
 Route::get('/joinus', function () { return view('JoinUs'); });
 Route::get('/contact', function () { return view('contact'); });
+Route::get('/basket', function () { return view('basket'); });
 
 // --- Customer Dashboard (Protected) ---
 Route::get('/dashboard', function () {

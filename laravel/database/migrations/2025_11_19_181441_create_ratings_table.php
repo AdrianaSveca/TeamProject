@@ -21,7 +21,7 @@ return new class extends Migration
             $table->decimal('rating', 4, 2);  
             $table->text('rating_comment')->nullable();
             $table->dateTime('rating_date');
-            $table->boolean('approved')->default(false);
+            $table->boolean('approved')->default(true);
             $table->timestamps();
         });
     }
