@@ -14,9 +14,7 @@ return new class extends Migration
         Schema::create('Ratings', function (Blueprint $table) {
             $table->id('rating_id');
 
-            $table->foreignId('user_id')->nullable()->constrained('Users', 'user_id')->onDelete('cascade');
-
-            $table->foreignId('admin_id')->nullable()->constrained('Admin', 'admin_id')->onDelete('no action');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
 
             $table->foreignId('product_id')->constrained('Products', 'product_id')->onDelete('cascade');
 
@@ -24,6 +22,7 @@ return new class extends Migration
             $table->text('rating_comment')->nullable();
             $table->dateTime('rating_date');
             $table->boolean('approved')->default(false);
+            $table->timestamps();
         });
     }
 

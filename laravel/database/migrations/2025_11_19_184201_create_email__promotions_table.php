@@ -14,14 +14,13 @@ return new class extends Migration
         Schema::create('Email_Promotions', function (Blueprint $table) {
             $table->id('email_id');
 
-            $table->foreignId('user_id')->nullable()->constrained('Users', 'user_id')->onDelete('cascade');
-
-            $table->foreignId('admin_id')->nullable()->constrained('Admin', 'admin_id')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
 
             $table->string('email_subject');
             $table->text('email_body');
             $table->dateTime('email_sent_time')->nullable();
             $table->enum('email_status', ['Sent', 'Failed'])->nullable();
+            $table->timestamps();
         });
     }
 

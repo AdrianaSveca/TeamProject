@@ -21,6 +21,7 @@ return new class extends Migration
             $table->enum('order_item_status', ['Purchased', 'Returned']);
 
             $table->primary(['order_id', 'product_id']);
+            $table->timestamps();
         });
     }
 

@@ -14,15 +14,14 @@ return new class extends Migration
         Schema::create('Orders', function (Blueprint $table) {
             $table->id('order_id');
 
-            $table->foreignId('user_id')->nullable()->constrained('Users', 'user_id')->onDelete('cascade');
-
-            $table->foreignId('admin_id')->nullable()->constrained('Admin', 'admin_id')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
 
             $table->decimal('order_total', 10, 2);
             $table->enum('order_status', ['Pending', 'Shipped', 'Delivered']);
             $table->text('order_address');
             $table->integer('days_until_delivery')->nullable();
             $table->dateTime('order_date');
+            $table->timestamps();
         });
     }
 

@@ -14,11 +14,10 @@ return new class extends Migration
         Schema::create('Basket', function (Blueprint $table) {
             $table->id('basket_id');
 
-            $table->foreignId('user_id')->nullable()->constrained('Users', 'user_id')->onDelete('cascade');
-
-            $table->foreignId('admin_id')->nullable()->constrained('Admin', 'admin_id')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
 
             $table->dateTime('basket_date');
+            $table->timestamps();
         });
     }
 
