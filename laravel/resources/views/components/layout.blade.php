@@ -19,8 +19,6 @@
   <html class="h-full bg-gray-900">
   <body class="h-full">
   ```
-  old header color: green-900/95
-  [#87b002]
 -->
 <div class="min-h-full">
   <nav class="bg-green-900/95 border-b border-white/10">
