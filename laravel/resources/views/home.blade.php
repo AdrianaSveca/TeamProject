@@ -21,7 +21,7 @@
                 </p>
 
                 <a
-                    href="#shop"
+                    href="/shop"
                     class="inline-flex items-center justify-center rounded-full bg-[#7FA82E] px-6 py-2.5 text-sm font-semibold text-white hover:bg-[#6d9126]"
                 >
                     Shop Now
@@ -46,7 +46,7 @@
 
                 <div class="flex flex-wrap gap-3">
                     <a
-                        href="#shop"
+                        href="/shop"
                         class="inline-flex items-center justify-center rounded-full bg-[#7FA82E] px-5 py-2 text-sm font-medium text-white hover:bg-[#6d9126]"
                     >
                         Shop
@@ -88,7 +88,7 @@
                 </p>
 
                 <a
-                    href="#quiz"
+                    href="/quiz"
                     class="inline-flex items-center justify-center rounded-full bg-[#7FA82E] 0 px-5 py-2 text-sm font-medium text-white hover:bg-[#6d9126]"
                 >
                     Quiz
