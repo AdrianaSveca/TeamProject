@@ -22,7 +22,7 @@
 
                 <a
                     href="#shop"
-                    class="inline-flex items-center justify-center rounded-full bg-[#7FA82E] px-6 py-2.5 text-sm font-semibold text-white hover:bg-emerald-600"
+                    class="inline-flex items-center justify-center rounded-full bg-[#7FA82E] px-6 py-2.5 text-sm font-semibold text-white hover:bg-[#6d9126]"
                 >
                     Shop Now
                 </a>
@@ -69,7 +69,7 @@
             </div>
         </section>
 
-        {{-- section quizzz --}}
+        {{-- section quiz--}}
         <section class="grid gap-10 md:grid-cols-2 md:items-center">
             <div class="flex justify-center md:justify-start order-1 md:order-none">
                 <img
