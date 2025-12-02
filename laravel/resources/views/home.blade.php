@@ -1,37 +1,36 @@
-<!--reference to the layout file-->
 <x-layout>
     
     <div class="-mx-8 -mt-8">
-<section class="relative w-full m-0 p-0">
-    <div class="relative min-h-[600px] md:h-screen w-full overflow-hidden flex flex-col justify-end">
+        <section class="relative w-full m-0 p-0">
+            <div class="relative min-h-[600px] md:h-screen w-full overflow-hidden flex flex-col justify-end">
         
-        <img
-            src="{{ asset('images/home-hero.png') }}"
-            alt="WELLTH hero"
-            class="absolute inset-0 w-full h-full object-cover"
-        >
-
-        <div class="absolute inset-0 bg-black/45"></div>
-
-        <div class="relative z-10 flex justify-center px-4 pb-6 sm:pb-8 md:pb-10">
-            <div class="text-center max-w-xl mx-auto">
-                <p class="mb-4 text-sm sm:text-base md:text-lg text-slate-100">
-                    Shop premium supplements and fitness essentials designed to help you
-                    recover faster and perform better.
-                </p>
-
-                <a
-                    href="/shop"
-                    class="inline-flex items-center justify-center rounded-full bg-[#7FA82E] px-6 py-2.5 text-sm font-semibold text-white hover:bg-[#6d9126]"
+                <img
+                     src="{{ asset('images/home-hero.png') }}"
+                    alt="WELLTH hero"
+                    class="absolute inset-0 w-full h-full object-cover"
                 >
-                    Shop Now
-                </a>
+
+                <div class="absolute inset-0 bg-black/45"></div>
+
+                <div class="relative z-10 flex justify-center px-4 pb-6 sm:pb-8 md:pb-10">
+                    <div class="text-center max-w-xl mx-auto">
+                        <p class="mb-4 text-sm sm:text-base md:text-lg text-slate-100">
+                            Shop premium supplements and fitness essentials designed to help you
+                            recover faster and perform better.
+                        </p>
+
+                        <a
+                            href="/shop"
+                            class="inline-flex items-center justify-center rounded-full bg-[#7FA82E] px-6 py-2.5 text-sm font-semibold text-white hover:bg-[#6d9126]"
+                        >
+                            Shop Now
+                        </a>
+                    </div>
+                </div>
             </div>
-        </div>
+        </section>
     </div>
-</section>
-</div>
-</section>
+
     <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-14 space-y-16 md:space-y-20">
 
         

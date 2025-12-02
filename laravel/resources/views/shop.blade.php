@@ -1,32 +1,30 @@
-
 <x-layout>
-    <h5>This is the Shop page</h5>
 
     <div class="-mx-8 -mt-8">
-<section class="relative w-full m-0 p-0">
-    <div class="relative min-h-[240px] md:min-h-[255px] w-full overflow-hidden flex flex-col justify-end">
-        
-        <img
-            src="{{ asset('images/banner2-bg.jpg') }}"
-            alt="WELLTH hero"
-            class="absolute inset-0 w-full h-full object-cover"
-        >
+        <section class="relative w-full m-0 p-0">
+            <div class="relative min-h-[240px] md:min-h-[255px] w-full overflow-hidden flex flex-col justify-end">
+                
+                <img
+                    src="{{ asset('images/banner2-bg.jpg') }}"
+                    alt="WELLTH hero"
+                    class="absolute inset-0 w-full h-full object-cover"
+                >
 
-        <div class="absolute inset-0 bg-black/20"></div>
+                <div class="absolute inset-0 bg-black/20"></div>
 
-        <div class="relative z-10 flex justify-center items-center px-4 pb-6">
-            <div class="text-center max-w-xl mx-auto">
-                <p class="mb-4 text-xl sm:text-base md:text-lg text-white">
-                    Discover the perfect products to meet your fitness goals.
-                </p>
+                <div class="relative z-10 flex justify-center items-center px-4 pb-6">
+                    <div class="text-center max-w-xl mx-auto">
+                        <p class="mb-4 text-xl sm:text-base md:text-lg text-white">
+                            Discover the perfect products to meet your fitness goals.
+                        </p>
 
-           </div>
-        </div>
-     </div>
-  </section>
-</div>
+                </div>
+                </div>
+            </div>
+        </section>
+    </div>
 
-<main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-14 space-y-16 md:space-y-20">
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-14 space-y-16 md:space-y-20">
 
 <section class="space-y-4">
     <div class="flex justify-between items-center">
