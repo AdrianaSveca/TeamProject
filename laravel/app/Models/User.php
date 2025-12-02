@@ -5,22 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
-    // REMOVED: protected $table = 'Users'; (Laravel automatically finds 'users')
-    // REMOVED: protected $primaryKey = 'user_id'; (Laravel automatically finds 'id')
-
     protected $fillable = [
-        'name',          // Was user_name
-        'email',         // Was user_email
-        'password',      // Was user_password
-        'dob',           // Was user_dob
-        'gender',        // Was user_gender
-        'phone',         // Was user_phone
-        'role',          // The new Admin/Customer switch
+        'name', 
+        'email',      
+        'password',   
+        'dob',      
+        'gender',       
+        'phone',         
+        'role',          
     ];
 
     protected $hidden = [
@@ -34,5 +32,11 @@ class User extends Authenticatable
             'password' => 'hashed',
             'dob' => 'date',
         ];
+    }
+
+    // Relationship: User has many Orders
+    public function orders(): HasMany
+    {
+        return $this->hasMany(\App\Models\Orders::class, 'user_id');
     }
 }
