@@ -1,12 +1,14 @@
 <x-layout>
 
 
-    <div class="auth">
-        <div class="auth-head">
-            <img src="{{ asset('favicon.png') }}" alt="Website Logo">
+    <div class="flex flex-col justify-center items-center min-h-screen gap-[2rem] p-[1rem] md:flex-row md:justify-around md:gap-0 md:p-0">
+        <div class="flex justify-center items-center">
+            <img class="w-full h-full object-contain max-w-[200px] md: max-w-full" src="{{ asset('favicon.png') }}" alt="Website Logo">
         </div>
-        {{-- THIS EMPTY DIV WAS REMOVED --}}
-        <div class="auth-section">
+        
+        <div class="flex flex-col justify-self-center items-center bg-[#1f5b38] p-[10%] w-full max-w-[450px] shadow-[10px_10px_0_#2d322c] md:p-[15%] md:w-auto md:max-w-none">
+            <h1 class="text-xl text-white font-semibold justify-self-center">Register</h1>
+
             <form method="POST" action="{{ route('register') }}">
                 @csrf
 
@@ -35,11 +37,11 @@
                 </div>
 
                 <div class="flex items-center justify-end mt-4">
-                    <a href="{{ route('login') }}" class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800">
+                    <a href="{{ route('login') }}" class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800 whitespace-nowrap" >
                         {{ __('Already registered?') }}
                     </a>
 
-                    <x-primary-button class="ms-4">
+                    <x-primary-button class="ms-4 whitespace-nowrap">
                         {{ __('Register') }}
                     </x-primary-button>
                 </div>
