@@ -1,224 +1,59 @@
 <x-layout>
-    {{-- Page wrapper --}}
-    <div class="min-h-[60vh] flex flex-col gap-8">
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-8">
+                
+                <h1 class="text-3xl font-bold text-center text-[#7FA82E] mb-6">Contact Us</h1>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                    
+                    {{-- Contact Info --}}
+                    <div>
+                        <h2 class="text-xl font-bold text-gray-900 mb-4">Get in Touch</h2>
+                        <p class="text-gray-600 mb-4">
+                            Have a question about our products or your order? We're here to help!
+                        </p>
+                        
+                        <div class="space-y-4">
+                            <div class="flex items-center">
+                                <svg class="w-6 h-6 text-[#7FA82E] mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                                <span>support@wellth.com</span>
+                            </div>
+                            <div class="flex items-center">
+                                <svg class="w-6 h-6 text-[#7FA82E] mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                                <span>+44 123 456 7890</span>
+                            </div>
+                            <div class="flex items-center">
+                                <svg class="w-6 h-6 text-[#7FA82E] mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                                <span>Aston University, Birmingham, UK</span>
+                            </div>
+                        </div>
+                    </div>
 
-        {{-- Heading + intro --}}
-        <section>
-            <h1 class="text-3xl font-semibold text-gray-900 mb-2">
-                Contact Us
-            </h1>
-            <p class="text-gray-600 max-w-2xl">
-                Have any enquires about WELLTH, your orders, or evenyour account?  
-                Fill in the following form and yor team will get back to you with a swift response regarding any of your troubles.
-            </p>
+                    {{-- Contact Form --}}
+                    <div class="bg-gray-50 p-6 rounded-lg border border-gray-200">
+                        <form action="#" method="POST" class="space-y-4">
+                            @csrf
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Name</label>
+                                <input type="text" name="name" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#7FA82E] focus:ring-[#7FA82E]">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Email</label>
+                                <input type="email" name="email" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#7FA82E] focus:ring-[#7FA82E]">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Message</label>
+                                <textarea name="message" rows="4" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#7FA82E] focus:ring-[#7FA82E]"></textarea>
+                            </div>
+                            <button type="button" class="w-full bg-[#2B332A] text-white font-bold py-2 px-4 rounded hover:bg-black transition">
+                                Send Message
+                            </button>
+                        </form>
+                    </div>
 
-            {{-- Flash & validation messages (optional) --}}
-            @if (session('status'))
-                <div class="mt-4 rounded-md border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800">
-                    {{ session('status') }}
                 </div>
-            @endif
-
-            @if ($errors->any())
-                <div class="mt-4 rounded-md border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800">
-                    <ul class="list-disc pl-5 space-y-1">
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-        </section>
-
-        {{-- Main grid: form + info --}}
-        <section class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
-            {{-- CONTACT FORM --}}
-            <div class="lg:col-span-2 bg-white rounded-xl border border-gray-200 shadow-sm p-6 lg:p-8">
-                <h2 class="text-xl font-semibold text-gray-900 mb-4">
-                    Send us a message
-                </h2>
-
-                <form method="POST" action="{{ url('/contact') }}" class="space-y-5">
-                    @csrf
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <label for="first_name" class="block text-sm font-medium text-gray-700 mb-1">
-                                First name
-                            </label>
-                            <input
-                                type="text"
-                                id="first_name"
-                                name="first_name"
-                                value="{{ old('first_name') }}"
-                                required
-                                class="block w-full rounded-md border-gray-300 shadow-sm focus:border-[#7FA82E] focus:ring-[#7FA82E] text-sm"
-                            >
-                        </div>
-
-                        <div>
-                            <label for="last_name" class="block text-sm font-medium text-gray-700 mb-1">
-                                Last name
-                            </label>
-                            <input
-                                type="text"
-                                id="last_name"
-                                name="last_name"
-                                value="{{ old('last_name') }}"
-                                required
-                                class="block w-full rounded-md border-gray-300 shadow-sm focus:border-[#7FA82E] focus:ring-[#7FA82E] text-sm"
-                            >
-                        </div>
-                    </div>
-
-                    <div>
-                        <label for="email" class="block text-sm font-medium text-gray-700 mb-1">
-                            Email address
-                        </label>
-                        <input
-                            type="email"
-                            id="email"
-                            name="email"
-                            value="{{ old('email') }}"
-                            placeholder="e.g. 240080721@aston.ac.uk"
-                            required
-                            class="block w-full rounded-md border-gray-300 shadow-sm focus:border-[#7FA82E] focus:ring-[#7FA82E] text-sm"
-                        >
-                    </div>
-
-                    <div>
-                        <label for="subject" class="block text-sm font-medium text-gray-700 mb-1">
-                            Subject
-                        </label>
-                        <input
-                            type="text"
-                            id="subject"
-                            name="subject"
-                            value="{{ old('subject') }}"
-                            placeholder="e.g. Question about my order"
-                            required
-                            class="block w-full rounded-md border-gray-300 shadow-sm focus:border-[#7FA82E] focus:ring-[#7FA82E] text-sm"
-                        >
-                    </div>
-
-                    <div>
-                        <label for="topic" class="block text-sm font-medium text-gray-700 mb-1">
-                            Topic
-                        </label>
-                        <select
-                            id="topic"
-                            name="topic"
-                            class="block w-full rounded-md border-gray-300 shadow-sm focus:border-[#7FA82E] focus:ring-[#7FA82E] text-sm"
-                        >
-                            <option value="">Select a topic</option>
-                            <option value="general"   {{ old('topic') === 'general' ? 'selected' : '' }}>General enquiry</option>
-                            <option value="orders"    {{ old('topic') === 'orders' ? 'selected' : '' }}>Orders &amp; payments</option>
-                            <option value="quiz"      {{ old('topic') === 'quiz' ? 'selected' : '' }}>Quiz &amp; account</option>
-                            <option value="technical" {{ old('topic') === 'technical' ? 'selected' : '' }}>Technical issue</option>
-                        </select>
-                    </div>
-
-                    <div>
-                        <label for="message" class="block text-sm font-medium text-gray-700 mb-1">
-                            Message
-                        </label>
-                        <textarea
-                            id="message"
-                            name="message"
-                            rows="5"
-                            required
-                            placeholder="Tell us how we can help…"
-                            class="block w-full rounded-md border-gray-300 shadow-sm focus:border-[#7FA82E] focus:ring-[#7FA82E] text-sm"
-                        >{{ old('message') }}</textarea>
-                    </div>
-
-                    <div>
-                        <span class="block text-sm font-medium text-gray-700 mb-1">
-                            Preferred contact method
-                        </span>
-                        <div class="flex flex-wrap gap-4 text-sm text-gray-700">
-                            <label class="inline-flex items-center gap-2">
-                                <input
-                                    type="radio"
-                                    name="contact_method"
-                                    value="email"
-                                    class="rounded border-gray-300 text-[#7FA82E] focus:ring-[#7FA82E]"
-                                    {{ old('contact_method', 'email') === 'email' ? 'checked' : '' }}
-                                >
-                                <span>Email</span>
-                            </label>
-
-                            <label class="inline-flex items-center gap-2">
-                                <input
-                                    type="radio"
-                                    name="contact_method"
-                                    value="phone"
-                                    class="rounded border-gray-300 text-[#7FA82E] focus:ring-[#7FA82E]"
-                                    {{ old('contact_method') === 'phone' ? 'checked' : '' }}
-                                >
-                                <span>Mobile (if applicable)</span>
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="pt-2">
-                        <button
-                            type="submit"
-                            class="inline-flex items-center justify-center rounded-md bg-[#7FA82E] px-5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-[#6d9126] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#7FA82E]"
-                        >
-                            Send Message
-                        </button>
-                    </div>
-                </form>
             </div>
-
-            {{-- INFO SIDEBAR --}}
-            <aside class="bg-[#1f5b38] text-gray-100 rounded-xl shadow-[10px_10px_0_#2d322c] p-6 lg:p-8 space-y-5">
-                <h2 class="text-xl font-semibold">
-                    Alternative Contact Methods
-                </h2>
-
-                <p class="text-sm text-gray-100/80">
-                    Our support team are available from 7am-7pm (GMT).
-                </p>
-
-                <div class="space-y-1">
-                    <h3 class="text-sm font-semibold">Email</h3>
-                    <p class="text-sm">
-                        <a href="mailto:240080721@aston.ac.uk" class="hover:underline">
-                            240080721@aston.ac.uk
-                        </a>
-                    </p>
-                </div>
-
-                <div class="space-y-1">
-                    <h3 class="text-sm font-semibold">Phone</h3>
-                    <p class="text-sm">
-                        <a href="tel:0121 204 3000" class="hover:underline">
-                            0121 204 3000
-                        </a>
-                    </p>
-                </div>
-
-                <div class="space-y-1">
-                    <h3 class="text-sm font-semibold">Address</h3>
-                    <p class="text-sm">
-                        WELLTH<br>
-                        1 Aston Street<br>
-                        Birmingham, B4 7ET<br>    
-                        United Kingdom
-                    </p>
-                </div>
-
-                <div class="space-y-1">
-                    <h3 class="text-sm font-semibold">Already a member?</h3>
-                    <p class="text-sm text-gray-100/80">
-                        Log into your account and locate
-                        <span class="font-semibold">Help &amp; Support</span> for a more responsive and prompt result for quizzes along with updates on orders and memberships made via signing up.
-                    </p>
-                </div>
-            </aside>
-        </section>
+        </div>
     </div>
-    <h5>Contact page</h5>
 </x-layout>
