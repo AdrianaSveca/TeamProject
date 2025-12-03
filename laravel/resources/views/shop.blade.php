@@ -1,6 +1,6 @@
 <x-layout>
 
-    <div class="relative w-screen left-[calc(-50vw+50%)] -mt-8 h-auto">
+    <div class="relative w-screen left-[calc(-50vw+50%)] -mt-6 h-auto">
         <div class="relative min-h-[240px] md:min-h-[255px] w-full overflow-hidden flex flex-col justify-end">
             <img src="{{ asset('images/banner2-bg.jpg') }}" alt="WELLTH Shop" class="absolute inset-0 w-full h-full object-cover">
             <div class="absolute inset-0 bg-black/30"></div>
