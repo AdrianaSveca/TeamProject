@@ -4,6 +4,11 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\CategoriesController;
+use App\Models\Products;
+use App\Models\Categories;
+use App\Http\Controllers\BasketController;
 
 // --- Team's Public Pages ---
 Route::get('/', function () { return view('home'); });
@@ -13,6 +18,10 @@ Route::get('/about', function () { return view('about'); });
 Route::get('/joinus', function () { return view('JoinUs'); });
 Route::get('/contact', function () { return view('contact'); });
 Route::get('/basket', function () { return view('basket'); });
+
+Route::get('/shop', [ProductsController::class, 'index'])->name('shop.index');
+Route::get('/products/{id}', [ProductsController::class, 'show'])->name('products.show');
+Route::post('/basket/add', [BasketController::class, 'add'])->name('basket.add');
 
 // --- Customer Dashboard (Protected) ---
 Route::get('/dashboard', function () {

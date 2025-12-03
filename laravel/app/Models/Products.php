@@ -18,4 +18,10 @@ class Products extends Model
     'product_stock_level',
     'category_id'
     ];
+
+    // Connection to Categories model
+    public function category()
+    {
+        return $this->belongsTo(Categories::class, 'category_id', 'category_id');
+    }
 }
