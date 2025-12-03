@@ -24,4 +24,9 @@ class Products extends Model
     {
         return $this->belongsTo(Categories::class, 'category_id', 'category_id');
     }
+
+     public function bmiResults()
+    {
+        return $this->belongsToMany(BmiResults::class, 'BMI_Result_Products', 'product_id', 'bmi_result_id');
+    }
 }

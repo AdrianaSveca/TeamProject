@@ -21,5 +21,13 @@ class DatabaseSeeder extends Seeder
             'name' => 'Test User',
             'email' => 'test@example.com',
         ]);
+
+        $this->call([
+            AdminSeeder::class,
+            CategoriesTableSeeder::class,
+            ProductsTableSeeder::class,
+            BMIResultsTableSeeder::class,
+            BMIResultProductsTableSeeder::class,
+        ]);
     }
 }
