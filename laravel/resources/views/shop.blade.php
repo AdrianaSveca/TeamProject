@@ -58,13 +58,13 @@
                             <h3 class="text-lg font-bold mb-3 border-b border-white/30 pb-2">Price Range</h3>
                             <div class="flex justify-between text-xs mb-2">
                                 <span>£0</span>
-                                <span>£100</span>
+                                <span>£200</span>
                             </div>
-                            <input type="range" name="max_price" min="0" max="100" 
-                                   value="{{ request('max_price', 100) }}" 
+                            <input type="range" name="max_price" min="0" max="200" 
+                                   value="{{ request('max_price', 200) }}" 
                                    class="w-full accent-white cursor-pointer">
                             <div class="text-right text-sm font-bold mt-1">
-                                Max: £{{ request('max_price', 100) }}
+                                Max: £{{ request('max_price', 200) }}
                             </div>
                         </div>
 
