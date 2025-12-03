@@ -1,3 +1,24 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+#supplements,
+#recovery
+#protein-products,
+#gym-accessories,
+#fitness-gadgets {
+    @apply hidden;
+}
+
+body:not(:has(:target)) #supplements {
+  @apply grid gap-10 md:grid-cols-2 lg:grid-cols-3;
+}
+
+
+:target {
+    @apply grid gap-10 md:grid-cols-2 lg:grid-cols-3 !important;
+
+}
+
+
+
