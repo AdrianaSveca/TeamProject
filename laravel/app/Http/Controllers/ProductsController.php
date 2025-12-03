@@ -8,11 +8,12 @@ use App\Models\Categories;
 
 class ProductsController extends Controller
 {
-        public function index(Request $request)
+    public function index(Request $request)
     {
+        // 1. Start the query
         $query = Products::query();
 
-        // 2. Search Filter
+        // 2. Search Logic (Matches name or description)
         if ($request->filled('search')) {
             $search = $request->input('search');
             $query->where(function($q) use ($search) {
@@ -26,26 +27,28 @@ class ProductsController extends Controller
             $query->where('category_id', $request->input('category'));
         }
 
-        // 4. Get the results
-        $products = $query->get();
+        // 4. Price Filter
+        if ($request->filled('max_price')) {
+            $query->where('product_price', '<=', $request->input('max_price'));
+        }
 
-        // 5. Get categories for the dropdown
+        // 5. Sorting
+        if ($request->has('sort')) {
+            if ($request->sort == 'price_low') {
+                $query->orderBy('product_price', 'asc');
+            } elseif ($request->sort == 'price_high') {
+                $query->orderBy('product_price', 'desc');
+            } else {
+                $query->orderBy('created_at', 'desc'); // Default: Newest first
+            }
+        }
+
+        // 6. Get Data (12 products per page)
+        $products = $query->paginate(12);
+        
+        // Get categories for the sidebar
         $categories = Categories::all();
 
         return view('shop', compact('products', 'categories'));
-    }
-
-    /**
-     * Display a specific product.
-     */
-    public function show($id)
-    {
-        // Find product by ID
-        $product = Products::where('product_id', $id)->firstOrFail();
-
-        // Determine stock status
-        $stockLevel = $product->product_stock_level > 0 ? 'In Stock' : 'Out of Stock';
-
-        return view('products.show', compact('product', 'stockLevel'));
     }
 }
