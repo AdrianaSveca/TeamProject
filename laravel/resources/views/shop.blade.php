@@ -1,7 +1,7 @@
 <x-layout>
 
-    <div class="-mx-8 -mt-8">
-        <section class="relative w-full m-0 p-0">
+    <div class="relative w-screen left-[calc(-50vw+50%)] -mt-8 h-auto">
+        <section class="relative w-full mt-[8px] p-0">
             <div class="relative min-h-[240px] md:min-h-[255px] w-full overflow-hidden flex flex-col justify-end">
                 
                 <img
