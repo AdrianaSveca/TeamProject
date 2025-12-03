@@ -16,7 +16,8 @@ return new class extends Migration
 
             $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('cascade');
 
-
+            
+      testing
             $table->decimal('bmi_height');
             $table->decimal('bmi_weight');
             $table->decimal('bmi_result');

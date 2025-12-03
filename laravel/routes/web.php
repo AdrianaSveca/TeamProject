@@ -4,6 +4,11 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\CategoriesController;
+use App\Models\Products;
+use App\Models\Categories;
+use App\Http\Controllers\BasketController;
 
 // --- Team's Public Pages ---
 Route::get('/', function () { return view('home'); });
