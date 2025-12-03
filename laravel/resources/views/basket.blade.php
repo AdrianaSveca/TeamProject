@@ -111,7 +111,7 @@
 
                             <a href="{{ route('checkout') }}" 
                                class="block w-full bg-[#1f5b38] text-white text-center font-bold py-4 rounded-xl hover:bg-[#7FA82E] hover:text-[#1f5b38] transition shadow-lg">
-                                Proceed to Checkout
+                                Place Order
                             </a>
 
                             <div class="mt-6 text-center">
