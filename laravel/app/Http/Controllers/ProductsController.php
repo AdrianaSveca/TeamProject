@@ -51,4 +51,10 @@ class ProductsController extends Controller
 
         return view('shop', compact('products', 'categories'));
     }
+
+    public function show($id){
+        $product = Products::findorFail($id);
+
+        return view('products.show', compact('product'));
+    }
 }

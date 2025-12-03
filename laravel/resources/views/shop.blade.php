@@ -105,54 +105,56 @@
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     @forelse($products as $product)
-                        <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden hover:shadow-lg transition group flex flex-col h-full">
-                            
-                            {{-- Image --}}
-                            <div class="h-56 bg-white p-6 flex items-center justify-center relative overflow-hidden">
-                                @if($product->product_image)
-                                    <img src="{{ asset($product->product_image) }}" alt="{{ $product->product_name }}" 
-                                         class="w-full h-full object-contain group-hover:scale-105 transition duration-300">
-                                @else
-                                    <div class="text-slate-400 text-sm">No Image</div>
-                                @endif
-                            </div>
+                            <a href="/products/{{ $product->product_id }}">
+                                <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden hover:shadow-lg transition group flex flex-col h-full">
+                                
+                                    {{-- Image --}}
+                                    <div class="h-56 bg-white p-6 flex items-center justify-center relative overflow-hidden">
+                                        @if($product->product_image)
+                                            <img src="{{ asset($product->product_image) }}" alt="{{ $product->product_name }}" 
+                                                class="w-full h-full object-contain group-hover:scale-105 transition duration-300">
+                                        @else
+                                            <div class="text-slate-400 text-sm">No Image</div>
+                                        @endif
+                                    </div>
 
-                            {{-- Details --}}
-                            <div class="p-5 flex flex-col flex-grow bg-slate-50">
-                                <h3 class="text-lg font-bold text-slate-900 mb-1 leading-tight">
-                                    {{ $product->product_name }}
-                                </h3>
-                                
-                                <p class="text-sm text-slate-500 mb-4 flex-grow line-clamp-2">
-                                    {{ $product->product_description }}
-                                </p>
-                                
-                                <div class="flex items-center justify-between mt-auto pt-4 border-t border-slate-200">
-                                    <span class="text-xl font-bold text-[#7FA82E]">
-                                        £{{ number_format($product->product_price, 2) }}
-                                    </span>
+                                {{-- Details --}}
+                                <div class="p-5 flex flex-col flex-grow bg-slate-50">
+                                    <h3 class="text-lg font-bold text-slate-900 mb-1 leading-tight">
+                                        {{ $product->product_name }}
+                                    </h3>
                                     
-                                    {{-- Add to Cart --}}
-                                    <form action="{{ route('basket.add') }}" method="POST">
-                                        @csrf
-                                        <input type="hidden" name="product_id" value="{{ $product->product_id }}">
-                                        <button type="submit" class="bg-[#2B332A] text-white p-2 rounded-full hover:bg-black transition" title="Add to Cart">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                                            </svg>
-                                        </button>
-                                    </form>
+                                    <p class="text-sm text-slate-500 mb-4 flex-grow line-clamp-2">
+                                        {{ $product->product_description }}
+                                    </p>
+                                    
+                                    <div class="flex items-center justify-between mt-auto pt-4 border-t border-slate-200">
+                                        <span class="text-xl font-bold text-[#7FA82E]">
+                                            £{{ number_format($product->product_price, 2) }}
+                                        </span>
+                                        
+                                        {{-- Add to Cart --}}
+                                        <form action="{{ route('basket.add') }}" method="POST">
+                                            @csrf
+                                            <input type="hidden" name="product_id" value="{{ $product->product_id }}">
+                                            <button type="submit" class="bg-[#2B332A] text-white p-2 rounded-full hover:bg-black transition" title="Add to Cart">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                                                </svg>
+                                            </button>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    @empty
-                        <div class="col-span-full text-center py-20 bg-slate-50 rounded-2xl border border-dashed border-slate-300">
-                            <svg class="w-16 h-16 text-slate-300 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"></path>
-                            </svg>
-                            <h3 class="text-lg font-bold text-slate-600">No products found</h3>
-                            <p class="text-slate-500">We are stocking up! Check back soon.</p>
-                        </div>
+                        @empty
+                            <div class="col-span-full text-center py-20 bg-slate-50 rounded-2xl border border-dashed border-slate-300">
+                                <svg class="w-16 h-16 text-slate-300 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"></path>
+                                </svg>
+                                <h3 class="text-lg font-bold text-slate-600">No products found</h3>
+                                <p class="text-slate-500">We are stocking up! Check back soon.</p>
+                            </div>
+                        </a>
                     @endforelse
                 </div>
 

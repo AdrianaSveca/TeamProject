@@ -6,7 +6,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
                     
                     {{-- Left: Image --}}
-                    <div class="bg-gray-100 rounded-lg overflow-hidden h-96 flex items-center justify-center">
+                    <div class="bg-gray-100 rounded-lg overflow-hidden h-auto flex items-center justify-center">
                         @if($product->product_image)
                             <img src="{{ asset($product->product_image) }}" alt="{{ $product->product_name }}" class="h-full w-full object-cover">
                         @else
@@ -17,7 +17,7 @@
                     {{-- Right: Details --}}
                     <div class="flex flex-col justify-center">
                         {{-- Category Badge --}}
-                        <span class="inline-block bg-gray-200 text-gray-700 text-xs px-2 py-1 rounded-full w-fit mb-2">
+                        <span class="inline-block bg-[#1f5b38] text-white text-xs px-2 py-1 rounded-full w-fit mb-2 shadow-[3px_3px_0_#2d322c]">
                             {{ $product->category->category_name ?? 'General' }}
                         </span>
 
@@ -34,7 +34,7 @@
                         {{-- Stock Indicator --}}
                         <div class="mb-6">
                             <span class="font-bold {{ $product->product_stock_level > 0 ? 'text-green-600' : 'text-red-600' }}">
-                                {{ $stockLevel }}
+                                {{ $product->product_stock_level }} Left in Stock
                             </span>
                             @if($product->product_stock_level > 0 && $product->product_stock_level < 10)
                                 <span class="text-sm text-red-500 ml-2">Only {{ $product->product_stock_level }} left!</span>
