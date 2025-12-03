@@ -8,8 +8,8 @@
                 Contact Us
             </h1>
             <p class="text-gray-600 max-w-2xl">
-                Have a question about WELLTH, your orders, or your account?  
-                Fill in the form below and our team will get back to you as soon as we can.
+                Have any enquires about WELLTH, your orders, or evenyour account?  
+                Fill in the following form and yor team will get back to you with a swift response regarding any of your troubles.
             </p>
 
             {{-- Flash & validation messages (optional) --}}
@@ -80,6 +80,7 @@
                             id="email"
                             name="email"
                             value="{{ old('email') }}"
+                            placeholder="e.g. 240080721@aston.ac.uk"
                             required
                             class="block w-full rounded-md border-gray-300 shadow-sm focus:border-[#7FA82E] focus:ring-[#7FA82E] text-sm"
                         >
@@ -155,7 +156,7 @@
                                     class="rounded border-gray-300 text-[#7FA82E] focus:ring-[#7FA82E]"
                                     {{ old('contact_method') === 'phone' ? 'checked' : '' }}
                                 >
-                                <span>Phone (if provided)</span>
+                                <span>Mobile (if applicable)</span>
                             </label>
                         </div>
                     </div>
@@ -165,7 +166,7 @@
                             type="submit"
                             class="inline-flex items-center justify-center rounded-md bg-[#7FA82E] px-5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-[#6d9126] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#7FA82E]"
                         >
-                            Send message
+                            Send Message
                         </button>
                     </div>
                 </form>
@@ -174,18 +175,18 @@
             {{-- INFO SIDEBAR --}}
             <aside class="bg-[#1f5b38] text-gray-100 rounded-xl shadow-[10px_10px_0_#2d322c] p-6 lg:p-8 space-y-5">
                 <h2 class="text-xl font-semibold">
-                    Other ways to reach us
+                    Alternative Contact Methods
                 </h2>
 
                 <p class="text-sm text-gray-100/80">
-                    Our support team is available Monday to Friday, 9:00–17:00 (UK time).
+                    Our support team are available from 7am-7pm (GMT).
                 </p>
 
                 <div class="space-y-1">
                     <h3 class="text-sm font-semibold">Email</h3>
                     <p class="text-sm">
-                        <a href="mailto:support@wellth-app.com" class="hover:underline">
-                            support@wellth-app.com
+                        <a href="mailto:240080721@aston.ac.uk" class="hover:underline">
+                            240080721@aston.ac.uk
                         </a>
                     </p>
                 </div>
@@ -193,8 +194,8 @@
                 <div class="space-y-1">
                     <h3 class="text-sm font-semibold">Phone</h3>
                     <p class="text-sm">
-                        <a href="tel:+441234567890" class="hover:underline">
-                            +44 (0)1234 567 890
+                        <a href="tel:0121 204 3000" class="hover:underline">
+                            0121 204 3000
                         </a>
                     </p>
                 </div>
@@ -203,8 +204,8 @@
                     <h3 class="text-sm font-semibold">Address</h3>
                     <p class="text-sm">
                         WELLTH<br>
-                        123 Healthy Street<br>
-                        Birmingham, B4 7ET<br>
+                        1 Aston Street<br>
+                        Birmingham, B4 7ET<br>    
                         United Kingdom
                     </p>
                 </div>
@@ -212,9 +213,8 @@
                 <div class="space-y-1">
                     <h3 class="text-sm font-semibold">Already a member?</h3>
                     <p class="text-sm text-gray-100/80">
-                        Log in to your account and go to
-                        <span class="font-semibold">Help &amp; Support</span> for faster help with
-                        your quiz results, orders and membership.
+                        Log into your account and locate
+                        <span class="font-semibold">Help &amp; Support</span> for a more responsive and prompt result for quizzes along with updates on orders and memberships made via signing up.
                     </p>
                 </div>
             </aside>
