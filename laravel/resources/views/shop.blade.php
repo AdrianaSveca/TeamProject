@@ -24,7 +24,6 @@
                             <input type="text" name="search" value="{{ request('search') }}" placeholder="Find a product..."
                                    class="w-full rounded-lg border-none text-slate-800 placeholder-slate-400 focus:ring-2 focus:ring-white">
                         </div>
-
                         <div>
                             <h3 class="text-lg font-bold mb-3 border-b border-white/30 pb-2">Categories</h3>
                             <ul class="space-y-2">
@@ -46,7 +45,6 @@
                                 @endforelse
                             </ul>
                         </div>
-
                         <div>
                             <h3 class="text-lg font-bold mb-3 border-b border-white/30 pb-2">Price Range</h3>
                             <div class="flex justify-between text-xs mb-2">
@@ -59,7 +57,6 @@
                                 Max: £{{ request('max_price',200) }}
                             </div>
                         </div>
-
                         <div class="pt-2">
                             <button type="submit" class="w-full bg-[#7FA82E] text-[#1f5b38] font-bold py-2 rounded-lg hover:bg-slate-100 transition">
                                 Apply Filters
@@ -74,54 +71,64 @@
                     </form>
                 </div>
             </aside>
+            <div class="md:col-span-3 flex flex-col">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    @forelse($products as $product)
+                        <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden hover:shadow-lg flex flex-col">
+                            <a href="{{ route('products.show', $product->product_id) }}" class="group">
+                                <div class="h-56 flex items-center justify-center overflow-hidden bg-white p-6">
+                                    @if($product->product_image)
+                                        <img src="{{ asset($product->product_image) }}" alt="{{ $product->product_name }}"
+                                             class="w-full h-full object-contain group-hover:scale-105 transition duration-300">
+                                    @else
+                                        <div class="text-slate-400 text-sm">No Image</div>
+                                    @endif
+                                </div>
+                                <div class="p-5">
+                                    <h3 class="text-lg font-bold text-slate-900 mb-1">{{ $product->product_name }}</h3>
+                                    <p class="text-sm text-slate-500 line-clamp-2">{{ $product->product_description }}</p>
+                                </div>
+                            </a>
 
-            <div class="md:col-span-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                @forelse($products as $product)
-                    <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden hover:shadow-lg flex flex-col">
-                        <a href="{{ route('products.show', $product->product_id) }}" class="group">
-                            <div class="h-56 flex items-center justify-center overflow-hidden bg-white p-6">
-                                @if($product->product_image)
-                                    <img src="{{ asset($product->product_image) }}" alt="{{ $product->product_name }}"
-                                         class="w-full h-full object-contain group-hover:scale-105 transition duration-300">
+                            <div class="flex items-center justify-between p-5 pt-2 border-t border-slate-200 mt-auto">
+                                <span class="text-xl font-bold text-[#7FA82E]">£{{ number_format($product->product_price,2) }}</span>
+
+                                @if($product->product_stock_level > 0)
+                                    <form action="{{ route('basket.add') }}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="product_id" value="{{ $product->product_id }}">
+                                        <input type="hidden" name="quantity" value="1">
+                                        <button type="submit"
+                                                class="bg-[#2B332A] text-white p-2 rounded-full hover:bg-black transition"
+                                                title="Add to Basket">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                 stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/>
+                                            </svg>
+                                        </button>
+                                    </form>
                                 @else
-                                    <div class="text-slate-400 text-sm">No Image</div>
+                                    <button disabled class="bg-gray-300 text-gray-500 p-2 rounded-full cursor-not-allowed">
+                                        Out of Stock
+                                    </button>
                                 @endif
                             </div>
-                            <div class="p-5">
-                                <h3 class="text-lg font-bold text-slate-900 mb-1">{{ $product->product_name }}</h3>
-                                <p class="text-sm text-slate-500 line-clamp-2">{{ $product->product_description }}</p>
-                            </div>
-                        </a>
-
-                        <div class="flex items-center justify-between p-5 pt-3 border-t border-slate-200 mt-auto">
-                            <span class="text-xl font-bold text-[#7FA82E]">£{{ number_format($product->product_price,2) }}</span>
-
-                            @if($product->product_stock_level > 0)
-                                <form action="{{ route('basket.add') }}" method="POST">
-                                    @csrf
-                                    <input type="hidden" name="product_id" value="{{ $product->product_id }}">
-                                    <input type="hidden" name="quantity" value="1">
-                                    <button type="submit"
-                                            class="bg-[#2B332A] text-white p-2 rounded-full hover:bg-black transition"
-                                            title="Add to Basket">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                             stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/>
-                                        </svg>
-                                    </button>
-                                </form>
-                            @else
-                                <button disabled class="bg-gray-300 text-gray-500 p-2 rounded-full cursor-not-allowed">
-                                    Out of Stock
-                                </button>
-                            @endif
                         </div>
+                    @empty
+                        <div class="col-span-full text-center py-20 bg-slate-50 rounded-2xl">
+                            No products found.
+                        </div>
+                    @endforelse
+                </div>
+                <div class="mt-4 flex justify-between items-center">
+                    <div class="text-sm text-slate-600">
+                        Showing {{ $products->firstItem() }} - {{ $products->lastItem() }} of {{ $products->total() }}
                     </div>
-                @empty
-                    <div class="col-span-full text-center py-20 bg-slate-50 rounded-2xl">
-                        No products found.
+
+                    <div>
+                        {{ $products->links() }} 
                     </div>
-                @endforelse
+                </div>
             </div>
         </div>
     </main>

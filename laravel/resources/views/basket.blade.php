@@ -6,12 +6,10 @@
             @if($basket && $basket->items->count() > 0)
                 <div class="flex flex-col lg:flex-row gap-8">
                     
-                    {{-- LEFT COLUMN: Cart Items --}}
                     <div class="lg:w-2/3 space-y-6">
                         @foreach($basket->items as $item)
                             <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col sm:flex-row items-center gap-6 transition hover:shadow-md">
                                 
-                                {{-- Product Image --}}
                                 <div class="w-32 h-32 flex-shrink-0 bg-gray-100 rounded-xl overflow-hidden">
                                     @if($item->product->product_image)
                                         <img src="{{ asset($item->product->product_image) }}" 
@@ -22,7 +20,6 @@
                                     @endif
                                 </div>
 
-                                {{-- Details --}}
                                 <div class="flex-1 text-center sm:text-left">
                                     <div class="flex justify-between items-start">
                                         <div>
@@ -39,9 +36,7 @@
                                     </div>
 
                                     <div class="flex flex-col sm:flex-row items-center justify-between mt-4 gap-4">
-                                        {{-- Quantity Controls --}}
                                         <div class="flex items-center bg-gray-100 rounded-lg p-1">
-                                            {{-- Decrease --}}
                                             <form action="{{ route('basket.update') }}" method="POST">
                                                 @csrf
                                                 <input type="hidden" name="product_id" value="{{ $item->product_id }}">
@@ -55,7 +50,6 @@
 
                                             <span class="w-12 text-center font-bold text-gray-900">{{ $item->basket_item_quantity }}</span>
 
-                                            {{-- Increase --}}
                                             <form action="{{ route('basket.update') }}" method="POST">
                                                 @csrf
                                                 <input type="hidden" name="product_id" value="{{ $item->product_id }}">
@@ -68,7 +62,6 @@
                                             </form>
                                         </div>
 
-                                        {{-- Price & Remove --}}
                                         <div class="flex items-center gap-6">
                                             <div class="text-right">
                                                 <div class="text-lg font-bold text-[#7FA82E]">
@@ -79,7 +72,6 @@
                                                 </div>
                                             </div>
 
-                                            {{-- Remove Button --}}
                                             <form action="{{ route('basket.remove') }}" method="POST">
                                                 @csrf
                                                 <input type="hidden" name="product_id" value="{{ $item->product_id }}">
@@ -96,9 +88,8 @@
                         @endforeach
                     </div>
 
-                    {{-- RIGHT COLUMN: Summary --}}
                     <div class="lg:w-1/3">
-                        <div class="bg-white rounded-2xl p-8 shadow-[8px_8px_0_#1f5b38] border border-gray-100 sticky top-8">
+                        <div class="bg-white rounded-2xl p-8 shadow-[8px_8px_0_#2d322c] border border-gray-100 sticky top-8">
                             <h2 class="text-2xl font-bold text-gray-900 mb-6">Order Summary</h2>
                             
                             <div class="space-y-4 mb-6">
@@ -132,7 +123,6 @@
                     </div>
                 </div>
             @else
-                {{-- Empty State --}}
                 <div class="text-center py-20 bg-white rounded-2xl shadow-sm border border-gray-100">
                     <div class="bg-green-50 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#1f5b38" class="w-10 h-10">
