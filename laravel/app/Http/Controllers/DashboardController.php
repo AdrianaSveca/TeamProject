@@ -5,27 +5,59 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
+use App\Models\BMI;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 class DashboardController extends Controller
 {
+    //  Main Dashboard for users
+    public function index(): View
+    {
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
 
-    // 1. Active Orders (Pending or Shipped)
+        $activeCount = $user->orders()
+            ->whereIn('order_status', ['Pending', 'Shipped'])
+            ->count();
+
+        $lastOrder = $user->orders()
+            ->latest('order_date')
+            ->first();
+
+        $lastBMI = BMI::where('user_id', $user->id)
+            ->latest('bmi_date')
+            ->first();
+
+       return view('dashboard', [
+            'user' => $user,
+            'activeCount' => $activeCount,
+            'lastOrder' => $lastOrder,
+            'lastBMI' => $lastBMI,
+            'mustVerifyEmail' => $user instanceof MustVerifyEmail,
+            'status' => session('status'),
+        ]);
+    }
+
+    // Active Orders
     public function activeOrders(): View
     {
+        /** @var \App\Models\User $user */
         $user = Auth::user();
 
         $orders = $user->orders()
             ->whereIn('order_status', ['Pending', 'Shipped'])
-            ->latest('order_date') // Sort by newest
+            ->latest('order_date')
             ->get();
 
         return view('dashboard.active-orders', compact('orders'));
     }
 
-    // 2. Order History (Delivered)
+    //  Order History
     public function orderHistory(): View
     {
+        /** @var \App\Models\User $user */
         $user = Auth::user();
+
         $orders = $user->orders()
             ->where('order_status', 'Delivered')
             ->latest('order_date')

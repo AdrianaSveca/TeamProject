@@ -3,10 +3,12 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\OrdersController;
 use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\QuizController;
 use App\Models\Products;
 use App\Models\Categories;
 use App\Http\Controllers\BasketController;
@@ -21,6 +23,26 @@ Route::get('/contact', function () { return view('contact'); });
 Route::get('/shop', [ProductsController::class, 'index'])->name('shop.index');
 Route::get('/products/{id}', [ProductsController::class, 'show'])->name('products.show');
 
+// --- Quiz Routes ---
+Route::get('/quiz', [App\Http\Controllers\QuizController::class, 'index'])->name('quiz.index');
+Route::post('/quiz', [QuizController::class, 'submit'])->name('quiz.submit');
+Route::get('/quiz/results', [App\Http\Controllers\QuizController::class, 'showResults'])->name('quiz.results');
+
+
+Route::middleware(['auth', 'verified'])->group(function () {
+    
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    
+    Route::get('/dashboard/orders/active', [DashboardController::class, 'activeOrders'])->name('dashboard.active-orders');
+    Route::get('/dashboard/orders/history', [DashboardController::class, 'orderHistory'])->name('dashboard.order-history');
+
+    Route::get('/dashboard/chatbot', function () { 
+        return view('dashboard.chatbot'); 
+    })->name('dashboard.chatbot');
+});
+
+
+// --- Admin Dashboard ---
 Route::middleware(['auth'])->group(function () {
     Route::post('/basket/add', [BasketController::class, 'add'])->name('basket.add');
     Route::get('/basket', [BasketController::class, 'index'])->name('basket.index');

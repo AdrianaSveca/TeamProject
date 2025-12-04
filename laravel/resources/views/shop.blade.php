@@ -20,9 +20,14 @@
                 <div class="bg-[#1f5b38] rounded-2xl p-6 shadow-[10px_10px_0_#2d322c] text-white sticky top-24">
                     <form action="{{ route('shop.index') }}" method="GET" class="space-y-8">
                         <div>
-                            <h3 class="text-lg font-bold mb-3 border-b border-white/30 pb-2">Search</h3>
-                            <input type="text" name="search" value="{{ request('search') }}" placeholder="Find a product..."
-                                   class="w-full rounded-lg border-none text-slate-800 placeholder-slate-400 focus:ring-2 focus:ring-white">
+                            <h3 class="text-lg font-bold mb-3 border-b border-green/30 pb-2">Search</h3>
+                            <input 
+                                type="text" 
+                                name="search" 
+                                value="{{ request('search') }}"
+                                placeholder="Find a product..." 
+                                class="w-full rounded-lg border-none text-slate-800 placeholder-slate-400  focus:ring-2 focus:ring-white"
+                            >
                         </div>
                         <div>
                             <h3 class="text-lg font-bold mb-3 border-b border-white/30 pb-2">Categories</h3>
@@ -46,19 +51,20 @@
                             </ul>
                         </div>
                         <div>
-                            <h3 class="text-lg font-bold mb-3 border-b border-white/30 pb-2">Price Range</h3>
+                            <h3 class="text-lg font-bold mb-3 border-b border-green/30 pb-2">Price Range</h3>
                             <div class="flex justify-between text-xs mb-2">
                                 <span>£0</span>
                                 <span>£200</span>
                             </div>
-                            <input type="range" name="max_price" min="0" max="200" value="{{ request('max_price',200) }}"
-                                   class="w-full accent-white cursor-pointer">
+                            <input type="range" name="max_price" min="0" max="200" 
+                                   value="{{ request('max_price', 200) }}" 
+                                   class="w-full accent-[#7FA82E] cursor-pointer">
                             <div class="text-right text-sm font-bold mt-1">
                                 Max: £{{ request('max_price',200) }}
                             </div>
                         </div>
                         <div class="pt-2">
-                            <button type="submit" class="w-full bg-[#7FA82E] text-[#1f5b38] font-bold py-2 rounded-lg hover:bg-slate-100 transition">
+                            <button type="submit" class="w-full bg-[#7FA82E] text-[#1f5b38] font-bold py-2 rounded-lg hover:bg-green-200 transition">
                                 Apply Filters
                             </button>
                             @if(request()->anyFilled(['search','category','max_price']))
