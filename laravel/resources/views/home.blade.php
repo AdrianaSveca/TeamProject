@@ -68,7 +68,6 @@
             </div>
         </section>
 
-        {{-- section quiz--}}
         <section class="grid gap-10 md:grid-cols-2 md:items-center">
             <div class="flex justify-center md:justify-start order-1 md:order-none">
                 <img
@@ -177,7 +176,6 @@
     </article>
 
 </div>
-        {{--  info --}}
         <section id="details" class="space-y-6 md:space-y-8">
             <h2 class="text-xl md:text-2xl font-semibold text-slate-900">
                 Information
@@ -185,12 +183,12 @@
 
             <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-4 text-sm">
                 <div class="space-y-2">
-                    <div class="text-2xl">🌍</div> <!--icons from emojipedia-->
+                    <div class="text-2xl">🌍</div>
                     <h3 class="font-semibold text-slate-900">
                         Worldwide shipping
                     </h3>
                     <p class="text-xs md:text-sm text-slate-600">
-                        Body text for whatever you’d like to say. Add key details, notes, or a short benefit-focused line.
+                        We offer worldwide shipping for free!
                     </p>
                 </div>
 
@@ -200,7 +198,7 @@
                         Scientifically tested.
                     </h3>
                     <p class="text-xs md:text-sm text-slate-600">
-                        Share how your products are formulated, tested, or reviewed so customers can trust what they’re taking.
+                        All relevant products are heavily tested, ensuring quality and reliability for our customers
                     </p>
                 </div>
 
@@ -210,7 +208,7 @@
                         Safety
                     </h3>
                     <p class="text-xs md:text-sm text-slate-600">
-                        Highlight quality standards, certifications, or safety promises that matter to your community.
+                        Your details are stored under GDPR Law, keeping your privacy at the top of our priority
                     </p>
                 </div>
 
@@ -220,7 +218,7 @@
                         Deliver in less than 1 week.
                     </h3>
                     <p class="text-xs md:text-sm text-slate-600">
-                        Reassure your customers with clear delivery expectations and fast, reliable shipping.
+                        We guarantee your delivery withing 1 week of ordering!
                     </p>
                 </div>
             </div>

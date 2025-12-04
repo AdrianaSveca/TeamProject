@@ -11,12 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('BMI_Results', function (Blueprint $table) {
-            $table->id('bmi_result_id');
-            $table->string('name');
-            $table->float('min_score');
-            $table->float('max_score');
-            $table->text('advice');
+        Schema::create('BMI_Result_Products', function (Blueprint $table) {
+            $table->id('bmi_result_product_id');
+
+            $table->foreignId('bmi_result_id')->constrained('bmi_results', 'bmi_result_id')->onDelete('cascade');
+
+            $table->foreignId('product_id')->constrained('products', 'product_id')->onDelete('cascade');
+
             $table->timestamps();
         });
     }
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('BMI_Results');
+        Schema::dropIfExists('BMI_Result_Products');
     }
 };
