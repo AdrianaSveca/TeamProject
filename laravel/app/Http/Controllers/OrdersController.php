@@ -7,11 +7,24 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Basket;
 use App\Models\Orders;
 use App\Models\Order_Items;
-use Carbon\Carbon;
 
 class OrdersController extends Controller
 {
-    public function placeOrder(Request $request){
+    public function checkout()
+    {
+        $user = auth()->user();
+
+        $basket = Basket::with('items.product')->where('user_id', $user->id)->first();
+
+        if (!$basket || $basket->items->isEmpty()) {
+            return redirect()->route('basket.index')->with('error', 'Your basket is empty.');
+        }
+
+        return view('orders.checkout', compact('basket'));
+    }
+
+    public function placeOrder(Request $request)
+    {
         $user = auth()->user();
 
         $basket = Basket::with('items.product')->where('user_id', $user->id)->first();
@@ -49,8 +62,8 @@ class OrdersController extends Controller
         return redirect()->route('orders.confirmation', $order->order_id);
     }
 
-
-    public function confirmation($orderId){
+    public function confirmation($orderId)
+    {
         $order = Orders::with('items.product')->where('order_id', $orderId)->firstOrFail();
 
         if ($order->user_id !== auth()->id()) {

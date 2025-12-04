@@ -29,6 +29,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/basket/remove', [BasketController::class, 'removeItem'])->name('basket.remove');
 
 
+    Route::get('/checkout', [OrdersController::class, 'checkout'])->name('checkout');
     Route::post('/orders/place', [OrdersController::class, 'placeOrder'])->name('orders.place');
     Route::get('/orders/{order}/confirmation', [OrdersController::class, 'confirmation'])->name('orders.confirmation');
 });

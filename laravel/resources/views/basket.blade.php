@@ -108,15 +108,10 @@
                                     </span>
                                 </div>
                             </div>
-
-                            <!-- Updated: Use POST form instead of direct link -->
-                            <form action="{{ route('orders.place') }}" method="POST">
-                                @csrf
-                                <button type="submit" 
-                                        class="block w-full bg-[#1f5b38] text-white text-center font-bold py-4 rounded-xl hover:bg-[#7FA82E] hover:text-[#1f5b38] transition shadow-lg">
-                                    Place Order
-                                </button>
-                            </form>
+                            <a href="{{ route('checkout') }}" 
+                            class="block w-full bg-[#1f5b38] text-white text-center font-bold py-4 rounded-xl hover:bg-[#7FA82E] hover:text-[#1f5b38] transition shadow-lg">
+                                Checkout
+                            </a>
 
                             <div class="mt-6 text-center">
                                 <a href="{{ route('shop.index') }}" class="text-sm text-gray-500 hover:text-[#1f5b38] underline">
