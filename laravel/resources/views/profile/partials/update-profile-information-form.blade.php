@@ -18,7 +18,7 @@
 
         <div>
             <x-input-label for="name" :value="__('Name')" />
-            <input id="name" name="name" type="text" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#7FA82E] focus:ring-[#7FA82E]" value="{{ old('name', $user->name) }}" required autofocus autocomplete="name" />
+            <input id="name" name="name" type="text" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#7FA82E] focus:ring-[#7FA82E]" value="{{ old('name', $user->name) }}" autocomplete="name" />
             <x-input-error class="mt-2" :messages="$errors->get('name')" />
         </div>
 
