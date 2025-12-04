@@ -92,7 +92,7 @@
                         </div>
                         <div class="text-right">
                             <p class="font-bold text-[#7FA82E]">£{{ number_format($lastOrder->order_total, 2) }}</p>
-                            <a href="{{ route('dashboard.order-history') }}" class="text-xs text-gray-500 hover:underline">View Details</a>
+                            <a href="{{ route('dashboard.order-details', $lastOrder->order_id) }}" class="text-xs text-gray-500 hover:text-[#7FA82E] hover:underline">View Details</a>
                         </div>
                     </div>
                 @else
