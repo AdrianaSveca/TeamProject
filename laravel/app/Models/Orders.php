@@ -16,7 +16,8 @@ class Orders extends Model
         'order_total',
         'order_status',
         'order_address',
-        'days_until_delivery'
+        'days_until_delivery',
+        'order_date'
     ];
 
     protected $casts = [

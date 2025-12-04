@@ -5,6 +5,7 @@ use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\OrdersController;
 use App\Http\Controllers\CategoriesController;
 use App\Models\Products;
 use App\Models\Categories;
@@ -27,6 +28,10 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('/basket/update', [BasketController::class, 'updateQuantity'])->name('basket.update');
     Route::post('/basket/remove', [BasketController::class, 'removeItem'])->name('basket.remove');
+
+
+    Route::post('/orders/place', [OrdersController::class, 'placeOrder'])->name('orders.place');
+    Route::get('/orders/{order}/confirmation', [OrdersController::class, 'confirmation'])->name('orders.confirmation');
 });
 
 Route::get('/dashboard', function () {
