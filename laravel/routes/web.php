@@ -18,7 +18,6 @@ Route::get('/quiz', function () { return view('quiz'); });
 Route::get('/about', function () { return view('about'); });
 Route::get('/joinus', function () { return view('JoinUs'); });
 Route::get('/contact', function () { return view('contact'); });
-Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
 Route::get('/shop', [ProductsController::class, 'index'])->name('shop.index');
 Route::get('/products/{id}', [ProductsController::class, 'show'])->name('products.show');
 

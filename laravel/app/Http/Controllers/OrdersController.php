@@ -14,7 +14,6 @@ class OrdersController extends Controller
     public function placeOrder(Request $request){
         $user = auth()->user();
 
-        // Get user's active basket with items
         $basket = Basket::with('items.product')->where('user_id', $user->id)->first();
 
         if (!$basket || $basket->items->isEmpty()) {
@@ -23,7 +22,6 @@ class OrdersController extends Controller
 
         $order = DB::transaction(function () use ($basket, $user) {
 
-            // Create order
             $order = Orders::create([
                 'user_id' => $user->id,
                 'order_total' => $basket->items->sum(fn($i) => $i->basket_item_quantity * $i->basket_item_price),
@@ -33,7 +31,6 @@ class OrdersController extends Controller
                 'order_date' => now(),
             ]);
 
-            // Add order items
             foreach ($basket->items as $item) {
                 $order->items()->create([
                     'product_id' => $item->product_id,
@@ -43,7 +40,6 @@ class OrdersController extends Controller
                 ]);
             }
 
-            // Clear basket
             $basket->items()->delete();
             $basket->delete();
 
@@ -57,7 +53,6 @@ class OrdersController extends Controller
     public function confirmation($orderId){
         $order = Orders::with('items.product')->where('order_id', $orderId)->firstOrFail();
 
-        // Ensure the order belongs to the authenticated user
         if ($order->user_id !== auth()->id()) {
             abort(403);
         }
