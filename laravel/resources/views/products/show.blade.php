@@ -29,7 +29,7 @@
                             <span class="font-bold {{ $product->product_stock_level > 0 ? 'text-green-600' : 'text-red-600' }}">
                                 {{ $product->product_stock_level }} Left in Stock
                             </span>
-                            @if($product->product_stock_level > 0 && $product->product_stock_level < 10)
+                            @if($product->product_stock_level > 0 && $product->product_stock_level < 5)
                                 <span class="text-sm text-red-500 ml-2">Only {{ $product->product_stock_level }} left!</span>
                             @endif
                         </div>

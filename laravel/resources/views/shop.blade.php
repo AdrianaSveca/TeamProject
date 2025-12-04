@@ -59,12 +59,12 @@
                             <input type="range" name="max_price" min="0" max="200" 
                                    value="{{ request('max_price', 200) }}" 
                                    class="w-full accent-[#7FA82E] cursor-pointer">
-                            <div class="text-right text-sm font-bold mt-1">
+                            <div class="text-right text-[#7FA82E] text-sm font-bold mt-1">
                                 Max: £{{ request('max_price',200) }}
                             </div>
                         </div>
                         <div class="pt-2">
-                            <button type="submit" class="w-full bg-[#7FA82E] text-[#1f5b38] font-bold py-2 rounded-lg hover:bg-green-200 transition">
+                            <button type="submit" class="w-full bg-[#7FA82E] text-[#1f5b38] font-bold py-2 rounded-lg hover:bg-[#1f5b38] hover:text-[#7FA82E] transition-all duration-300">
                                 Apply Filters
                             </button>
                             @if(request()->anyFilled(['search','category','max_price']))

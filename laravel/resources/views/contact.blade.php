@@ -8,8 +8,8 @@
                 Contact Us
             </h1>
             <p class="text-gray-600 max-w-2xl">
-                Have any enquires about WELLTH, your orders, or evenyour account?  
-                Fill in the following form and yor team will get back to you with a swift response regarding any of your troubles.
+                Have any enquires about WELLTH, your orders, or even your account?  
+                Fill in the following form and our team will get back to you with a swift response regarding any of your troubles.
             </p>
 
             {{-- Flash & validation messages (optional) --}}
@@ -33,7 +33,7 @@
         {{-- Main grid: form + info --}}
         <section class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
             {{-- CONTACT FORM --}}
-            <div class="lg:col-span-2 bg-white rounded-xl border border-gray-200 shadow-sm p-6 lg:p-8">
+            <div class="lg:col-span-2 bg-white rounded-xl border-4 border-[#7FA82E] hover:shadow-[5px_5px_0_#2d322c] transition-all duration-300 shadow-sm p-6 lg:p-8">
                 <h2 class="text-xl font-semibold text-gray-900 mb-4">
                     Send us a message
                 </h2>
@@ -214,7 +214,7 @@
                     <h3 class="text-sm font-semibold">Already a member?</h3>
                     <p class="text-sm text-gray-100/80">
                         Log into your account and locate
-                        <span class="font-semibold">Help &amp; Support</span> for a more responsive and prompt result for quizzes along with updates on orders and memberships made via signing up.
+                        <span class="font-semibold">Dashbord</span> for a more responsive and prompt result for quizzes along with updates on orders.
                     </p>
                 </div>
             </aside>

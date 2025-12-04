@@ -1,7 +1,7 @@
 <x-layout>
     <div class="py-12">
         <div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-8 border-4 border-[#7FA82E]">
+            <div class="bg-white overflow-hidden hover:shadow-[5px_5px_0_#2d322c] transition-all duration-300 sm:rounded-lg p-8 border-4 border-[#7FA82E]">
                 
                 <div class="text-center mb-10">
                     <h1 class="text-3xl font-bold text-gray-900 mb-2">Find Your Perfect Match</h1>

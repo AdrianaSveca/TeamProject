@@ -100,7 +100,7 @@
                 @endif
             </div>
 
-            <!-- Account Settings (same as in edit.blade.php) -->
+            <!-- Account Settings (same as in edit.blade.php, the profile page link that appears clicking user's name) -->
             <div class="space-y-6">
                 <h3 class="text-2xl font-bold text-gray-900">Account Settings</h3>
 
