@@ -3,9 +3,11 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\QuizController;
 use App\Models\Products;
 use App\Models\Categories;
 use App\Http\Controllers\BasketController;
@@ -23,33 +25,36 @@ Route::get('/shop', [ProductsController::class, 'index'])->name('shop.index');
 Route::get('/products/{id}', [ProductsController::class, 'show'])->name('products.show');
 Route::post('/basket/add', [BasketController::class, 'add'])->name('basket.add');
 
-// --- Customer Dashboard (Protected) ---
-Route::get('/dashboard', function () {
-    return view('dashboard'); // This view comes with Breeze
-})->middleware(['auth', 'verified'])->name('dashboard');
+// --- Quiz Routes ---
+Route::get('/quiz', [App\Http\Controllers\QuizController::class, 'index'])->name('quiz.index');
+Route::post('/quiz', [QuizController::class, 'submit'])->name('quiz.submit');
+Route::get('/quiz/results', [App\Http\Controllers\QuizController::class, 'showResults'])->name('quiz.results');
 
-// --- Admin Dashboard (Protected) ---
+
+Route::middleware(['auth', 'verified'])->group(function () {
+    
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    
+    Route::get('/dashboard/orders/active', [DashboardController::class, 'activeOrders'])->name('dashboard.active-orders');
+    Route::get('/dashboard/orders/history', [DashboardController::class, 'orderHistory'])->name('dashboard.order-history');
+
+    Route::get('/dashboard/chatbot', function () { 
+        return view('dashboard.chatbot'); 
+    })->name('dashboard.chatbot');
+});
+
+
+// --- Admin Dashboard ---
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
 });
 
-// --- User Profile Features (Password change, etc.) ---
+
+// --- User Profile Features ---
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/dashboard', function () { return view('dashboard'); })->name('dashboard');
-    
-    // Updated Routes using the Controller
-    Route::get('/dashboard/orders/active', [DashboardController::class, 'activeOrders'])->name('dashboard.active-orders');
-    Route::get('/dashboard/orders/history', [DashboardController::class, 'orderHistory'])->name('dashboard.order-history');
-
-    Route::get('/dashboard/chatbot', function () { return view('dashboard.chatbot'); })->name('dashboard.chatbot');
-});
-
-// --- REQUIRED: Loads the Login/Register routes ---
 require __DIR__.'/auth.php';
