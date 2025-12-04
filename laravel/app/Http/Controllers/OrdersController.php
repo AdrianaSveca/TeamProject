@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Basket;
 use App\Models\Orders;
-use App\Models\Order_Items;
 
 class OrdersController extends Controller
 {
@@ -18,6 +17,12 @@ class OrdersController extends Controller
 
         if (!$basket || $basket->items->isEmpty()) {
             return redirect()->route('basket.index')->with('error', 'Your basket is empty.');
+        }
+
+        $hasStockIssues = $basket->items->contains(fn($item) => $item->basket_item_quantity > $item->product->product_stock_level);
+
+        if ($hasStockIssues) {
+            return redirect()->route('basket.index')->with('error', 'Some items exceed available stock. Please adjust quantities.');
         }
 
         return view('orders.checkout', compact('basket'));
@@ -35,6 +40,12 @@ class OrdersController extends Controller
 
         $order = DB::transaction(function () use ($basket, $user) {
 
+            foreach ($basket->items as $item) {
+                if ($item->basket_item_quantity > $item->product->product_stock_level) {
+                    throw new \Exception("Not enough stock for {$item->product->product_name}");
+                }
+            }
+
             $order = Orders::create([
                 'user_id' => $user->id,
                 'order_total' => $basket->items->sum(fn($i) => $i->basket_item_quantity * $i->basket_item_price),
@@ -51,6 +62,8 @@ class OrdersController extends Controller
                     'order_item_price' => $item->basket_item_price,
                     'order_item_status' => 'Purchased',
                 ]);
+
+                $item->product->decrement('product_stock_level', $item->basket_item_quantity);
             }
 
             $basket->items()->delete();

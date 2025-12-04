@@ -108,10 +108,24 @@
                                     </span>
                                 </div>
                             </div>
-                            <a href="{{ route('checkout') }}" 
-                            class="block w-full bg-[#1f5b38] text-white text-center font-bold py-4 rounded-xl hover:bg-[#7FA82E] hover:text-[#1f5b38] transition shadow-lg">
-                                Checkout
-                            </a>
+                            
+                            @php
+                                $hasStockIssues = $basket->items->contains(fn($item) => $item->basket_item_quantity > $item->product->product_stock_level);
+                            @endphp
+
+                            <form action="{{ route('checkout') }}" method="GET">
+                                <button type="submit"
+                                        class="block w-full text-center font-bold py-4 rounded-xl 
+                                        {{ $hasStockIssues ? 'bg-gray-400 cursor-not-allowed' : 'bg-[#1f5b38] text-white hover:bg-[#7FA82E] hover:text-[#1f5b38]' }} 
+                                        transition shadow-lg"
+                                        {{ $hasStockIssues ? 'disabled' : '' }}>
+                                    Checkout
+                                </button>
+                            </form>
+
+                            @if($hasStockIssues)
+                                <p class="mt-2 text-sm text-red-500">Some items exceed available stock. Adjust quantities before checkout.</p>
+                            @endif
 
                             <div class="mt-6 text-center">
                                 <a href="{{ route('shop.index') }}" class="text-sm text-gray-500 hover:text-[#1f5b38] underline">
