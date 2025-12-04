@@ -10,24 +10,29 @@
                     <p class="text-sm text-gray-500">Ask me anything about workouts, diet, or our products!</p>
                 </div>
 
-                {{-- Chat Messages Area --}}
+                <!-- Chat area -->
                 <div class="flex-1 overflow-y-auto p-6 space-y-4 bg-gray-50">
-                    {{-- Bot Message --}}
+                    <!-- Example chat messages, (we need to change it) -->
                     <div class="flex justify-start">
                         <div class="bg-[#7FA82E] text-white rounded-lg py-2 px-4 max-w-xs shadow">
                             Hello! How can I help you reach your fitness goals today?
                         </div>
                     </div>
 
-                    {{-- User Message Example --}}
                     <div class="flex justify-end">
                         <div class="bg-white border border-gray-200 text-gray-800 rounded-lg py-2 px-4 max-w-xs shadow">
                             I need a protein powder for weight loss.
                         </div>
                     </div>
+
+                    <div class="text-center">
+                        <div class="bg-black border border-gray-200 text-white rounded-lg py-2 px-4 max-w-xs shadow">
+                            COMING SOON: Our Personal Trainer feature is under development. Stay tuned for updates!
+                        </div>
+                    </div>
                 </div>
 
-                {{-- Input Area --}}
+                <!-- Input area -->
                 <div class="p-4 border-t border-gray-200 bg-white">
                     <form class="flex gap-4">
                         <input type="text" placeholder="Type your message..." class="flex-1 rounded-full border-gray-300 focus:border-[#7FA82E] focus:ring-[#7FA82E]">

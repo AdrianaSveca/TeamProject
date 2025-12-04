@@ -65,4 +65,18 @@ class DashboardController extends Controller
 
         return view('dashboard.order-history', compact('orders'));
     }
+
+    public function showOrder($id): View
+    {
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
+
+        // Find the order securely (must belong to user)
+        $order = $user->orders()
+            ->with('items.product') // Eager load items and their product details
+            ->where('order_id', $id)
+            ->firstOrFail();
+
+        return view('orderdetails', compact('order'));
+    }
 }
