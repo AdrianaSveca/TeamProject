@@ -7,6 +7,10 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/**
+ * User model representing users in the application.
+ * Defines user attributes and relationships.
+ */
 class User extends Authenticatable
 {
     use HasFactory, Notifiable;

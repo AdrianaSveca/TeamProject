@@ -5,6 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/**
+ * This model represents the Orders table.
+ * It defines the attributes and relationships associated with an order.
+ */
 class Orders extends Model
 {
     protected $table = 'Orders';

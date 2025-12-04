@@ -1,14 +1,17 @@
+<!-- Register Blade View -->
+
 <x-layout>
 
-
+    
     <div class="flex flex-col justify-center items-center min-h-screen gap-[2rem] p-[1rem] md:flex-row md:justify-around md:gap-0 md:p-0">
         <div class="flex justify-center items-center">
             <img class="w-full h-full object-contain max-w-[200px] md: max-w-full" src="{{ asset('favicon.jpeg') }}" alt="Website Logo">
         </div>
         
+        <!-- Registration Form Container -->
         <div class="flex flex-col justify-self-center items-center bg-[#1f5b38] p-[10%] w-full max-w-[450px] shadow-[10px_10px_0_#2d322c] md:p-[15%] md:w-auto md:max-w-none">
             <h1 class="text-xl text-white font-semibold justify-self-center">Register</h1>
-
+            <!-- Registration Form -->
             <form method="POST" action="{{ route('register') }}">
                 @csrf
 

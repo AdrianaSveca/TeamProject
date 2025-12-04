@@ -46,14 +46,16 @@ class QuizController extends Controller
         if ($request->goal == 'muscle') {
 
             $query->whereHas('category', function ($q) {
-                $q->where('category_name', 'like', '%Nutrition%')
-                  ->orWhere('category_name', 'like', '%Supplements%');
+                $q->where('category_name', 'like', '%Fitness Accessories%')
+                  ->orWhere('category_name', 'like', '%Supplements%')
+                  ->orWhere('category_name', 'like', '%Fitness Equipment%')
+                  ->orWhere('category_name', 'like', '%Nutrition%');
             });
         } elseif ($request->goal == 'weight_loss') {
 
             $query->whereHas('category', function ($q) {
                 $q->where('category_name', 'like', '%Fitness Equipment%')
-                  ->orWhere('category_name', 'like', '%Nutrition%')
+                  ->orWhere('category_name', 'like', '%Other%')
                   ->orWhere('category_name', 'like', '%Supplements%');
             });
         } else {
@@ -61,7 +63,8 @@ class QuizController extends Controller
             $query->whereHas('category', function ($q) {
                 $q->where('category_name', 'like', '%Supplements%')
                   ->orWhere('category_name', 'like', '%Other%')
-                  ->orWhere('category_name', 'like', '%Fitness Accessories%');
+                  ->orWhere('category_name', 'like', '%Fitness Accessories%')
+                  ->orWhere('category_name', 'like', '%Nutrition%');
             });
         }
 
@@ -102,11 +105,11 @@ class QuizController extends Controller
         $query = Products::query()->with('category');
 
         if ($bmiRecord->bmi_feedback == 'Underweight') {
-             $query->whereHas('category', fn($q) => $q->where('category_name', ['Nutrition', 'Fitness Equipment', 'Supplements']));
+             $query->whereHas('category', fn($q) => $q->where('category_name', ['Nutrition', 'Fitness Equipment', 'Supplements', 'Fitness Accessories']));
         } elseif ($bmiRecord->bmi_feedback == 'Overweight' || $bmiRecord->bmi_feedback == 'Obese') {
-             $query->whereHas('category', fn($q) => $q->where('category_name', ['Fitness Equipment', 'Nutrition', 'Supplements']));
+             $query->whereHas('category', fn($q) => $q->where('category_name', ['Fitness Equipment', 'Nutrition', 'Supplements', 'Other']));
         } else {
-             $query->whereHas('category', fn($q) => $q->where('category_name', ['Other', 'Supplements', 'Fitness Accessories']));
+             $query->whereHas('category', fn($q) => $q->where('category_name', ['Other', 'Supplements', 'Fitness Accessories', 'Nutrition']));
         }
 
         $recommendations = $query->limit(3)->get();

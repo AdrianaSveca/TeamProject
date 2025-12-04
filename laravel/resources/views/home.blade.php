@@ -1,6 +1,8 @@
+<!-- This is the Home page (landing page), showcasing featured products, a quiz, and information about the brand. -->
+
 <x-layout>
     
-
+    <!-- Hero Section -->
     <div class="relative w-screen left-[calc(-50vw+50%)] -mt-8 h-auto">
         <section class="relative w-full mt-[8px] p-0">
             <div class="relative min-h-[600px] md:h-screen w-full overflow-hidden flex flex-col justify-end">
@@ -33,7 +35,7 @@
     </div>
 
     <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-14 space-y-16 md:space-y-20">
-
+        <!-- Featured Sections -->
         <section class="grid gap-10 md:grid-cols-2 md:items-center">
             <div class="space-y-4 md:space-y-5">
                 <h2 class="text-2xl md:text-3xl font-semibold text-slate-900">
@@ -63,7 +65,7 @@
                 </a>
             </div>
         </section>
-
+        <!-- Quiz Promotion Section -->
         <section class="grid gap-10 md:grid-cols-2 md:items-center">
             <div class="flex justify-center md:justify-start order-1 md:order-none">
                 <a href="{{ route('products.show', 4) }}" class="block transform hover:scale-105 transition duration-300 cursor-pointer">
@@ -74,7 +76,7 @@
                     >
                 </a>
             </div>
-
+            <!-- Quiz Call-to-Action -->
             <div class="space-y-4 md:space-y-5">
                 <h2 class="text-2xl md:text-3xl font-semibold text-slate-900">
                     Find Your Perfect Fit.
@@ -92,7 +94,7 @@
             </div>
         </section>
 
-
+        <!-- Call to Action Section -->
         <section class="relative isolate overflow-hidden bg-[#2B332A] px-6 py-16 shadow-2xl sm:rounded-3xl sm:px-16 md:pt-24 lg:flex lg:gap-x-20 lg:px-24 lg:pt-0">
             <div class="mx-auto max-w-md text-center lg:mx-0 lg:flex-auto lg:py-24 lg:text-left">
                 <h2 class="text-3xl font-bold tracking-tight text-white sm:text-4xl">
@@ -122,7 +124,7 @@
                 </svg>
             </div>
         </section>
-
+        <!-- Information Section -->
         <section id="details" class="space-y-6 md:space-y-8">
             <h2 class="text-xl md:text-2xl font-semibold text-slate-900">
                 Information

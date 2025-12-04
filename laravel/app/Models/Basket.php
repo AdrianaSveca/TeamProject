@@ -4,6 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * This model represents the Basket table in the database.
+ * It defines the relationships and attributes associated with a basket.
+ */
 class Basket extends Model
 {
     protected $table = 'Basket';

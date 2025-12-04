@@ -4,6 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * This model represents the Order_Items table.
+ * This model fetches order items associated with orders and products.
+ */
 class Order_Items extends Model
 {
     protected $table = 'Order_Items';

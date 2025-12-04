@@ -4,6 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * In this model representing the Basket_Items table, we define the relationships
+ * to the Products and Basket models. Each basket item belongs to a single product
+ * and a single basket. The model also specifies the table name, primary key settings,
+ * fillable attributes, and casts for certain fields.
+ */
 class Basket_Items extends Model
 {
     protected $table = 'Basket_Items';

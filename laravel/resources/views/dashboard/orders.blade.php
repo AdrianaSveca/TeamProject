@@ -1,15 +1,16 @@
+<!-- This is the order history page within the user's dashboard. It displays a list of past orders with details such as order ID, date delivered, total amount, status, and actions like viewing the invoice or returning items. If no past orders are found, it shows an empty state with a prompt to browse products. -->
 <x-layout>
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             
-            {{-- Navigation Tabs --}}
+            <!-- Navigation Tabs -->
             <x-dashboard-tabs />
 
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     <h2 class="text-2xl font-bold mb-6 text-[#7FA82E]">Order History</h2>
 
-                    {{-- Orders Table --}}
+                    <!-- If no past orders found -->
                     <div class="overflow-x-auto">
                         <table class="min-w-full text-left text-sm whitespace-nowrap">
                             <thead class="uppercase tracking-wider border-b-2 border-gray-200">
@@ -22,7 +23,6 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {{-- Example Static Row (You will loop this later) --}}
                                 <tr class="border-b hover:bg-gray-50">
                                     <td class="px-6 py-4 font-medium">#ORD-001</td>
                                     <td class="px-6 py-4">Nov 20, 2025</td>

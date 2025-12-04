@@ -1,6 +1,7 @@
+<!-- This represents a chatbot interface within the user's dashboard. Currently, it displays a placeholder message indicating that the feature is under development. -->
 <x-layout>
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 h-[600px]"> {{-- Fixed height for chat --}}
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 h-[600px]"> <!-- Fixed height for chat -->
             
             <x-dashboard-tabs />
 

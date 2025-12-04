@@ -4,6 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * This model represents the BMI_Results table in the database.
+ * It defines the attributes and relationships associated with BMI results.
+ */
 class BmiResults extends Model
 {
     // Because the table name has capitals

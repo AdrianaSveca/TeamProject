@@ -1,3 +1,4 @@
+<!-- This is the product detail page that displays comprehensive information about a specific product, including its image, name, price, description, stock level, and an option to add it to the basket. -->
 <x-layout>
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -5,17 +6,17 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
 
                     <div class="bg-gray-100 rounded-lg overflow-hidden flex items-center justify-center">
-                        @if($product->product_image)
+                        @if($product->product_image) <!-- Product Image -->
                             <img src="{{ asset($product->product_image) }}" alt="{{ $product->product_name }}"
                                  class="h-full w-full object-cover">
-                        @else
+                        @else <!-- No Image Available -->
                             <span class="text-gray-400">No Image Available</span>
                         @endif
                     </div>
 
                     <div class="flex flex-col justify-center">
                         <span class="inline-block bg-[#1f5b38] text-white text-xs px-2 py-1 rounded-full w-fit mb-2 shadow-[3px_3px_0_#2d322c]">
-                            {{ $product->category->category_name ?? 'General' }}
+                            {{ $product->category->category_name ?? 'General' }} <!-- Product Category -->
                         </span>
 
                         <h1 class="text-4xl font-bold text-gray-900 mb-4">{{ $product->product_name }}</h1>
@@ -34,7 +35,7 @@
                             @endif
                         </div>
 
-                        @if($product->product_stock_level > 0)
+                        @if($product->product_stock_level > 0) <!-- Add to Basket Form -->
                             <form action="{{ route('basket.add') }}" method="POST" class="flex gap-4">
                                 @csrf
                                 <input type="hidden" name="product_id" value="{{ $product->product_id }}">

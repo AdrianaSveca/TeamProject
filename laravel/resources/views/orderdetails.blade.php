@@ -1,3 +1,4 @@
+<!-- This is the Order Details page, displaying detailed information about a specific order including items, prices, and status. -->
 <x-layout>
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">

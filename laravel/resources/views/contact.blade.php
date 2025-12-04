@@ -1,8 +1,8 @@
+<!-- This is the Contact Us page for the WELLTH website, allowing users to reach out with inquiries or issues. -->
 <x-layout>
-    {{-- Page wrapper --}}
+    <!-- Main container -->
     <div class="min-h-[60vh] flex flex-col gap-8">
 
-        {{-- Heading + intro --}}
         <section>
             <h1 class="text-3xl font-semibold text-gray-900 mb-2">
                 Contact Us
@@ -11,8 +11,8 @@
                 Have any enquires about WELLTH, your orders, or even your account?  
                 Fill in the following form and our team will get back to you with a swift response regarding any of your troubles.
             </p>
-
-            {{-- Flash & validation messages (optional) --}}
+            
+            <!-- Display success message or validation errors -->
             @if (session('status'))
                 <div class="mt-4 rounded-md border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800">
                     {{ session('status') }}
@@ -30,9 +30,9 @@
             @endif
         </section>
 
-        {{-- Main grid: form + info --}}
+        <!-- Contact Form and Info Sidebar Section -->
         <section class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
-            {{-- CONTACT FORM --}}
+            <!-- This is the contact form -->
             <div class="lg:col-span-2 bg-white rounded-xl border-4 border-[#7FA82E] hover:shadow-[5px_5px_0_#2d322c] transition-all duration-300 shadow-sm p-6 lg:p-8">
                 <h2 class="text-xl font-semibold text-gray-900 mb-4">
                     Send us a message
@@ -172,7 +172,7 @@
                 </form>
             </div>
 
-            {{-- INFO SIDEBAR --}}
+            <!-- Side bar containing alternative contact methods -->
             <aside class="bg-[#1f5b38] text-gray-100 rounded-xl shadow-[10px_10px_0_#2d322c] p-6 lg:p-8 space-y-5">
                 <h2 class="text-xl font-semibold">
                     Alternative Contact Methods

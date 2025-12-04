@@ -1,3 +1,4 @@
+<!-- This is the Quiz Results page, displaying personalized product recommendations based on the user's BMI score. -->
 <x-layout>
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -10,7 +11,7 @@
 
             <!-- Recommended Products -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                @forelse($recommendations as $product)
+                @forelse($recommendations as $product) <!-- Loop through recommended products -->
                     <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition duration-300 border border-gray-100">
                         {{-- Product Image --}}
                         <div class="h-56 bg-gray-100 flex items-center justify-center p-4">

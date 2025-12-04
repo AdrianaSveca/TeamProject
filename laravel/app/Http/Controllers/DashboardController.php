@@ -14,8 +14,9 @@ class DashboardController extends Controller
     public function index(): View
     {
         /** @var \App\Models\User $user */
-        $user = Auth::user();
-
+        $user = Auth::user(); // Get the logged-in user
+        
+        // Here we gather additional data for the dashboardn (info for the cards)
         $activeCount = $user->orders()
             ->whereIn('order_status', ['Pending', 'Shipped'])
             ->count();

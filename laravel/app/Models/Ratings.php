@@ -4,6 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Model representsing the Ratings table.
+ * It defines the attributes and relationships associated with a rating.
+ */
 class Ratings extends Model
 {
     protected $table = 'Ratings';

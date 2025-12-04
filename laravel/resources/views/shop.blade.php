@@ -1,3 +1,4 @@
+<!-- This is the Shop page, displaying products with filtering options such as search, categories, and price range. -->
 <x-layout>
     <div class="relative w-screen left-[calc(-50vw+50%)] -mt-6 h-auto">
         <div class="relative min-h-[240px] md:min-h-[255px] w-full overflow-hidden flex flex-col justify-end">
@@ -13,7 +14,7 @@
             </div>
         </div>
     </div>
-
+    <!-- Main Content -->
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
             <aside class="md:col-span-1">
@@ -29,7 +30,7 @@
                                 class="w-full rounded-lg border-none text-slate-800 placeholder-slate-400  focus:ring-2 focus:ring-white"
                             >
                         </div>
-                        <div>
+                        <div> <!-- Categories Filter -->
                             <h3 class="text-lg font-bold mb-3 border-b border-white/30 pb-2">Categories</h3>
                             <ul class="space-y-2">
                                 <li>
@@ -38,7 +39,7 @@
                                         All Products
                                     </button>
                                 </li>
-                                @forelse($categories as $category)
+                                @forelse($categories as $category) <!-- Loop through categories -->
                                     <li>
                                         <button type="submit" name="category" value="{{ $category->category_id }}"
                                                 class="w-full text-left hover:text-white/80 {{ request('category') == $category->category_id ? 'font-bold underline' : '' }}">
@@ -50,7 +51,7 @@
                                 @endforelse
                             </ul>
                         </div>
-                        <div>
+                        <div> <!-- Price Range Filter -->
                             <h3 class="text-lg font-bold mb-3 border-b border-green/30 pb-2">Price Range</h3>
                             <div class="flex justify-between text-xs mb-2">
                                 <span>£0</span>
@@ -63,7 +64,7 @@
                                 Max: £{{ request('max_price',200) }}
                             </div>
                         </div>
-                        <div class="pt-2">
+                        <div class="pt-2"> <!-- Apply Filters Button -->
                             <button type="submit" class="w-full bg-[#7FA82E] text-[#1f5b38] font-bold py-2 rounded-lg hover:bg-[#1f5b38] hover:text-[#7FA82E] transition-all duration-300">
                                 Apply Filters
                             </button>
@@ -77,9 +78,9 @@
                     </form>
                 </div>
             </aside>
-            <div class="md:col-span-3 flex flex-col">
+            <div class="md:col-span-3 flex flex-col"> <!-- Products Grid -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    @forelse($products as $product)
+                    @forelse($products as $product) <!-- Loop through all products -->
                         <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden hover:shadow-lg flex flex-col">
                             <a href="{{ route('products.show', $product->product_id) }}" class="group">
                                 <div class="h-56 flex items-center justify-center overflow-hidden bg-white p-6">
@@ -90,16 +91,16 @@
                                         <div class="text-slate-400 text-sm">No Image</div>
                                     @endif
                                 </div>
-                                <div class="p-5">
-                                    <h3 class="text-lg font-bold text-slate-900 mb-1">{{ $product->product_name }}</h3>
-                                    <p class="text-sm text-slate-500 line-clamp-2">{{ $product->product_description }}</p>
+                                <div class="p-5"> <!-- Product Details -->
+                                    <h3 class="text-lg font-bold text-slate-900 mb-1">{{ $product->product_name }}</h3> <!-- Product name -->
+                                    <p class="text-sm text-slate-500 line-clamp-2">{{ $product->product_description }}</p> <!-- Product description -->
                                 </div>
                             </a>
 
                             <div class="flex items-center justify-between p-5 pt-2 border-t border-slate-200 mt-auto">
                                 <span class="text-xl font-bold text-[#7FA82E]">£{{ number_format($product->product_price,2) }}</span>
 
-                                @if($product->product_stock_level > 0)
+                                @if($product->product_stock_level > 0) <!-- Add to basket button, this if statement checks stock level -->
                                     <form action="{{ route('basket.add') }}" method="POST">
                                         @csrf
                                         <input type="hidden" name="product_id" value="{{ $product->product_id }}">
@@ -113,7 +114,7 @@
                                             </svg>
                                         </button>
                                     </form>
-                                @else
+                                @else <!-- Out of stock -->
                                     <button disabled class="bg-gray-300 text-gray-500 p-2 rounded-full cursor-not-allowed">
                                         Out of Stock
                                     </button>
@@ -121,12 +122,12 @@
                             </div>
                         </div>
                     @empty
-                        <div class="col-span-full text-center py-20 bg-slate-50 rounded-2xl">
+                        <div class="col-span-full text-center py-20 bg-slate-50 rounded-2xl"> <!-- No products found message -->
                             No products found.
                         </div>
                     @endforelse
                 </div>
-                <div class="mt-4 flex justify-between items-center">
+                <div class="mt-4 flex justify-between items-center"> <!-- Pagination Controls -->
                     <div class="text-sm text-slate-600">
                         Showing {{ $products->firstItem() }} - {{ $products->lastItem() }} of {{ $products->total() }}
                     </div>

@@ -1,8 +1,9 @@
+<!-- This is the order history page within the user's dashboard. It displays a list of past orders with details such as order ID, date delivered, total amount, status, and actions like viewing the invoice or returning items. If no past orders are found, it shows an empty state with a prompt to browse products. -->
 <x-layout>
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             
-            {{-- Navigation Tabs --}}
+            <!-- Navigation Tabs -->
             <x-dashboard-tabs />
 
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -10,10 +11,9 @@
                     <h2 class="text-2xl font-bold mb-6 text-[#7FA82E]">Order History</h2>
 
                     @if($orders->isEmpty())
-                        {{-- EMPTY STATE (If no past orders found) --}}
+                        <!-- Empty state (If no past orders found) -->
                         <div class="text-center py-12">
                             <div class="mb-4">
-                                {{-- History Icon --}}
                                 <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                 </svg>
@@ -27,7 +27,7 @@
                             </div>
                         </div>
                     @else
-                        {{-- REAL DATA TABLE --}}
+                        <!-- Table filled with database data -->
                         <div class="overflow-x-auto">
                             <table class="min-w-full text-left text-sm whitespace-nowrap">
                                 <thead class="uppercase tracking-wider border-b-2 border-gray-200 bg-gray-50">
@@ -57,12 +57,12 @@
                                                 </span>
                                             </td>
                                             <td class="px-6 py-4 flex space-x-3">
-                                                {{-- View Invoice (Placeholder link) --}}
+                                                <!-- View Invoice Button -->
                                                 <a href="#" class="text-gray-600 hover:text-[#2B332A] font-medium">
                                                     View Invoice
                                                 </a>
                                                 <span class="text-gray-300">|</span>
-                                                {{-- Return Item Button --}}
+                                                <!-- Return Item Button -->
                                                 <a href="#" class="text-[#7FA82E] hover:text-[#6d9126] font-bold">
                                                     Return Item
                                                 </a>

@@ -28,7 +28,7 @@ class ProfileController extends Controller
     {
         $request->user()->fill($request->validated());
 
-        if ($request->user()->isDirty('email')) {
+        if ($request->user()->isDirty('email')) { // If email was changed
             $request->user()->email_verified_at = null;
         }
 
@@ -42,7 +42,7 @@ class ProfileController extends Controller
      */
     public function destroy(Request $request): RedirectResponse
     {
-        $request->validateWithBag('userDeletion', [
+        $request->validateWithBag('userDeletion', [ // Validate current password
             'password' => ['required', 'current_password'],
         ]);
 
