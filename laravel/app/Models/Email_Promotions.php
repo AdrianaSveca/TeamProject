@@ -4,6 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Email_Promotions table in the database.
+ * Specifies the attributes associated with email promotions.
+ */
 class Email_Promotions extends Model
 {
     protected $table = 'Email_Promotions';

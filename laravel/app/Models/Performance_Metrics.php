@@ -4,6 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * This model represents the Performance_Metrics table.
+ * It defines the attributes associated with performance metrics.
+ */
 class Performance_Metrics extends Model
 {
     protected $table = 'Performance_Metrics';

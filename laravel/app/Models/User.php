@@ -2,52 +2,45 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/**
+ * User model representing users in the application.
+ * Defines user attributes and relationships.
+ */
 class User extends Authenticatable
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
-    protected $table = 'Users';
-    protected $primaryKey = 'user_id';
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var list<string>
-     */
     protected $fillable = [
-    'user_name',
-    'user_email',
-    'user_password',
-    'user_dob',
-    'user_gender',
-    'user_phone'
+        'name', 
+        'email',      
+        'password',   
+        'dob',      
+        'gender',       
+        'phone',         
+        'role',          
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var list<string>
-     */
     protected $hidden = [
-        'user_password',
-        'remember_token'
+        'password',
+        'remember_token',
     ];
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
     protected function casts(): array
     {
         return [
-            'user_password' => 'hashed'
+            'password' => 'hashed',
+            'dob' => 'date',
         ];
+    }
+
+    // Relationship: User has many Orders
+    public function orders(): HasMany
+    {
+        return $this->hasMany(\App\Models\Orders::class, 'user_id');
     }
 }

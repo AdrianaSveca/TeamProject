@@ -14,13 +14,12 @@ return new class extends Migration
         Schema::create('Chatbot', function (Blueprint $table) {
             $table->id('chatbot_id');
             
-            $table->foreignId('user_id')->nullable()->constrained('Users', 'user_id')->onDelete('cascade');
-
-            $table->foreignId('admin_id')->nullable()->constrained('Admin', 'admin_id')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
 
             $table->text('chatbot_user_message');
             $table->text('chatbot_ans');
             $table->dateTime('chatbot_date');
+            $table->timestamps();
         });
     }
 

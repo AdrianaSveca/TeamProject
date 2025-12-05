@@ -16,11 +16,12 @@ return new class extends Migration
             $table->string('product_name');
             $table->text('product_description');
             $table->decimal('product_price', 10, 2);
-            $table->integer('product_stock_level');
-            $table->decimal('product_rating');
+            $table->integer('product_stock_level')->default(10);
+            $table->decimal('product_rating')->nullable();
             $table->string('product_image')->nullable();
 
             $table->foreignId('category_id')->constrained('Categories', 'category_id')->onDelete('cascade');
+            $table->timestamps();
         });
     }
 

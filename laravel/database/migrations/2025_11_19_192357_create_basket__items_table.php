@@ -20,6 +20,7 @@ return new class extends Migration
             $table->decimal('basket_item_price', 10, 2);
 
             $table->primary(['basket_id', 'product_id']);
+            $table->timestamps();
         });
     }
 
