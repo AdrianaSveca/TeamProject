@@ -22,8 +22,8 @@
             <!-- Dashboard Cards -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
                 <!-- Orders button -->
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 border-l-4 border-[#7FA82E]">
-                    <div class="flex items-center justify-between">
+                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 border-l-4 border-[#7FA82E] transition-all duration-300 hover:shadow-[0_0_5px_#7FA82E]">
+                    <div class="flex items-center justify-between" >
                         <div>
                             <p class="text-sm font-medium text-gray-500">Active Orders</p>
                             <p class="text-3xl font-bold text-gray-900">{{ $activeCount }}</p>
@@ -38,7 +38,7 @@
                 </div>
 
                 <!-- Quiz button -->
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 border-l-4 border-[#1F5B38]">
+                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 border-l-4 border-[#1F5B38] transition-all duration-300 hover:shadow-[0_0_5px_#1F5B38]">
                     <div class="flex items-center justify-between">
                         <div>
                             <p class="text-sm font-medium text-gray-500">Current Goal</p>
@@ -60,7 +60,7 @@
                 </div>
 
                 <!-- Chatbot -->
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 border-l-4 border-blue-600">
+                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 border-l-4 border-blue-600 transition-all duration-300 hover:shadow-[0_0_3px_#0000FF]">
                     <div class="flex items-center justify-between">
                         <div>
                             <p class="text-sm font-medium text-gray-500">Need Help?</p>
