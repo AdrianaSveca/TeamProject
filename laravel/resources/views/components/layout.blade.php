@@ -10,7 +10,7 @@
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.jpeg') }}?">
 </head>
     <!-- Layout Blade View-->
-<body class="h-full">
+<body class="h-full overflow-x-hidden"> <!-- With the overflow-x-hidden we prevent horizontal overflow -->
     <div class="min-h-full">
         <!-- Navigation Bar -->
         <nav x-data="{ open: false }" class="bg-green-900/95 border-b border-white/10">

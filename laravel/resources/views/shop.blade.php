@@ -18,7 +18,7 @@
             <div class="absolute inset-0 bg-black/30"></div>
             <div class="relative z-10 flex justify-center items-center px-4 pb-6 h-full">
                 <div class="text-center max-w-xl mx-auto mt-20">
-                    <h1 class="text-5xl font-bold text-white mb-2">Our </h1><h1 class="text-8xl font-bold text-[#1f5b38] mb-2 opacity-0 -translate-y-10 animate-[slideInDown_1s_ease-out_forwards]">Shop</h1> <!-- This heading (Shop) has the animation applied to it -->
+                    <h1 class="text-5xl font-bold text-white mb-2">Our </h1><h1 class="text-8xl font-bold text-[#1f5b38] mb-6 opacity-0 -translate-y-10 animate-[slideInDown_1s_ease-out_forwards]">Shop</h1> <!-- This heading (Shop) has the animation applied to it -->
                     <p class="text-lg text-white/90">
                         Discover premium supplements to fuel your journey.
                     </p>
