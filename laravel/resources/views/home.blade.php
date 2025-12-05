@@ -56,7 +56,7 @@
             </div>
 
             <div class="flex justify-center md:justify-end">
-                <a href="{{ route('products.show', 1) }}" class="block transform hover:scale-105 transition duration-300 cursor-pointer">
+                <a href="{{ route('products.show', 2) }}" class="block transform hover:scale-105 transition duration-300 cursor-pointer">
                     <img
                         src="{{ asset('products/Creatine_Monohydrate.png') }}"
                         alt="WELLTH main product"
