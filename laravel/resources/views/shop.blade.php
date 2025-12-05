@@ -64,7 +64,7 @@
                             </ul>
                         </div>
                         <div> <!-- Price Range Filter -->
-                            <h3 class="text-lg font-bold mb-3 border-b border-green/30 pb-2">Price Range</h3>
+                            <h3 class="text-lg font-bold mb-3 border-b border-green/30 pb-2 ">Price Range</h3>
                             <div class="flex justify-between text-xs mb-2">
                                 <span>£0</span>
                                 <span>£200</span>
