@@ -1,3 +1,7 @@
+<!-- In this file, we define the authentication routes for the application,
+including registration, login, password reset, email verification, and logout.
+Routes are grouped based on whether the user is a guest or authenticated,
+applying appropriate middleware for security and access control. -->
 <?php
 
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
@@ -10,12 +14,12 @@ use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
-
-Route::middleware('guest')->group(function () {
+// Authentication Routes
+Route::middleware('guest')->group(function () { // Routes for guests (not logged in)
     Route::get('register', [RegisteredUserController::class, 'create'])
         ->name('register');
 
-    Route::post('register', [RegisteredUserController::class, 'store']);
+    Route::post('register', [RegisteredUserController::class, 'store']); 
 
     Route::get('login', [AuthenticatedSessionController::class, 'create'])
         ->name('login');
@@ -35,7 +39,7 @@ Route::middleware('guest')->group(function () {
         ->name('password.store');
 });
 
-Route::middleware('auth')->group(function () {
+Route::middleware('auth')->group(function () { // Routes for authenticated users
     Route::get('verify-email', EmailVerificationPromptController::class)
         ->name('verification.notice');
 

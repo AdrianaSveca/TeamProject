@@ -8,13 +8,15 @@ use App\Models\Categories;
 
 class ProductsController extends Controller
 {
+
+    /** 
+     * Display a listing of products with optional filtering and sorting.
+    */
     public function index(Request $request)
     {
-        // 1. Start the query
         $query = Products::query();
 
-        // 2. Search Logic (Matches name or description)
-        if ($request->filled('search')) {
+        if ($request->filled('search')) { // Search by product name or description
             $search = $request->input('search');
             $query->where(function($q) use ($search) {
                 $q->where('product_name', 'like', "%{$search}%")
@@ -22,33 +24,37 @@ class ProductsController extends Controller
             });
         }
 
-        // 3. Category Filter
-        if ($request->filled('category')) {
+        if ($request->filled('category')) { // Filter by category
             $query->where('category_id', $request->input('category'));
         }
 
-        // 4. Price Filter
-        if ($request->filled('max_price')) {
+        if ($request->filled('max_price')) { // Filter by maximum price
             $query->where('product_price', '<=', $request->input('max_price'));
         }
 
-        // 5. Sorting
-        if ($request->has('sort')) {
+        if ($request->has('sort')) { // Sort products
             if ($request->sort == 'price_low') {
                 $query->orderBy('product_price', 'asc');
             } elseif ($request->sort == 'price_high') {
                 $query->orderBy('product_price', 'desc');
             } else {
-                $query->orderBy('created_at', 'desc'); // Default: Newest first
+                $query->orderBy('created_at', 'desc');
             }
         }
 
-        // 6. Get Data (12 products per page)
-        $products = $query->paginate(12);
+        $products = $query->paginate(12); // Page size set to 12
         
-        // Get categories for the sidebar
         $categories = Categories::all();
 
         return view('shop', compact('products', 'categories'));
+    }
+
+    /** 
+     * Display the details of a specific product.
+    */
+    public function show($id){
+        $product = Products::findorFail($id); // Find product or fail
+
+        return view('products.show', compact('product'));
     }
 }

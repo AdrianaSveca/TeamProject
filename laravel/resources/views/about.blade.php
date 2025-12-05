@@ -1,3 +1,4 @@
+<!-- This is the About Us page for the WELLTH website, providing information about the company's mission, story, and key statistics. -->
 <x-layout>
     
 

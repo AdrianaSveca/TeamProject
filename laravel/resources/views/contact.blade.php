@@ -1,18 +1,17 @@
+<!-- This is the Contact Us page for the WELLTH website, allowing users to reach out with inquiries or issues. -->
 <x-layout>
-    {{-- Page wrapper --}}
+    <!-- Main container -->
     <div class="min-h-[60vh] flex flex-col gap-8">
 
-        {{-- Heading + intro --}}
         <section>
             <h1 class="text-3xl font-semibold text-gray-900 mb-2">
                 Contact Us
             </h1>
             <p class="text-gray-600 max-w-2xl">
-                Have any enquires about WELLTH, your orders, or evenyour account?  
-                Fill in the following form and yor team will get back to you with a swift response regarding any of your troubles.
+                Have any enquires about WELLTH, your orders, or even your account?  
+                Fill in the following form and our team will get back to you with a swift response regarding any of your troubles.
             </p>
-
-            {{-- Flash & validation messages (optional) --}}
+            
             @if (session('status'))
                 <div class="mt-4 rounded-md border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800">
                     {{ session('status') }}
@@ -30,15 +29,13 @@
             @endif
         </section>
 
-        {{-- Main grid: form + info --}}
         <section class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
-            {{-- CONTACT FORM --}}
-            <div class="lg:col-span-2 bg-white rounded-xl border border-gray-200 shadow-sm p-6 lg:p-8">
+            <div class="lg:col-span-2 bg-white rounded-xl border-4 border-[#7FA82E] hover:shadow-[5px_5px_0_#2d322c] transition-all duration-300 shadow-sm p-6 lg:p-8">
                 <h2 class="text-xl font-semibold text-gray-900 mb-4">
                     Send us a message
                 </h2>
 
-                <form method="POST" action="{{ url('/contact') }}" class="space-y-5">
+                <form method="POST" action="{{ route('contact.submit') }}" class="space-y-5">
                     @csrf
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -111,10 +108,14 @@
                             class="block w-full rounded-md border-gray-300 shadow-sm focus:border-[#7FA82E] focus:ring-[#7FA82E] text-sm"
                         >
                             <option value="">Select a topic</option>
-                            <option value="general"   {{ old('topic') === 'general' ? 'selected' : '' }}>General enquiry</option>
-                            <option value="orders"    {{ old('topic') === 'orders' ? 'selected' : '' }}>Orders &amp; payments</option>
-                            <option value="quiz"      {{ old('topic') === 'quiz' ? 'selected' : '' }}>Quiz &amp; account</option>
-                            <option value="technical" {{ old('topic') === 'technical' ? 'selected' : '' }}>Technical issue</option>
+                            {{-- 
+                                IMPORTANT: The values here must match the ENUM definition in your migration exactly. 
+                                Migration: 'General enquiry', 'Orders & payments', 'Quiz & account', 'Technical issue'
+                            --}}
+                            <option value="General enquiry"   {{ old('topic') === 'General enquiry' ? 'selected' : '' }}>General enquiry</option>
+                            <option value="Orders & payments" {{ old('topic') === 'Orders & payments' ? 'selected' : '' }}>Orders &amp; payments</option>
+                            <option value="Quiz & account"    {{ old('topic') === 'Quiz & account' ? 'selected' : '' }}>Quiz &amp; account</option>
+                            <option value="Technical issue"   {{ old('topic') === 'Technical issue' ? 'selected' : '' }}>Technical issue</option>
                         </select>
                     </div>
 
@@ -132,34 +133,9 @@
                         >{{ old('message') }}</textarea>
                     </div>
 
-                    <div>
-                        <span class="block text-sm font-medium text-gray-700 mb-1">
-                            Preferred contact method
-                        </span>
-                        <div class="flex flex-wrap gap-4 text-sm text-gray-700">
-                            <label class="inline-flex items-center gap-2">
-                                <input
-                                    type="radio"
-                                    name="contact_method"
-                                    value="email"
-                                    class="rounded border-gray-300 text-[#7FA82E] focus:ring-[#7FA82E]"
-                                    {{ old('contact_method', 'email') === 'email' ? 'checked' : '' }}
-                                >
-                                <span>Email</span>
-                            </label>
-
-                            <label class="inline-flex items-center gap-2">
-                                <input
-                                    type="radio"
-                                    name="contact_method"
-                                    value="phone"
-                                    class="rounded border-gray-300 text-[#7FA82E] focus:ring-[#7FA82E]"
-                                    {{ old('contact_method') === 'phone' ? 'checked' : '' }}
-                                >
-                                <span>Mobile (if applicable)</span>
-                            </label>
-                        </div>
-                    </div>
+                    <!-- Note: The 'contact_method' was in your form but NOT in your database migration. 
+                         I have removed it from the form submission to prevent errors, or you can add a field for it in your DB. 
+                         If you want to keep it purely visual, remove the name="contact_method" attribute. -->
 
                     <div class="pt-2">
                         <button
@@ -172,7 +148,6 @@
                 </form>
             </div>
 
-            {{-- INFO SIDEBAR --}}
             <aside class="bg-[#1f5b38] text-gray-100 rounded-xl shadow-[10px_10px_0_#2d322c] p-6 lg:p-8 space-y-5">
                 <h2 class="text-xl font-semibold">
                     Alternative Contact Methods
@@ -214,7 +189,7 @@
                     <h3 class="text-sm font-semibold">Already a member?</h3>
                     <p class="text-sm text-gray-100/80">
                         Log into your account and locate
-                        <span class="font-semibold">Help &amp; Support</span> for a more responsive and prompt result for quizzes along with updates on orders and memberships made via signing up.
+                        <span class="font-semibold">Dashbord</span> for a more responsive and prompt result for quizzes along with updates on orders.
                     </p>
                 </div>
             </aside>

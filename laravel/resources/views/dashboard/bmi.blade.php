@@ -1,3 +1,4 @@
+<!-- This page provides a BMI calculator form for users to input their height, weight, and fitness goals. Upon submission, it displays the user's current BMI and offers personalized supplement recommendations based on their goals. The design is clean and user-friendly, with a focus on health and wellness. -->
 <x-layout>
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -5,7 +6,7 @@
             <x-dashboard-tabs />
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {{-- Calculator Form --}}
+                <!-- BMI Form -->
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
                     <h2 class="text-2xl font-bold mb-4 text-[#7FA82E]">Update Your Stats</h2>
                     <p class="text-gray-600 mb-6">Enter your details to get personalized product recommendations.</p>
@@ -34,7 +35,7 @@
                     </form>
                 </div>
 
-                {{-- Results / Recommendations Placeholder --}}
+                <!-- BMI Result and Recommendations -->
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 flex flex-col justify-center items-center text-center">
                     <div class="bg-gray-100 p-4 rounded-full mb-4">
                         <svg class="w-12 h-12 text-[#7FA82E]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>

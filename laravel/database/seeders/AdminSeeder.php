@@ -6,6 +6,11 @@ use Illuminate\Database\Seeder;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
+
+/**
+ * Seeder to create default admin users.
+ * In this seeder we create the admin users.
+ */
 class AdminSeeder extends Seeder
 {
     public function run(): void

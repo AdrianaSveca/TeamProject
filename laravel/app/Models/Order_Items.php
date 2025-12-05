@@ -4,6 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * This model represents the Order_Items table.
+ * This model fetches order items associated with orders and products.
+ */
 class Order_Items extends Model
 {
     protected $table = 'Order_Items';
@@ -25,4 +29,9 @@ class Order_Items extends Model
         'order_item_price'    => 'decimal:2',
         'order_item_status'   => 'string'
     ];
+
+    public function product()
+    {
+        return $this->belongsTo(Products::class, 'product_id', 'product_id');
+    }
 }

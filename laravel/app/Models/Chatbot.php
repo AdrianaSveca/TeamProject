@@ -4,6 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Chatbot table.
+ */
 class Chatbot extends Model
 {
     protected $table = 'Chatbot';

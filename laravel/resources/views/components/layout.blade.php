@@ -6,32 +6,23 @@
     <title>WELLTH</title>
     <script src ="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/css/app.css', 'resources/js/app.js']) <!-- Vite for Laravel -->
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.jpeg') }}?">
 </head>
-    <!-- Include this script tag or install `@tailwindplus/elements` via npm: -->
-<!-- <script src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1" type="module"></script> -->
-<!--
-  This example requires updating your template:
-
-  ```
-  <html class="h-full bg-gray-900">
-  <body class="h-full">
-  ```
--->
-<body class="h-full">
+    <!-- Layout Blade View-->
+<body class="h-full overflow-x-hidden"> <!-- With the overflow-x-hidden we prevent horizontal overflow -->
     <div class="min-h-full">
-        
+        <!-- Navigation Bar -->
         <nav x-data="{ open: false }" class="bg-green-900/95 border-b border-white/10">
             <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div class="flex h-16 items-center">
-                    
+                    <!-- Logo (with link to homepage)  -->
                     <div class="flex items-center">
                         <div class="shrink-0">
                             <a href="/"><span class="text-2xl font-semibold tracking-widest text-white hover:text-[#7FA82E] transition duration-150 ease-in-out">WELLTH</span></a>
                         </div>
                     </div>
-
+                    <!-- Navigation Links -->
                     <div class="hidden md:block ml-auto">
                         <div class="flex items-center justify-between items-baseline space-x-4">
                             <a href="/shop" class="rounded-md px-3 py-2 font-medium transition duration-150 ease-in-out {{ request()->is('shop') ? 'text-[#7FA82E] font-bold' : 'text-gray-300 hover:bg-white/5 hover:text-[#7FA82E]' }}">Shop</a>
@@ -44,13 +35,13 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
                                 </svg>
                             </a>
-
+                            <!-- Logged in user menu / Authentication Links -->
                             @auth
                                 <a href="{{ url('/dashboard') }}" class="rounded-md px-3 py-2 font-bold transition duration-150 ease-in-out {{ request()->is('dashboard') ? 'bg-[#7FA82E] text-white' : 'text-gray-300 hover:text-[#7FA82E]' }}">Dashboard</a>
-                                @if(Auth::user()->role === 'admin')
+                                @if(Auth::user()->role === 'admin') <!-- Admin Panel Link -->
                                     <a href="{{ route('admin.dashboard') }}" class="ml-4 rounded-md px-3 py-2 font-bold transition duration-150 ease-in-out {{ request()->routeIs('admin.dashboard') ? 'bg-[#2B332A] text-[#7FA82E]' : 'text-gray-300 hover:text-[#7FA82E]' }}">Admin Panel</a>
                                 @endif
-                                
+                                <!-- Dropdown Menu for logged in user -->
                                 <div class="relative ml-3">
                                     <x-dropdown align="right" width="48">
                                         <x-slot name="trigger">
@@ -72,13 +63,13 @@
                                         </x-slot>
                                     </x-dropdown>
                                 </div>
-                            @else
+                            @else <!-- Login and Register Links for guests -->
                                 <a href="{{ route('login') }}" class="text-white hover:text-[#7FA82E] font-bold transition duration-150">Log in</a>
                                 <a href="{{ route('register') }}" class="ml-4 bg-[#7FA82E] text-white px-4 py-2 rounded-md font-bold hover:bg-[#6d9126] transition duration-150">Join Us</a>
                             @endauth
                         </div>
                     </div>
-
+                    <!-- Mobile menu button -->
                     <div class="-mr-2 flex md:hidden">
                         <button @click="open = ! open" type="button" class="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-white/5 hover:text-white focus:outline-none">
                             <span class="sr-only">Open main menu</span>
@@ -94,7 +85,7 @@
                     </div>
                 </div>
             </div>
-
+            <!-- Responsive Mobile Menu -->
             <div :class="{'block': open, 'hidden': ! open}" class="hidden md:hidden">
                 <div class="space-y-1 px-2 pt-2 pb-3 sm:px-3">
                     <a href="/shop" class="block rounded-md px-3 py-2 text-base font-medium transition duration-150 ease-in-out {{ request()->is('shop') ? 'text-[#7FA82E] font-bold' : 'text-gray-300 hover:bg-white/5 hover:text-[#7FA82E]' }}">Shop</a>
@@ -105,6 +96,7 @@
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-2"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" /></svg> Basket
                     </a>
 
+                    <!-- Authentication Links -->
                     @auth
                         <a href="{{ url('/dashboard') }}" class="block rounded-md px-3 py-2 text-base font-medium transition duration-150 ease-in-out {{ request()->is('dashboard') ? 'bg-[#7FA82E] text-white font-bold' : 'text-gray-300 hover:bg-white/5 hover:text-[#7FA82E]' }}">Dashboard</a>
                         @if(Auth::user()->role === 'admin')
@@ -136,14 +128,13 @@
                 @endauth
             </div>
         </nav>
-
         <main>
             <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-                {{ $slot }}
+                {{ $slot }} <!-- Main content will be injected here -->
             </div>
         </main>
     </div>
-
+    <!-- Footer Section -->
     <footer id="join" class="bg-green-900 text-gray-300 mt-20">
         <div class="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between gap-10">
             <div class="space-y-4">

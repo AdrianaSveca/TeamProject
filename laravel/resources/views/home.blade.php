@@ -1,5 +1,8 @@
+<!-- This is the Home page (landing page), showcasing featured products, a quiz, and information about the brand. -->
+
 <x-layout>
     
+    <!-- Hero Section -->
     <div class="relative w-screen left-[calc(-50vw+50%)] -mt-8 h-auto">
         <section class="relative w-full mt-[8px] p-0">
             <div class="relative min-h-[600px] md:h-screen w-full overflow-hidden flex flex-col justify-end">
@@ -14,7 +17,7 @@
 
                 <div class="relative z-10 flex justify-center px-4 pb-6 sm:pb-8 md:pb-10">
                     <div class="text-center max-w-xl mx-auto">
-                        <p class="mb-4 text-sm sm:text-base md:text-lg text-slate-100">
+                        <p class="mb-4 text-sm sm:text-base md:text-lg text-slate-200">
                             Shop premium supplements and fitness essentials designed to help you
                             recover faster and perform better.
                         </p>
@@ -32,8 +35,7 @@
     </div>
 
     <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-14 space-y-16 md:space-y-20">
-
-        
+        <!-- Featured Sections -->
         <section class="grid gap-10 md:grid-cols-2 md:items-center">
             <div class="space-y-4 md:space-y-5">
                 <h2 class="text-2xl md:text-3xl font-semibold text-slate-900">
@@ -48,36 +50,33 @@
                         href="/shop"
                         class="inline-flex items-center justify-center rounded-full bg-[#7FA82E] px-5 py-2 text-sm font-medium text-white hover:bg-[#6d9126]"
                     >
-                        Shop
-                    </a>
-                    <a
-                        href="#details"
-                        class="inline-flex items-center justify-center rounded-full border border-slate-300 px-5 py-2 text-sm font-medium text-slate-800 hover:bg-slate-100"
-                    >
-                        Product Details
+                        Shop All
                     </a>
                 </div>
             </div>
 
             <div class="flex justify-center md:justify-end">
-                <img
-                    src="{{ asset('images/product-main.png') }}"
-                    alt="WELLTH main product"
-                    class="w-full max-w-xs sm:max-w-sm md:max-w-md h-auto object-cover rounded-xl shadow-sm"
-                >
+                <a href="{{ route('products.show', 1) }}" class="block transform hover:scale-105 transition duration-300 cursor-pointer">
+                    <img
+                        src="{{ asset('products/Creatine_Monohydrate.png') }}"
+                        alt="WELLTH main product"
+                        class="w-full max-w-xs sm:max-w-sm md:max-w-md h-auto object-cover rounded-xl shadow-sm hover:shadow-md"
+                    >
+                </a>
             </div>
         </section>
-
-        {{-- section quiz--}}
+        <!-- Quiz Promotion Section -->
         <section class="grid gap-10 md:grid-cols-2 md:items-center">
             <div class="flex justify-center md:justify-start order-1 md:order-none">
-                <img
-                    src="{{ asset('images/product-quiz-new.png') }}"
-                    alt="WELLTH quiz product"
-                    class="w-full max-w-xs sm:max-w-sm md:max-w-md h-auto object-cover rounded-xl shadow-sm"
-                >
+                <a href="{{ route('products.show', 4) }}" class="block transform hover:scale-105 transition duration-300 cursor-pointer">
+                    <img
+                        src="{{ asset('products/Pre_Workout_Energy_Blast.png') }}"
+                        alt="WELLTH quiz product"
+                        class="w-full max-w-xs sm:max-w-sm md:max-w-md h-auto object-cover rounded-xl shadow-sm hover:shadow-md"
+                    >
+                </a>
             </div>
-
+            <!-- Quiz Call-to-Action -->
             <div class="space-y-4 md:space-y-5">
                 <h2 class="text-2xl md:text-3xl font-semibold text-slate-900">
                     Find Your Perfect Fit.
@@ -90,94 +89,42 @@
                     href="/quiz"
                     class="inline-flex items-center justify-center rounded-full bg-[#7FA82E] 0 px-5 py-2 text-sm font-medium text-white hover:bg-[#6d9126]"
                 >
-                    Quiz
+                    Take the Quiz
                 </a>
             </div>
         </section>
 
-        <section id="shop" class="space-y-6 md:space-y-8">
-    <h2 class="text-xl md:text-2xl font-semibold text-slate-900">
-    Shop by Your Goals.
-</h2>
-
-<div class="grid gap-10 md:grid-cols-[1.6fr_1fr] items-start">
-
-    
-    <article class="space-y-4">
-        <div class="rounded-2xl overflow-hidden shadow-sm bg-slate-50">
-            <img
-                src="{{ asset('images/goal-main-new.png') }}"
-                alt="WELLTH Protein"
-                class="w-full max-w-[420px] h-auto mx-auto object-contain"
-            >
-        </div>
-
-        <div class="space-y-1">
-            <h3 class="text-sm font-semibold text-slate-900">
-                WELLTH Protein (Chocolate)
-            </h3>
-            <p class="text-xs md:text-sm text-slate-600">
-                Fast-digesting whey blend that supports lean muscle and recovery.
-            </p>
-            <p class="text-sm font-semibold text-slate-900">£8.99</p>
-        </div>
-    </article>
-
-    <article class="rounded-2xl bg-slate-50 overflow-hidden shadow-sm">
-        <img
-            src="{{ asset('images/goal-preworkout-new.png') }}"
-            alt="Enduro Pre-Workout"
-            class="w-full h-auto max-h-[260px] object-contain"
-        >
-
-        <div class="p-4 space-y-1">
-            <h3 class="text-sm font-semibold text-slate-900">Enduro Pre-Workout</h3>
-            <p class="text-xs md:text-sm text-slate-600">
-                A focused boost of clean energy and endurance for intense sessions.
-            </p>
-            <p class="text-sm font-semibold text-slate-900">£20.99</p>
-        </div>
-    </article>
-
-    
-    <article class="space-y-4">
-        <div class="rounded-2xl overflow-hidden shadow-sm bg-slate-50">
-            <img
-                src="{{ asset('images/goal-powercharge-new.png') }}"
-                alt="WELLTH PowerCharge"
-                class="w-full max-w-[420px] h-auto mx-auto object-contain"
-            >
-        </div>
-
-        <div class="space-y-1">
-            <h3 class="text-sm font-semibold text-slate-900">
-                WELLTH PowerCharge
-            </h3>
-            <p class="text-xs md:text-sm text-slate-600">
-                High-intensity formula designed to revive your energy and sharpen your focus.
-            </p>
-            <p class="text-sm font-semibold text-slate-900">£10.00</p>
-        </div>
-    </article>
-
-    <article class="rounded-2xl bg-slate-50 overflow-hidden shadow-sm">
-        <img
-            src="{{ asset('images/goal-hydra-new.png') }}"
-            alt="Hydra+ Electrolyte Mix"
-            class="w-full h-auto max-h-[260px] object-contain"
-        >
-
-        <div class="p-4 space-y-1">
-            <h3 class="text-sm font-semibold text-slate-900">Hydra+ Electrolyte Mix</h3>
-            <p class="text-xs md:text-sm text-slate-600">
-                Refreshing electrolyte formula to fuel workouts and recovery.
-            </p>
-            <p class="text-sm font-semibold text-slate-900">£15.99</p>
-        </div>
-    </article>
-
-</div>
-        {{--  info --}}
+        <!-- Call to Action Section -->
+        <section class="relative isolate overflow-hidden bg-[#2B332A] px-6 py-16 shadow-2xl sm:rounded-3xl sm:px-16 md:pt-24 lg:flex lg:gap-x-20 lg:px-24 lg:pt-0">
+            <div class="mx-auto max-w-md text-center lg:mx-0 lg:flex-auto lg:py-24 lg:text-left">
+                <h2 class="text-3xl font-bold tracking-tight text-white sm:text-4xl">
+                    Unlock Your Full Potential.<br>Join WELLTH Today.
+                </h2>
+                <p class="mt-6 text-lg leading-8 text-gray-300">
+                    Create an account to track your orders, save your quiz results for personalized plans, and get exclusive access to new product drops.
+                </p>
+                <div class="mt-10 flex items-center justify-center lg:justify-start gap-x-6">
+                    <a href="/register" class="rounded-full bg-[#7FA82E] px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-[#6d9126] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
+                        Get Started
+                    </a>
+                    <a href="/about" class="text-sm font-semibold leading-6 text-white hover:text-[#7FA82E] transition">
+                        Learn more <span aria-hidden="true">→</span>
+                    </a>
+                </div>
+            </div>
+            <div class="relative mt-16 h-80 lg:mt-8">
+                <svg viewBox="0 0 1024 1024" class="absolute left-1/2 top-1/2 -z-10 h-[64rem] w-[64rem] -translate-x-1/2 [mask-image:radial-gradient(closest-side,white,transparent)]" aria-hidden="true">
+                    <circle cx="512" cy="512" r="512" fill="url(#gradient)" fill-opacity="0.25" />
+                    <defs>
+                        <radialGradient id="gradient">
+                            <stop stop-color="#7FA82E" />
+                            <stop offset="1" stop-color="#7FA82E" />
+                        </radialGradient>
+                    </defs>
+                </svg>
+            </div>
+        </section>
+        <!-- Information Section -->
         <section id="details" class="space-y-6 md:space-y-8">
             <h2 class="text-xl md:text-2xl font-semibold text-slate-900">
                 Information
@@ -185,12 +132,12 @@
 
             <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-4 text-sm">
                 <div class="space-y-2">
-                    <div class="text-2xl">🌍</div> <!--icons from emojipedia-->
+                    <div class="text-2xl">🌍</div>
                     <h3 class="font-semibold text-slate-900">
                         Worldwide shipping
                     </h3>
                     <p class="text-xs md:text-sm text-slate-600">
-                        Body text for whatever you’d like to say. Add key details, notes, or a short benefit-focused line.
+                        We offer worldwide shipping for free!
                     </p>
                 </div>
 
@@ -200,7 +147,7 @@
                         Scientifically tested.
                     </h3>
                     <p class="text-xs md:text-sm text-slate-600">
-                        Share how your products are formulated, tested, or reviewed so customers can trust what they’re taking.
+                        All relevant products are heavily tested, ensuring quality and reliability for our customers
                     </p>
                 </div>
 
@@ -210,7 +157,7 @@
                         Safety
                     </h3>
                     <p class="text-xs md:text-sm text-slate-600">
-                        Highlight quality standards, certifications, or safety promises that matter to your community.
+                        Your details are stored under GDPR Law, keeping your privacy at the top of our priority
                     </p>
                 </div>
 
@@ -220,13 +167,11 @@
                         Deliver in less than 1 week.
                     </h3>
                     <p class="text-xs md:text-sm text-slate-600">
-                        Reassure your customers with clear delivery expectations and fast, reliable shipping.
+                        We guarantee your delivery withing 1 week of ordering without any extra cost!
                     </p>
                 </div>
             </div>
         </section>
 
     </main>
-</body>
-</html>
 </x-layout>

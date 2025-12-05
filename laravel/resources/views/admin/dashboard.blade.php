@@ -1,3 +1,4 @@
+<!-- This is the admin dashboard view -->
 <x-layout>
     @auth
         <div class="py-12">

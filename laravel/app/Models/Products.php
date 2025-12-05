@@ -4,6 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * This model represents the Products table.
+ * It defines the attributes and relationships associated with a product.
+ */
 class Products extends Model
 {
     protected $table = 'Products';
@@ -23,5 +27,10 @@ class Products extends Model
     public function category()
     {
         return $this->belongsTo(Categories::class, 'category_id', 'category_id');
+    }
+
+     public function bmiResults()
+    {
+        return $this->belongsToMany(BmiResults::class, 'BMI_Result_Products', 'product_id', 'bmi_result_id');
     }
 }
