@@ -1,12 +1,24 @@
 <!-- This is the Shop page, displaying products with filtering options such as search, categories, and price range. -->
 <x-layout>
+    <style> /* Inside this style tag, we define a slide-in animation for the Shop heading. With the -200px (basically the top) we define the animation to move from -50 to 0 on the Y axis. */
+        @keyframes slideInDown {
+            0% {
+                opacity: 0;
+                transform: translateY(-200px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
     <div class="relative w-screen left-[calc(-50vw+50%)] -mt-6 h-auto">
         <div class="relative min-h-[240px] md:min-h-[255px] w-full overflow-hidden flex flex-col justify-end">
             <img src="{{ asset('images/banner2-bg.jpg') }}" alt="WELLTH Shop" class="absolute inset-0 w-full h-full object-cover">
             <div class="absolute inset-0 bg-black/30"></div>
             <div class="relative z-10 flex justify-center items-center px-4 pb-6 h-full">
                 <div class="text-center max-w-xl mx-auto mt-20">
-                    <h1 class="text-4xl font-bold text-white mb-2">Our Shop</h1>
+                    <h1 class="text-5xl font-bold text-white mb-2">Our </h1><h1 class="text-8xl font-bold text-[#1f5b38] mb-2 opacity-0 -translate-y-10 animate-[slideInDown_1s_ease-out_forwards]">Shop</h1> <!-- This heading (Shop) has the animation applied to it -->
                     <p class="text-lg text-white/90">
                         Discover premium supplements to fuel your journey.
                     </p>
@@ -27,7 +39,7 @@
                                 name="search" 
                                 value="{{ request('search') }}"
                                 placeholder="Find a product..." 
-                                class="w-full rounded-lg border-none text-slate-800 placeholder-slate-400  focus:ring-2 focus:ring-white"
+                                class="w-full rounded-lg border-none text-[#7FA82E] placeholder-slate-400  focus:ring-2 focus:ring-white"
                             >
                         </div>
                         <div> <!-- Categories Filter -->
