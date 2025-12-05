@@ -1,6 +1,7 @@
 <!-- This is the main web routes file for the Laravel application, defining all the routes for public pages, user dashboard, admin dashboard, product management, order processing, and quiz functionality. -->
 <?php
 
+use App\Http\Controllers\ContactsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
@@ -20,7 +21,9 @@ Route::get('/shop', function () { return view('shop'); });
 Route::get('/quiz', function () { return view('quiz'); });
 Route::get('/about', function () { return view('about'); });
 Route::get('/joinus', function () { return view('JoinUs'); });
-Route::get('/contact', function () { return view('contact'); });
+Route::get('/contact', [ContactsController::class, 'index'])->name('contact.index');
+Route::post('/contact', [ContactsController::class, 'store'])->name('contact.submit');
+Route::get('/contact/thank-you', [ContactsController::class, 'showThankYou'])->name('contact.thankyou');
 Route::get('/shop', [ProductsController::class, 'index'])->name('shop.index');
 Route::get('/products/{id}', [ProductsController::class, 'show'])->name('products.show');
 
