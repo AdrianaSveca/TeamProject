@@ -1,24 +1,32 @@
 <!-- This is the Shop page, displaying products with filtering options such as search, categories, and price range. -->
 <x-layout>
-    <style> /* Inside this style tag, we define a slide-in animation for the Shop heading. With the -200px (basically the top) we define the animation to move from -50 to 0 on the Y axis. */
+    <style>
+        /* Inside this style tag, we define a slide-in animation for the shop heading. With the -200px(basically the top) we define the animation to move from -50 to 0 on the Y axis. */
         @keyframes slideInDown {
             0% {
                 opacity: 0;
                 transform: translateY(-200px);
             }
+
             100% {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
     </style>
+
     <div class="relative w-screen left-[calc(-50vw+50%)] -mt-6 h-auto">
         <div class="relative min-h-[240px] md:min-h-[255px] w-full overflow-hidden flex flex-col justify-end">
-            <img src="{{ asset('images/banner2-bg.jpg') }}" alt="WELLTH Shop" class="absolute inset-0 w-full h-full object-cover">
+            <img src="{{ asset('images/banner2-bg.jpg') }}" alt="WELLTH Shop"
+                class="absolute inset-0 w-full h-full object-cover">
             <div class="absolute inset-0 bg-black/30"></div>
             <div class="relative z-10 flex justify-center items-center px-4 pb-6 h-full">
                 <div class="text-center max-w-xl mx-auto mt-20">
-                    <h1 class="text-5xl font-bold text-white mb-2">Our </h1><h1 class="text-8xl font-bold text-[#1f5b38] mb-6 opacity-0 -translate-y-10 animate-[slideInDown_1s_ease-out_forwards]">Shop</h1> <!-- This heading (Shop) has the animation applied to it -->
+                    <h1 class="text-5xl font-bold text-white mb-2">Our </h1>
+                    <h1
+                        class="text-8xl font-bold text-[#1f5b38] mb-6 opacity-0 -translate-y-10 animate-[slideInDown_1s_ease-out_forwards]">
+                        Shop
+                    </h1>
                     <p class="text-lg text-white/90">
                         Discover premium supplements to fuel your journey.
                     </p>
@@ -26,6 +34,7 @@
             </div>
         </div>
     </div>
+
     <!-- Main Content -->
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
@@ -34,27 +43,25 @@
                     <form action="{{ route('shop.index') }}" method="GET" class="space-y-8">
                         <div>
                             <h3 class="text-lg font-bold mb-3 border-b border-green/30 pb-2">Search</h3>
-                            <input 
-                                type="text" 
-                                name="search" 
-                                value="{{ request('search') }}"
-                                placeholder="Find a product..." 
-                                class="w-full rounded-lg border-none text-[#7FA82E] placeholder-slate-400  focus:ring-2 focus:ring-white"
-                            >
+                            <input type="text" name="search" value="{{ request('search') }}"
+                                placeholder="Find a product..."
+                                class="w-full rounded-lg border-none text-[#7FA82E] placeholder-slate-400 focus:ring-2 focus:ring-white">
                         </div>
+
+                        
                         <div> <!-- Categories Filter -->
                             <h3 class="text-lg font-bold mb-3 border-b border-white/30 pb-2">Categories</h3>
                             <ul class="space-y-2">
                                 <li>
                                     <button type="submit" name="category" value=""
-                                            class="w-full text-left hover:text-white/80 {{ !request('category') ? 'font-bold underline' : '' }}">
+                                        class="w-full text-left hover:text-white/80 {{ !request('category') ? 'font-bold underline' : '' }}">
                                         All Products
                                     </button>
                                 </li>
-                                @forelse($categories as $category) <!-- Loop through categories -->
+                                @forelse($categories as $category)
                                     <li>
                                         <button type="submit" name="category" value="{{ $category->category_id }}"
-                                                class="w-full text-left hover:text-white/80 {{ request('category') == $category->category_id ? 'font-bold underline' : '' }}">
+                                            class="w-full text-left hover:text-white/80 {{ request('category') == $category->category_id ? 'font-bold underline' : '' }}">
                                             {{ $category->category_name }}
                                         </button>
                                     </li>
@@ -63,26 +70,27 @@
                                 @endforelse
                             </ul>
                         </div>
-                        <div> <!-- Price Range Filter -->
-                            <h3 class="text-lg font-bold mb-3 border-b border-green/30 pb-2 ">Price Range</h3>
+                        <div><!-- Price Range Filter -->
+                            <h3 class="text-lg font-bold mb-3 border-b border-green/30 pb-2">Price Range</h3>
                             <div class="flex justify-between text-xs mb-2">
                                 <span>£0</span>
                                 <span>£200</span>
                             </div>
-                            <input type="range" name="max_price" min="0" max="200" 
-                                   value="{{ request('max_price', 200) }}" 
-                                   class="w-full accent-[#7FA82E] cursor-pointer">
+                            <input type="range" name="max_price" min="0" max="200"
+                                value="{{ request('max_price', 200) }}" class="w-full accent-[#7FA82E] cursor-pointer">
                             <div class="text-right text-[#7FA82E] text-sm font-bold mt-1">
-                                Max: £{{ request('max_price',200) }}
+                                Max: £{{ request('max_price', 200) }}
                             </div>
                         </div>
                         <div class="pt-2"> <!-- Apply Filters Button -->
-                            <button type="submit" class="w-full bg-[#7FA82E] text-[#1f5b38] font-bold py-2 rounded-lg hover:bg-[#1f5b38] hover:text-[#7FA82E] transition-all duration-300">
+                            <button type="submit"
+                                class="w-full bg-[#7FA82E] text-[#1f5b38] font-bold py-2 rounded-lg hover:bg-[#1f5b38] hover:text-[#7FA82E] transition-all duration-300">
                                 Apply Filters
                             </button>
-                            @if(request()->anyFilled(['search','category','max_price']))
+
+                            @if (request()->anyFilled(['search', 'category', 'max_price']))
                                 <a href="{{ route('shop.index') }}"
-                                   class="block text-center text-sm text-white/80 hover:text-white mt-3 underline">
+                                    class="block text-center text-sm text-white/80 hover:text-white mt-3 underline">
                                     Clear All
                                 </a>
                             @endif
@@ -92,63 +100,129 @@
             </aside>
             <div class="md:col-span-3 flex flex-col"> <!-- Products Grid -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    @forelse($products as $product) <!-- Loop through all products -->
-                        <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden hover:shadow-lg flex flex-col">
+
+                    @php
+                        $wishlistIds = auth()->check()
+                            ? auth()->user()->wishlistProducts()->pluck('Products.product_id')->toArray()
+                            : [];
+                    @endphp
+
+                    @forelse($products as $product) <!-- Loop through all the products-->
+                        <div
+                            class="bg-white border border-slate-200 rounded-2xl overflow-hidden hover:shadow-lg flex flex-col">
+
                             <a href="{{ route('products.show', $product->product_id) }}" class="group">
-                                <div class="h-56 flex items-center justify-center overflow-hidden bg-white p-6">
-                                    @if($product->product_image)
-                                        <img src="{{ asset($product->product_image) }}" alt="{{ $product->product_name }}"
-                                             class="w-full h-full object-contain group-hover:scale-105 transition duration-300">
+                                <div
+                                    class="relative h-56 flex items-center justify-center overflow-hidden bg-white p-6">
+
+                                    @auth
+                                        @php $inWishlist = in_array($product->product_id, $wishlistIds); @endphp
+
+                                        @if ($inWishlist)
+                                            <!-- IN WISHLIST -->
+                                            <form method="POST"
+                                                action="{{ route('wishlist.destroy', $product->product_id) }}"
+                                                class="absolute top-3 right-3 z-10">
+                                                @csrf
+                                                @method('DELETE')
+
+                                                <button class="bg-white rounded-full p-2 shadow hover:scale-105 transition"
+                                                    title="Remove from wishlist">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                                        viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                                        class="w-5 h-5 text-red-500">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5
+                                     -1.935 0-3.597 1.126-4.312 2.733
+                                     -.715-1.607-2.377-2.733-4.313-2.733
+                                     C5.1 3.75 3 5.765 3 8.25
+                                     c0 7.22 9 12 9 12s9-4.78 9-12Z" />
+
+                                                    </svg>
+                                                </button>
+                                            </form>
+                                        @else
+                                            <!-- NOT IN WISHLIST -->
+                                            <form method="POST"
+                                                action="{{ route('wishlist.store', $product->product_id) }}"
+                                                class="absolute top-3 right-3 z-10">
+                                                @csrf
+
+                                                <button
+                                                    class="bg-white rounded-full p-2 shadow hover:scale-105 transition group"
+                                                    title="Add to wishlist">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                        viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                                        class="w-5 h-5 text-gray-600 group-hover:text-[#7FA82E] transition">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
+                                                    </svg>
+                                                </button>
+                                            </form>
+                                        @endif
+                                    @endauth
+
+                                    @if ($product->product_image)
+                                        <img src="{{ asset($product->product_image) }}"
+                                            alt="{{ $product->product_name }}"
+                                            class="w-full h-full object-contain group-hover:scale-105 transition duration-300">
                                     @else
                                         <div class="text-slate-400 text-sm">No Image</div>
                                     @endif
                                 </div>
-                                <div class="p-5"> <!-- Product Details -->
-                                    <h3 class="text-lg font-bold text-slate-900 mb-1">{{ $product->product_name }}</h3> <!-- Product name -->
-                                    <p class="text-sm text-slate-500 line-clamp-2">{{ $product->product_description }}</p> <!-- Product description -->
+
+                                <div class="p-5"> <! Product Details-->
+                                    <h3 class="text-lg font-bold text-slate-900 mb-1">{{ $product->product_name }}</h3>
+                                    <p class="text-sm text-slate-500 line-clamp-2">{{ $product->product_description }}
+                                    </p>
                                 </div>
                             </a>
 
                             <div class="flex items-center justify-between p-5 pt-2 border-t border-slate-200 mt-auto">
-                                <span class="text-xl font-bold text-[#7FA82E]">£{{ number_format($product->product_price,2) }}</span>
+                                <span class="text-xl font-bold text-[#7FA82E]">
+                                    £{{ number_format($product->product_price, 2) }}
+                                </span>
 
-                                @if($product->product_stock_level > 0) <!-- Add to basket button, this if statement checks stock level -->
+                                @if ($product->product_stock_level > 0)
                                     <form action="{{ route('basket.add') }}" method="POST">
                                         @csrf
                                         <input type="hidden" name="product_id" value="{{ $product->product_id }}">
                                         <input type="hidden" name="quantity" value="1">
                                         <button type="submit"
-                                                class="bg-[#2B332A] text-white p-2 rounded-full hover:bg-black transition"
-                                                title="Add to Basket">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                 stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/>
+                                            class="bg-[#2B332A] text-white p-2 rounded-full hover:bg-black transition"
+                                            title="Add to Basket">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                                class="w-5 h-5">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M12 4.5v15m7.5-7.5h-15" />
                                             </svg>
                                         </button>
                                     </form>
-                                @else <!-- Out of stock -->
-                                    <button disabled class="bg-gray-300 text-gray-500 p-2 rounded-full cursor-not-allowed">
+                                @else
+                                    <button disabled
+                                        class="bg-gray-300 text-gray-500 p-2 rounded-full cursor-not-allowed">
                                         Out of Stock
                                     </button>
                                 @endif
                             </div>
                         </div>
                     @empty
-                        <div class="col-span-full text-center py-20 bg-slate-50 rounded-2xl"> <!-- No products found message -->
+                        <div class="col-span-full text-center py-20 bg-slate-50 rounded-2xl">
                             No products found.
                         </div>
                     @endforelse
                 </div>
                 <div class="mt-4 flex justify-between items-center"> <!-- Pagination Controls -->
                     <div class="text-sm text-slate-600">
-                        Showing {{ $products->firstItem() }} - {{ $products->lastItem() }} of {{ $products->total() }}
+                        Showing {{ $products->firstItem() }} - {{ $products->lastItem() }} of
+                        {{ $products->total() }}
                     </div>
-
                     <div>
-                        {{ $products->links() }} 
+                        {{ $products->links() }}
                     </div>
                 </div>
             </div>
+
         </div>
     </main>
 </x-layout>
