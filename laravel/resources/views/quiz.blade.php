@@ -65,6 +65,7 @@
                     <label class="block text-lg font-bold text-gray-900 dark:text-white mb-2">2. Gender</label>
                     <div class="relative">
                         <select name="gender" class="block w-full rounded-xl border-gray-300 dark:border-[#2a4535] bg-white dark:bg-[#121e16] text-gray-900 dark:text-white shadow-sm focus:border-[#7FA82E] focus:ring focus:ring-[#7FA82E] focus:ring-opacity-50 py-3 px-4 appearance-none transition-colors">
+                            <option value="" disabled selected>Select your gender</option>
                             <option value="Male">Male</option>
                             <option value="Female">Female</option>
                             <option value="Other">Other</option>
