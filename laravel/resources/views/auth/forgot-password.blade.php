@@ -9,7 +9,7 @@
         <!-- Password Reset Form Container -->
         <div class="flex flex-col justify-self-center items-center bg-[#1f5b38] p-[10%] w-full max-w-[450px] shadow-[10px_10px_0_#2d322c] md:p-[8%] md:w-auto md:max-w-lg rounded-lg">
             
-            <h1 class="text-3xl mb-6 text-[#7FA82E] font-bold tracking-wider text-center">RESET PASSWORD</h1>
+            <h1 class="text-2xl text-white font-bold mb-6">Reset Password</h1>
 
             <div class="mb-6 text-sm text-gray-200 text-center leading-relaxed">
                 {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
