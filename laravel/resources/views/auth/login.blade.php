@@ -8,7 +8,7 @@
             <img class="w-full h-full object-contain max-w-[200px] md: max-w-full" src="{{ asset('favicon.jpeg ') }}" alt="Website Logo">
         </div>
         <div class="flex flex-col justify-self-center items-center bg-[#1f5b38] p-[10%] w-full max-w-[450px] shadow-[10px_10px_0_#2d322c] md:p-[15%] md:w-auto md:max-w-none">
-            <h1 class="text-4xl mb-4 p-3 text-[#7FA82E] font-semibold justify-self-center">LOG IN</h1>
+            <h1 class="text-4xl mb-4 p-3 text-[#7FA82E] font-semibold justify-self-center">Login</h1>
 
             <form method="POST" action="{{ route('login') }}">
                 @csrf
