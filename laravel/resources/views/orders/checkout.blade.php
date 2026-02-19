@@ -1,146 +1,58 @@
-<!-- This is the checkout page where users can review their basket items, see the total amount, and place their order. 
-    If any items exceed available stock, a warning message is displayed and the "Place Order" button is disabled. 
-    The form collects shipping address and payment details, which are sent to the server for order processing.
--->
 
+<!-- This is the checkout page where users can review their basket items, see the total amount, and place their order. If any items exceed available stock, a warning message is displayed and the "Place Order" button is disabled. -->
 <x-layout>
-    <div class="min-h-screen py-12 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-7xl mx-auto">
-            
-            <div class="mb-10 text-center sm:text-left">
-                <h1 class="text-4xl font-extrabold text-gray-900 dark:text-white">
-                    Secure <span class="text-[#7FA82E]">Checkout</span>
-                </h1>
-                <p class="mt-2 text-gray-600 dark:text-gray-400">Complete the form below to place your order.</p>
-            </div>
+    <div class="max-w-4xl mx-auto py-12">
+        <h1 class="text-3xl font-bold text-[#1f5b38] mb-8">Checkout</h1>
 
-            @if(isset($basket) && $basket->items->count() > 0) <!-- Check if the basket exists and has items -->
-                
-                @php
-                    $hasStockIssues = $basket->items->contains(fn($item) => $item->basket_item_quantity > $item->product->product_stock_level);
-                    $total = $basket->items->sum(fn($i) => $i->basket_item_quantity * $i->basket_item_price);
-                @endphp
+        @if($basket && $basket->items->count() > 0) <!-- Check if basket has items -->
 
-                <form action="{{ route('orders.place') }}" method="POST" class="flex flex-col lg:flex-row gap-8"> <!-- Form to submit order details -->
+            @php
+                $hasStockIssues = $basket->items->contains(fn($item) => $item->basket_item_quantity > $item->product->product_stock_level);
+            @endphp
+
+            <div class="bg-white p-8 rounded-2xl shadow-sm">
+                <h2 class="text-xl font-bold mb-4">Review Your Items</h2> <!-- Basket Items List -->
+
+                <ul class="space-y-4">
+                    @foreach($basket->items as $item) <!-- Loop through basket items -->
+                        <li class="flex justify-between border-b pb-2">
+                            <div>
+                                <span class="font-semibold">{{ $item->product->product_name }}</span> x {{ $item->basket_item_quantity }}
+                            </div>
+                            <div>£{{ number_format($item->basket_item_quantity * $item->basket_item_price, 2) }}</div>
+                        </li>
+                    @endforeach
+                </ul>
+
+                <div class="flex justify-between mt-6 text-lg font-bold">
+                    <span>Total:</span>
+                    <span>£{{ number_format($basket->items->sum(fn($i) => $i->basket_item_quantity * $i->basket_item_price), 2) }}</span> <!-- Total Amount -->
+                </div>
+
+                @if($hasStockIssues)
+                    <p class="mt-4 text-sm text-red-500">
+                        Some items exceed available stock. Please adjust your basket before placing the order.
+                    </p>
+                @endif
+
+                <form action="{{ route('orders.place') }}" method="POST" class="mt-6"> <!-- The Place Order Form -->
                     @csrf
-
-                    <div class="lg:w-2/3 space-y-8">
-                        
-                        <div class="bg-white dark:bg-[#1a2920] rounded-3xl shadow-lg border border-gray-100 dark:border-[#2a4535] p-6 sm:p-8 transition-colors duration-300">
-                            <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
-                                <span class="bg-[#7FA82E] text-white w-8 h-8 rounded-full flex items-center justify-center text-sm">1</span>
-                                Shipping Address
-                            </h2>
-                            
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div class="md:col-span-2">
-                                    <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">Street Address</label>
-                                    <input type="text" name="address" required placeholder="123 Wellness St" 
-                                           class="w-full rounded-xl border-gray-300 dark:border-[#2a4535] bg-gray-50 dark:bg-[#121e16] text-gray-900 dark:text-white shadow-sm focus:border-[#7FA82E] focus:ring-[#7FA82E]">
-                                </div>
-                                <div>
-                                    <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">City</label>
-                                    <input type="text" name="city" required placeholder="Birmingham" 
-                                           class="w-full rounded-xl border-gray-300 dark:border-[#2a4535] bg-gray-50 dark:bg-[#121e16] text-gray-900 dark:text-white shadow-sm focus:border-[#7FA82E] focus:ring-[#7FA82E]">
-                                </div>
-                                <div>
-                                    <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">Postcode</label>
-                                    <input type="text" name="zip" required placeholder="B4 7ET" 
-                                           class="w-full rounded-xl border-gray-300 dark:border-[#2a4535] bg-gray-50 dark:bg-[#121e16] text-gray-900 dark:text-white shadow-sm focus:border-[#7FA82E] focus:ring-[#7FA82E]">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="bg-white dark:bg-[#1a2920] rounded-3xl shadow-lg border border-gray-100 dark:border-[#2a4535] p-6 sm:p-8 transition-colors duration-300"> <!-- Payment Details Section -->
-                            <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
-                                <span class="bg-[#7FA82E] text-white w-8 h-8 rounded-full flex items-center justify-center text-sm">2</span>
-                                Payment Details
-                            </h2>
-
-                            <div class="space-y-4">
-                                <div>
-                                    <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">Card Number</label>
-                                    <div class="relative">
-                                        <input type="text" name="card_number" required placeholder="0000 0000 0000 0000" maxlength="19"
-                                               class="w-full pl-12 rounded-xl border-gray-300 dark:border-[#2a4535] bg-gray-50 dark:bg-[#121e16] text-gray-900 dark:text-white shadow-sm focus:border-[#7FA82E] focus:ring-[#7FA82E]">
-                                        <div class="absolute left-4 top-3 text-gray-400">
-                                            <i class="fa fa-credit-card"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="grid grid-cols-2 gap-6">
-                                    <div>
-                                        <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">Expiry Date</label>
-                                        <input type="text" name="expiry" required placeholder="MM/YY" maxlength="5"
-                                               class="w-full rounded-xl border-gray-300 dark:border-[#2a4535] bg-gray-50 dark:bg-[#121e16] text-gray-900 dark:text-white shadow-sm focus:border-[#7FA82E] focus:ring-[#7FA82E]">
-                                    </div>
-                                    <div>
-                                        <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">CVC</label>
-                                        <input type="text" name="cvc" required placeholder="123" maxlength="3"
-                                               class="w-full rounded-xl border-gray-300 dark:border-[#2a4535] bg-gray-50 dark:bg-[#121e16] text-gray-900 dark:text-white shadow-sm focus:border-[#7FA82E] focus:ring-[#7FA82E]">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="lg:w-1/3"> <!-- Order Summary and Place Order Button -->
-                        <div class="bg-white dark:bg-[#1a2920] rounded-3xl shadow-xl border border-gray-100 dark:border-[#2a4535] p-8 sticky top-8 transition-colors duration-300">
-                            <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Order Summary</h2>
-
-                            <div class="max-h-60 overflow-y-auto mb-6 pr-2 space-y-4 custom-scrollbar">
-                                @foreach($basket->items as $item)
-                                    <div class="flex justify-between items-start text-sm">
-                                        <div class="text-gray-600 dark:text-gray-300">
-                                            <span class="font-bold text-gray-900 dark:text-white">{{ $item->basket_item_quantity }}x</span> {{ $item->product->product_name }} <!-- This shows the quantity and product name for each item in the basket -->
-                                        </div>
-                                        <div class="font-bold text-[#7FA82E]">
-                                            £{{ number_format($item->basket_item_quantity * $item->basket_item_price, 2) }} <!-- Total price for this item --> 
-                                        </div>
-                                    </div>
-                                @endforeach
-                            </div>
-
-                            <div class="border-t border-gray-100 dark:border-[#2a4535] pt-4 space-y-2 mb-6"> <!-- This section shows the subtotal, shipping cost, and total amount for the order -->
-                                <div class="flex justify-between text-gray-600 dark:text-gray-400">
-                                    <span>Subtotal</span>
-                                    <span>£{{ number_format($total, 2) }}</span>
-                                </div>
-                                <div class="flex justify-between text-gray-600 dark:text-gray-400">
-                                    <span>Shipping</span>
-                                    <span class="text-[#7FA82E] font-medium">Free</span>
-                                </div>
-                                <div class="flex justify-between items-center text-xl font-bold text-gray-900 dark:text-white pt-2">
-                                    <span>Total</span>
-                                    <span class="text-[#7FA82E]">£{{ number_format($total, 2) }}</span>
-                                </div>
-                            </div>
-
-                            @if($hasStockIssues)
-                                <div class="mb-4 p-3 bg-red-50 dark:bg-red-900/20 border border-red-100 dark:border-red-800 rounded-lg text-sm text-red-600 dark:text-red-300 text-center">
-                                    Items out of stock. Please adjust basket.
-                                </div>
-                            @endif
-
-                            <button type="submit" 
-                                    class="w-full bg-[#7FA82E] hover:bg-[#6d9126] text-white font-extrabold py-4 rounded-full shadow-lg hover:shadow-[#7FA82E]/40 hover:-translate-y-1 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
-                                    {{ $hasStockIssues ? 'disabled' : '' }}>
-                                Pay & Place Order
-                            </button>
-
-                            <div class="mt-4 text-center">
-                                <a href="{{ route('basket.index') }}" class="text-sm text-gray-500 hover:text-[#7FA82E] underline">Modify Basket</a>
-                            </div>
-                        </div>
-                    </div>
+                    <button type="submit" 
+                            class="w-full bg-[#1f5b38] text-white font-bold py-4 rounded-xl hover:bg-[#7FA82E] hover:text-[#1f5b38] transition"
+                            {{ $hasStockIssues ? 'disabled' : '' }}>
+                        Place Order
+                    </button>
                 </form>
 
-            @else <!-- If the basket is empty, show a message and a link to return to the shop -->
-                <div class="text-center py-20">
-                    <p class="text-gray-500 dark:text-gray-400 text-lg">Your basket is empty.</p>
-                    <a href="{{ route('shop.index') }}" class="text-[#7FA82E] font-bold hover:underline mt-2 inline-block">Return to Shop</a>
+                <div class="mt-4 text-center">
+                    <a href="{{ route('basket.index') }}" class="text-sm text-gray-500 hover:text-[#1f5b38] underline">
+                        Back to Basket
+                    </a>
                 </div>
-            @endif
-        </div>
+            </div>
+
+        @else <!-- If basket is empty... -->
+            <p>Your basket is empty.</p>
+        @endif
     </div>
 </x-layout>
