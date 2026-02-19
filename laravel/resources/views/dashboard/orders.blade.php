@@ -1,3 +1,4 @@
+<!-- Not using this file. Actual order history page is order-history.blade.php -->
 <!-- This is the order history page within the user's dashboard. It displays a list of past orders with details such as order ID, date delivered, total amount, status, and actions like viewing the invoice or returning items. If no past orders are found, it shows an empty state with a prompt to browse products. -->
 <x-layout>
     <div class="py-12">
