@@ -19,7 +19,7 @@
 
             <form action="{{ route('quiz.submit') }}" method="POST" class="mt-8 space-y-8 relative z-10">
                 @csrf
-                <!-- Goals of the user -->
+                <!-- Goals of the user --> 
                 <div>
                     <label class="block text-xl font-bold text-gray-900 dark:text-white mb-4">
                         1. What is your main goal?
