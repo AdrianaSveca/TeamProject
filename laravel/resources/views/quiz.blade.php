@@ -13,7 +13,7 @@
                     Find Your Perfect <span class="text-[#7FA82E]">Match</span>
                 </h1>
                 <p class="text-lg text-gray-600 dark:text-gray-300 max-w-xl mx-auto">
-                    Answer 5 quick questions and our algorithm will build the perfect supplement stack for your body type and goals.
+                    Answer a few quick questions to get personalised recommendations.
                 </p>
             </div>
 
