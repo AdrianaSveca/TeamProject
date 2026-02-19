@@ -1,3 +1,5 @@
+<!-- This is the Quiz page where users can answer questions to receive personalized product recommendations. -->
+
 <x-layout>
     <div class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         
@@ -15,183 +17,96 @@
                 </p>
             </div>
 
-                <form action="{{ route('quiz.submit') }}" method="POST" class="space-y-8">
-                    @csrf
-
-                    <!-- 1. Goal -->
-                    <div>
-                        <label class="block text-lg font-bold text-gray-900 mb-4">
-                            1. What is your main goal?
+            <form action="{{ route('quiz.submit') }}" method="POST" class="mt-8 space-y-8 relative z-10">
+                @csrf
+                <!-- Goals of the user -->
+                <div>
+                    <label class="block text-xl font-bold text-gray-900 dark:text-white mb-4">
+                        1. What is your main goal?
+                    </label>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        
+                        <label class="relative cursor-pointer group">
+                            <input type="radio" name="goal" value="muscle" class="peer sr-only" required>
+                            <div class="p-6 rounded-2xl border-2 border-gray-200 dark:border-[#2a4535] bg-gray-50 dark:bg-[#121e16] hover:border-[#7FA82E] dark:hover:border-[#7FA82E] peer-checked:border-[#7FA82E] peer-checked:bg-[#7FA82E]/10 peer-checked:dark:bg-[#7FA82E]/20 transition-all duration-200 h-full flex flex-col items-center justify-center text-center">
+                                <span class="text-4xl mb-3 transform group-hover:scale-110 transition-transform duration-200">💪</span>
+                                <span class="font-bold text-gray-800 dark:text-gray-200 peer-checked:text-[#7FA82E]">Build Muscle</span>
+                            </div>
+                            <div class="absolute top-3 right-3 opacity-0 peer-checked:opacity-100 text-[#7FA82E] transition-opacity">
+                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                            </div>
                         </label>
 
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-stretch">
-
-                            <!-- Build Muscle -->
-                            <label class="relative cursor-pointer">
-                                <input type="radio" name="goal" value="muscle" class="peer sr-only" required>
-                                <div class="h-32 flex flex-col justify-center items-center p-4 rounded-lg border-2 border-gray-200 hover:border-[#7FA82E] peer-checked:border-[#7FA82E] peer-checked:bg-green-50 transition text-center">
-                                    <span class="text-2xl">💪</span>
-                                    <div class="font-bold text-gray-800 mt-2">
-                                        Build Muscle
-                                    </div>
-                                </div>
-                            </label>
-
-                            <!-- Lose Weight -->
-                            <label class="relative cursor-pointer">
-                                <input type="radio" name="goal" value="weight_loss" class="peer sr-only">
-                                <div class="h-32 flex flex-col justify-center items-center p-4 rounded-lg border-2 border-gray-200 hover:border-[#7FA82E] peer-checked:border-[#7FA82E] peer-checked:bg-green-50 transition text-center">
-                                    <span class="text-2xl">🏃</span>
-                                    <div class="font-bold text-gray-800 mt-2">
-                                        Lose Weight
-                                    </div>
-                                </div>
-                            </label>
-
-                            <!-- General Health / Body Recomp -->
-                            <label class="relative cursor-pointer">
-                                <input type="radio" name="goal" value="general_health" class="peer sr-only">
-                                <div class="h-32 flex flex-col justify-center items-center p-4 rounded-lg border-2 border-gray-200 hover:border-[#7FA82E] peer-checked:border-[#7FA82E] peer-checked:bg-green-50 transition text-center">
-                                    <span class="text-2xl">❤️</span>
-                                    <div class="font-bold text-gray-800 mt-2 leading-tight">
-                                        General Health/<br>
-                                        Body Recomp
-                                    </div>
-                                </div>
-                            </label>
-
-                        </div>
+                        <label class="relative cursor-pointer group">
+                            <input type="radio" name="goal" value="weight_loss" class="peer sr-only">
+                            <div class="p-6 rounded-2xl border-2 border-gray-200 dark:border-[#2a4535] bg-gray-50 dark:bg-[#121e16] hover:border-[#7FA82E] dark:hover:border-[#7FA82E] peer-checked:border-[#7FA82E] peer-checked:bg-[#7FA82E]/10 peer-checked:dark:bg-[#7FA82E]/20 transition-all duration-200 h-full flex flex-col items-center justify-center text-center">
+                                <span class="text-4xl mb-3 transform group-hover:scale-110 transition-transform duration-200">🏃</span>
+                                <span class="font-bold text-gray-800 dark:text-gray-200 peer-checked:text-[#7FA82E]">Lose Weight</span>
+                            </div>
+                            <div class="absolute top-3 right-3 opacity-0 peer-checked:opacity-100 text-[#7FA82E] transition-opacity">
+                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                            </div>
+                        </label>
+  
+                        <label class="relative cursor-pointer group">
+                            <input type="radio" name="goal" value="general_health" class="peer sr-only">
+                            <div class="p-6 rounded-2xl border-2 border-gray-200 dark:border-[#2a4535] bg-gray-50 dark:bg-[#121e16] hover:border-[#7FA82E] dark:hover:border-[#7FA82E] peer-checked:border-[#7FA82E] peer-checked:bg-[#7FA82E]/10 peer-checked:dark:bg-[#7FA82E]/20 transition-all duration-200 h-full flex flex-col items-center justify-center text-center">
+                                <span class="text-4xl mb-3 transform group-hover:scale-110 transition-transform duration-200">❤️</span>
+                                <span class="font-bold text-gray-800 dark:text-gray-200 peer-checked:text-[#7FA82E]">General Health</span>
+                            </div>
+                            <div class="absolute top-3 right-3 opacity-0 peer-checked:opacity-100 text-[#7FA82E] transition-opacity">
+                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                            </div>
+                        </label>
                     </div>
-
-                    @php
-                        $fieldClass = "w-full h-12 px-4 text-sm rounded-md border border-gray-300 shadow-sm focus:border-[#7FA82E] focus:ring-[#7FA82E] focus:ring-1 transition";
-                    @endphp
-
-                    <!-- 2. Gender -->
-                    <div>
-                        <label class="block text-lg font-bold text-gray-900 mb-2">
-                            2. Gender
-                        </label>
-
-                        <select name="gender" required class="{{ $fieldClass }} text-gray-500">
-                            <option value="" disabled selected hidden>
-                                Select your gender
-                            </option>
+                </div>
+                <!-- Gender -->
+                <div>
+                    <label class="block text-lg font-bold text-gray-900 dark:text-white mb-2">2. Gender</label>
+                    <div class="relative">
+                        <select name="gender" class="block w-full rounded-xl border-gray-300 dark:border-[#2a4535] bg-white dark:bg-[#121e16] text-gray-900 dark:text-white shadow-sm focus:border-[#7FA82E] focus:ring focus:ring-[#7FA82E] focus:ring-opacity-50 py-3 px-4 appearance-none transition-colors">
+                            <option value="" disabled selected>Select your gender</option>
                             <option value="Male">Male</option>
                             <option value="Female">Female</option>
                             <option value="Other">Other</option>
                         </select>
-                    </div>
-
-                    <!-- 3. Age -->
-                    <div>
-                        <label class="block text-lg font-bold text-gray-900 mb-2">
-                            3. Age
-                        </label>
-                        <input type="number"
-                               name="age"
-                               min="16"
-                               max="100"
-                               required
-                               placeholder="e.g., 25"
-                               class="{{ $fieldClass }}">
-                    </div>
-
-                    <!-- Height & Weight -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-
-                        <div>
-                            <label class="block text-lg font-bold text-gray-900 mb-2">
-                                4. Height (cm)
-                            </label>
-                            <input type="number"
-                                   name="height"
-                                   min="100"
-                                   max="250"
-                                   required
-                                   placeholder="e.g., 175"
-                                   class="{{ $fieldClass }}">
+                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-500">
+                            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                         </div>
-
-                        <div>
-                            <label class="block text-lg font-bold text-gray-900 mb-2">
-                                5. Weight (kg)
-                            </label>
-                            <input type="number"
-                                   name="weight"
-                                   min="30"
-                                   max="300"
-                                   required
-                                   placeholder="e.g., 70"
-                                   class="{{ $fieldClass }}">
-                        </div>
-
                     </div>
-
-                    <!-- 6. Experience -->
+                </div>
+                <!-- Age -->
+                <div>
+                    <label class="block text-lg font-bold text-gray-900 dark:text-white mb-2">3. Age</label>
+                    <input type="number" name="age" min="16" max="100" required placeholder="e.g., 25" 
+                           class="block w-full rounded-xl border-gray-300 dark:border-[#2a4535] bg-white dark:bg-[#121e16] text-gray-900 dark:text-white shadow-sm focus:border-[#7FA82E] focus:ring focus:ring-[#7FA82E] focus:ring-opacity-50 py-3 px-4 placeholder-gray-400 transition-colors">
+                </div>
+                <!--Height -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                        <label class="block text-lg font-bold text-gray-900 mb-2">
-                            6. Experience Level
-                        </label>
-
-                        <select name="experience" required class="{{ $fieldClass }} text-gray-500">
-                            <option value="" disabled selected hidden>
-                                Select your experience level
-                            </option>
-                            <option value="beginner">Beginner</option>
-                            <option value="intermediate">Intermediate</option>
-                            <option value="advanced">Advanced</option>
-                            <option value="expert">Expert</option>
-                        </select>
+                        <label class="block text-lg font-bold text-gray-900 dark:text-white mb-2">4. Height (cm)</label>
+                        <input type="number" name="height" min="100" max="250" required placeholder="e.g., 175" 
+                               class="block w-full rounded-xl border-gray-300 dark:border-[#2a4535] bg-white dark:bg-[#121e16] text-gray-900 dark:text-white shadow-sm focus:border-[#7FA82E] focus:ring focus:ring-[#7FA82E] focus:ring-opacity-50 py-3 px-4 placeholder-gray-400 transition-colors">
                     </div>
-
-                    <!-- 7. Activity -->
+                    <!-- Weight -->
                     <div>
-                        <label class="block text-lg font-bold text-gray-900 mb-2">
-                            7. Activity Level
-                        </label>
-
-                        <select name="activity" required class="{{ $fieldClass }} text-gray-500">
-                            <option value="" disabled selected hidden>
-                                Select your activity level
-                            </option>
-                            <option value="1.2">Sedentary (little/no exercise)</option>
-                            <option value="1.375">Lightly Active (1-3 days)</option>
-                            <option value="1.55">Moderately Active (3-5 days)</option>
-                            <option value="1.725">Very Active (6-7 days)</option>
-                            <option value="1.9">Extremely Active</option>
-                        </select>
+                        <label class="block text-lg font-bold text-gray-900 dark:text-white mb-2">5. Weight (kg)</label>
+                        <input type="number" name="weight" min="30" max="300" required placeholder="e.g., 70" 
+                               class="block w-full rounded-xl border-gray-300 dark:border-[#2a4535] bg-white dark:bg-[#121e16] text-gray-900 dark:text-white shadow-sm focus:border-[#7FA82E] focus:ring focus:ring-[#7FA82E] focus:ring-opacity-50 py-3 px-4 placeholder-gray-400 transition-colors">
                     </div>
+                </div>
+                <!-- Submit button -->
+                <div class="pt-6">
+                    <button type="submit" class="w-full bg-[#7FA82E] hover:bg-[#6d9126] text-white font-extrabold py-4 rounded-full transition-all duration-300 text-lg shadow-lg hover:shadow-[#7FA82E]/40 transform hover:-translate-y-1 flex items-center justify-center gap-2">
+                        Get My Personalized Plan
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg>
+                    </button>
+                    <p class="text-center text-xs text-gray-500 dark:text-gray-400 mt-4">
+                        By continuing, you agree to receive recommendations based on your input.
+                    </p>
+                </div>
 
-                    <!-- 8. Training Days -->
-                    <div>
-                        <label class="block text-lg font-bold text-gray-900 mb-2">
-                            8. Training Days Per Week
-                        </label>
-
-                        <select name="days" required class="{{ $fieldClass }} text-gray-500">
-                            <option value="" disabled selected hidden>
-                                Select training days per week
-                            </option>
-                            <option value="2">2 Days</option>
-                            <option value="3">3 Days</option>
-                            <option value="4">4 Days</option>
-                            <option value="5">5 Days</option>
-                            <option value="6">6 Days</option>
-                        </select>
-                    </div>
-
-                    <!-- Submit -->
-                    <div class="pt-4">
-                        <button type="submit"
-                                class="w-full bg-[#2B332A] text-white font-bold py-4 rounded-lg hover:bg-black transition text-lg shadow-lg">
-                            Get My Plan
-                        </button>
-                    </div>
-
-                </form>
-
-            </div>
+            </form>
         </div>
     </div>
 </x-layout>
