@@ -1,16 +1,19 @@
 <x-layout>
-    <div class="py-12">
-        <div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden hover:shadow-[5px_5px_0_#2d322c] transition-all duration-300 sm:rounded-lg p-8 border-4 border-[#7FA82E]">
-                
-                <div class="text-center mb-10">
-                    <h1 class="text-3xl font-bold text-gray-900 mb-2">
-                        Find Your Perfect Match
-                    </h1>
-                    <p class="text-gray-600">
-                        Answer a few quick questions to get personalized recommendations.
-                    </p>
-                </div>
+    <div class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+        
+        <div class="max-w-3xl w-full space-y-8 bg-white dark:bg-[#1a2920] p-10 rounded-3xl shadow-2xl border border-gray-100 dark:border-[#2a4535] relative overflow-hidden transition-colors duration-300">
+            
+            <div class="absolute -top-10 -right-10 w-40 h-40 bg-[#7FA82E]  rounded-full blur-[80px] opacity-20 pointer-events-none"></div>
+
+            <div class="text-center relative z-10">
+                <h2 class="text-[#7FA82E] font-bold tracking-wide uppercase text-sm mb-2">Personalized Nutrition</h2>
+                <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white mb-4">
+                    Find Your Perfect <span class="text-[#7FA82E]">Match</span>
+                </h1>
+                <p class="text-lg text-gray-600 dark:text-gray-300 max-w-xl mx-auto">
+                    Answer a few quick questions to get personalised recommendations.
+                </p>
+            </div>
 
                 <form action="{{ route('quiz.submit') }}" method="POST" class="space-y-8">
                     @csrf
