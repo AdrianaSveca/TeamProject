@@ -53,7 +53,7 @@ class ProductsController extends Controller
      * Display the details of a specific product.
     */
     public function show($id){
-        $product = Products::findorFail($id); // Find product or fail
+        $product = Products::with('ratings')->findorFail($id); // Find product or fail
 
         return view('products.show', compact('product'));
     }

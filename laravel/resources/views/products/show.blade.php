@@ -116,4 +116,74 @@
             </div>
         </div>
     </div>
+    <!-- Reviews Section -->
+<div class="max-w-7xl mx-auto mt-10">
+    <h2 class="text-2xl font-extrabold text-gray-900 dark:text-white mb-4">Reviews</h2>
+
+    <div class="bg-white dark:bg-[#1a2920] rounded-2xl border border-gray-100 dark:border-[#2a4535] p-6">
+        @if($product->ratings->isEmpty())
+            <p class="text-gray-500 dark:text-gray-400">No reviews yet.</p>
+        @else
+            <div class="space-y-4">
+                @foreach($product->ratings as $r)
+                    <div class="border-b border-gray-100 dark:border-[#2a4535] pb-4 last:border-b-0 last:pb-0">
+                        <div class="flex items-center gap-2">
+                            <div class="text-lg leading-none">
+                                @for($i = 1; $i <= 5; $i++)
+                                    <span>{{ $i <= (int)$r->rating ? '★' : '☆' }}</span>
+                                @endfor
+                            </div>
+
+                            @if($r->created_at)
+                                <span class="text-xs text-gray-400 dark:text-gray-500">
+                                    {{ $r->created_at->format('d M Y') }}
+                                </span>
+                            @endif
+
+                        </div>
+
+                        @if(!empty($r->rating_comment))
+                            <p class="mt-2 text-gray-700 dark:text-gray-300">
+                                {{ $r->rating_comment }}
+                            </p>
+                        @endif
+                    </div>
+                @endforeach
+            </div>
+        @endif
+
+        @auth
+            <div class="mt-6 pt-6 border-t border-gray-100 dark:border-[#2a4535]">
+                <h3 class="font-bold mb-2">Leave a review</h3>
+
+                <form method="POST" action="{{ route('ratings.store', $product->product_id) }}">
+                    @csrf
+
+                    <div class="mb-3">
+                        <label>Rating:</label><br>
+                        <label><input type="radio" name="rating" value="1" required> 1 ★</label>
+                        <label><input type="radio" name="rating" value="2"> 2 ★</label>
+                        <label><input type="radio" name="rating" value="3"> 3 ★</label>
+                        <label><input type="radio" name="rating" value="4"> 4 ★</label>
+                        <label><input type="radio" name="rating" value="5"> 5 ★</label>
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Comment (optional):</label><br>
+                        <textarea name="rating_comment" rows="3" style="width:100%"></textarea>
+                    </div>
+
+                    <button type="submit">Submit Review</button>
+                </form>
+            </div>
+        @endauth
+
+        @guest
+            <p class="mt-6 pt-6 border-t border-gray-100 dark:border-[#2a4535]">
+                Please <a href="{{ route('login') }}">log in</a> to leave a review.
+            </p>
+        @endguest
+    </div>
+</div>
+
 </x-layout>
