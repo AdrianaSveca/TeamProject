@@ -70,10 +70,10 @@
                                 @error('category_id')<p class="mt-1 text-sm text-red-600">{{ $message }}</p>@enderror
                             </div>
 
-                            <div>
+                            <div> <!-- Image upload button, it's optional -->
                                 <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">Image URL (optional)</label>
-                                <input type="text" name="product_image" value="{{ old('product_image') }}"
-                                       placeholder="e.g., images/product.jpg"
+                                <input type="file" name="product_image" value="{{ old('product_image') }}"
+                                       placeholder="e.g., product.jpg"
                                        class="w-full rounded-lg border-gray-300 dark:border-[#2a4535] bg-white dark:bg-[#121e16] text-gray-900 dark:text-white focus:border-[#7FA82E] focus:ring-[#7FA82E]">
                                 @error('product_image')<p class="mt-1 text-sm text-red-600">{{ $message }}</p>@enderror
                             </div>
