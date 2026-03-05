@@ -18,14 +18,15 @@
                 
                 @php
                     $hasStockIssues = $basket->items->contains(fn($item) => $item->basket_item_quantity > $item->product->product_stock_level);
-                    $total = $basket->items->sum(fn($i) => $i->basket_item_quantity * $i->basket_item_price);
+                    $total = $subtotal - $discountAmount;
                 @endphp
 
-                <form action="{{ route('orders.place') }}" method="POST" class="flex flex-col lg:flex-row gap-8"> <!-- Form to submit order details -->
-                    @csrf
+                <div class="flex flex-col lg:flex-row gap-8">
 
-                    <div class="lg:w-2/3 space-y-8">
-                        
+                    <!-- Form for shipping and payment details (placing the order) -->
+                    <form id="checkout-form" action="{{ route('orders.place') }}" method="POST" class="lg:w-2/3 space-y-8">
+                        @csrf
+
                         <div class="bg-white dark:bg-[#1a2920] rounded-3xl shadow-lg border border-gray-100 dark:border-[#2a4535] p-6 sm:p-8 transition-colors duration-300">
                             <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
                                 <span class="bg-[#7FA82E] text-white w-8 h-8 rounded-full flex items-center justify-center text-sm">1</span>
@@ -82,8 +83,9 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </form>
 
+                    <!-- Order Summary, discount code and place order button -->
                     <div class="lg:w-1/3"> <!-- Order Summary and Place Order Button -->
                         <div class="bg-white dark:bg-[#1a2920] rounded-3xl shadow-xl border border-gray-100 dark:border-[#2a4535] p-8 sticky top-8 transition-colors duration-300">
                             <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Order Summary</h2>
@@ -101,11 +103,36 @@
                                 @endforeach
                             </div>
 
-                            <div class="border-t border-gray-100 dark:border-[#2a4535] pt-4 space-y-2 mb-6"> <!-- This section shows the subtotal, shipping cost, and total amount for the order -->
+                            <!-- Discount code -->
+                            @if($appliedDiscount)
+                                <div class="mb-4 p-3 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-xl text-sm text-green-800 dark:text-green-200 flex items-center justify-between flex-wrap gap-2">
+                                    <span>Code <strong>{{ $appliedDiscount->code }}</strong> applied (−£{{ number_format($discountAmount, 2) }})</span>
+                                    <a href="{{ route('checkout.remove-discount') }}" class="text-green-700 dark:text-green-300 hover:underline font-medium">Remove</a>
+                                </div>
+                            @else
+                                <form action="{{ route('checkout.apply-discount') }}" method="POST" class="mb-4 flex gap-2">
+                                    @csrf
+                                    <input type="text" name="discount_code" placeholder="Discount code" maxlength="64" value="{{ old('discount_code') }}"
+                                           class="flex-1 rounded-xl border-gray-300 dark:border-[#2a4535] bg-gray-50 dark:bg-[#121e16] text-gray-900 dark:text-white text-sm focus:border-[#7FA82E] focus:ring-[#7FA82E]">
+                                    <button type="submit" class="rounded-xl bg-gray-200 dark:bg-[#2a4535] text-gray-800 dark:text-gray-200 px-4 py-2 text-sm font-semibold hover:bg-[#7FA82E] hover:text-white dark:hover:bg-[#7FA82E] transition-colors">Apply</button>
+                                </form>
+                                @if(session('discount_error'))
+                                    <p class="mb-4 text-sm text-red-600 dark:text-red-400">{{ session('discount_error') }}</p>
+                                @endif
+                                @if(session('status'))<p class="mb-4 text-sm text-green-600 dark:text-green-400">{{ session('status') }}</p>@endif
+                            @endif
+
+                            <div class="border-t border-gray-100 dark:border-[#2a4535] pt-4 space-y-2 mb-6"> <!-- This section shows the subtotal, shipping cost, discount, and total amount for the order -->
                                 <div class="flex justify-between text-gray-600 dark:text-gray-400">
                                     <span>Subtotal</span>
-                                    <span>£{{ number_format($total, 2) }}</span>
+                                    <span>£{{ number_format($subtotal, 2) }}</span>
                                 </div>
+                                @if($discountAmount > 0)
+                                    <div class="flex justify-between text-green-600 dark:text-green-400">
+                                        <span>Discount</span>
+                                        <span>−£{{ number_format($discountAmount, 2) }}</span>
+                                    </div>
+                                @endif
                                 <div class="flex justify-between text-gray-600 dark:text-gray-400">
                                     <span>Shipping</span>
                                     <span class="text-[#7FA82E] font-medium">Free</span>
@@ -122,7 +149,7 @@
                                 </div>
                             @endif
 
-                            <button type="submit" 
+                            <button type="submit" form="checkout-form"
                                     class="w-full bg-[#7FA82E] hover:bg-[#6d9126] text-white font-extrabold py-4 rounded-full shadow-lg hover:shadow-[#7FA82E]/40 hover:-translate-y-1 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
                                     {{ $hasStockIssues ? 'disabled' : '' }}>
                                 Pay & Place Order
@@ -133,7 +160,7 @@
                             </div>
                         </div>
                     </div>
-                </form>
+                </div>
 
             @else <!-- If the basket is empty, show a message and a link to return to the shop -->
                 <div class="text-center py-20">

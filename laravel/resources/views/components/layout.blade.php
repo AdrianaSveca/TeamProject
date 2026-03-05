@@ -29,8 +29,17 @@
     </script>
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<<<<<<< HEAD
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.jpeg') }}?">
+=======
+    @if(file_exists(public_path('build/manifest.json')))
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @endif
+    @if(file_exists(public_path('favicon.jpeg')))
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.jpeg') }}">
+@endif
+>>>>>>> origin/fat
 </head>
 
 <body class="h-full overflow-x-hidden bg-gray-50 text-gray-900 dark:bg-[#121e16] dark:text-gray-200 transition-colors duration-300">
@@ -71,6 +80,10 @@
                                 <a href="/shop" class="rounded-md px-3 py-2 text-base font-bold transition duration-150 ease-in-out {{ request()->is('shop') ? 'text-[#7FA82E]' : 'text-gray-300 hover:bg-white/5 hover:text-[#7FA82E]' }}">Shop</a>
                                 <a href="/quiz" class="rounded-md px-3 py-2 text-base font-bold transition duration-150 ease-in-out {{ request()->is('quiz') ? 'text-[#7FA82E]' : 'text-gray-300 hover:bg-white/5 hover:text-[#7FA82E]' }}">Quiz</a>
                                 <a href="/contact" class="rounded-md px-3 py-2 text-base font-bold transition duration-150 ease-in-out {{ request()->is('contact') ? 'text-[#7FA82E]' : 'text-gray-300 hover:bg-white/5 hover:text-[#7FA82E]' }}">Contact</a>
+<<<<<<< HEAD
+=======
+                                <a href="{{ route('faq') }}" class="rounded-md px-3 py-2 text-base font-bold transition duration-150 ease-in-out {{ request()->is('faq') ? 'text-[#7FA82E]' : 'text-gray-300 hover:bg-white/5 hover:text-[#7FA82E]' }}">FAQ</a>
+>>>>>>> origin/fat
                                 <a href="/about" class="rounded-md px-3 py-2 text-base font-bold transition duration-150 ease-in-out {{ request()->is('about') ? 'text-[#7FA82E]' : 'text-gray-300 hover:bg-white/5 hover:text-[#7FA82E]' }}">About Us</a>
                             </div>
                         </div>
@@ -149,6 +162,10 @@
                     <a href="/quiz" class="block rounded-md px-3 py-3 text-lg font-bold transition duration-150 ease-in-out {{ request()->is('quiz') ? 'text-[#7FA82E]' : 'text-gray-300 hover:bg-white/5 hover:text-[#7FA82E]' }}">Quiz</a>
                     <a href="/about" class="block rounded-md px-3 py-3 text-lg font-bold transition duration-150 ease-in-out {{ request()->is('about') ? 'text-[#7FA82E]' : 'text-gray-300 hover:bg-white/5 hover:text-[#7FA82E]' }}">About</a>
                     <a href="/contact" class="block rounded-md px-3 py-3 text-lg font-bold transition duration-150 ease-in-out {{ request()->is('contact') ? 'text-[#7FA82E]' : 'text-gray-300 hover:bg-white/5 hover:text-[#7FA82E]' }}">Contact</a>
+<<<<<<< HEAD
+=======
+                    <a href="{{ route('faq') }}" class="block rounded-md px-3 py-3 text-lg font-bold transition duration-150 ease-in-out {{ request()->is('faq') ? 'text-[#7FA82E]' : 'text-gray-300 hover:bg-white/5 hover:text-[#7FA82E]' }}">FAQ</a>
+>>>>>>> origin/fat
                     
                     <div class="border-t border-white/10 my-2"></div>
 
@@ -215,6 +232,8 @@
                     <div class="space-y-2">
                         <h4 class="text-white font-semibold">Support</h4>
                         <a href="/contact" class="block hover:text-white">Contact Us</a>
+                        <a href="{{ route('faq') }}" class="block hover:text-white">FAQ</a>
+                        <a href="{{ route('track-order.form') }}" class="block hover:text-white">Track Order</a>
                     </div>
                 </div>
             </div>

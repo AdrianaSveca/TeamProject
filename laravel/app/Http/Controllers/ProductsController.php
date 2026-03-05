@@ -52,9 +52,10 @@ class ProductsController extends Controller
     /** 
      * Display the details of a specific product.
     */
-    public function show($id){
+    public function show(Request $request, $id){
         $product = Products::findorFail($id); // Find product or fail
+        $fromAdmin = $request->has('admin') || $request->header('referer') && str_contains($request->header('referer'), '/admin/products');
 
-        return view('products.show', compact('product'));
+        return view('products.show', compact('product', 'fromAdmin'));
     }
 }

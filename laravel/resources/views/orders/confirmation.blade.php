@@ -48,11 +48,22 @@
                     @endforeach
                 </div>
 
-                <div class="mt-6 pt-4 border-t border-gray-200 dark:border-[#2a4535] flex justify-between items-center">
-                    <span class="text-lg font-bold text-gray-900 dark:text-white">Total Amount</span>
-                    <span class="text-2xl font-extrabold text-[#7FA82E]">
-                        £{{ number_format($order->items->sum(fn($i) => $i->order_item_quantity * $i->order_item_price), 2) }} <!-- Total amount for the entire order -->
-                    </span>
+                @php $orderSubtotal = $order->items->sum(fn($i) => $i->order_item_quantity * $i->order_item_price); @endphp
+                <div class="mt-6 pt-4 border-t border-gray-200 dark:border-[#2a4535] space-y-2">
+                    @if(isset($order->order_discount) && $order->order_discount > 0)
+                        <div class="flex justify-between text-gray-600 dark:text-gray-400">
+                            <span>Subtotal</span>
+                            <span>£{{ number_format($orderSubtotal, 2) }}</span>
+                        </div>
+                        <div class="flex justify-between text-green-600 dark:text-green-400">
+                            <span>Discount</span>
+                            <span>−£{{ number_format($order->order_discount, 2) }}</span>
+                        </div>
+                    @endif
+                    <div class="flex justify-between items-center pt-2">
+                        <span class="text-lg font-bold text-gray-900 dark:text-white">Total Amount</span>
+                        <span class="text-2xl font-extrabold text-[#7FA82E]">£{{ number_format($order->order_total, 2) }}</span>
+                    </div>
                 </div>
             </div>
             <!-- Buttons to continue shopping or go to the dashboard -->

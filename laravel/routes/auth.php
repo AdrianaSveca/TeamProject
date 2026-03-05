@@ -1,8 +1,8 @@
-<!-- In this file, we define the authentication routes for the application,
-including registration, login, password reset, email verification, and logout.
-Routes are grouped based on whether the user is a guest or authenticated,
-applying appropriate middleware for security and access control. -->
 <?php
+// In this file, we define the authentication routes for the application,
+// including registration, login, password reset, email verification, and logout.
+// Routes are grouped based on whether the user is a guest or authenticated,
+// applying appropriate middleware for security and access control.
 
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\ConfirmablePasswordController;
