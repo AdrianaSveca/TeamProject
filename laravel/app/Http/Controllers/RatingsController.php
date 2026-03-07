@@ -21,7 +21,15 @@ class RatingsController extends Controller
             'rating_comment' => $request->rating_comment,
             'rating_date' => now(),
         ]);
+        return back();
+    }
 
+    public function destroy($id)
+    {
+        $rating = Ratings::find($id);
+        if ($rating->user_id == auth()->id()) {
+            $rating->delete();
+        }
         return back();
     }
 }

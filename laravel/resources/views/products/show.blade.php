@@ -129,11 +129,12 @@
                     <div class="border-b border-gray-100 dark:border-[#2a4535] pb-4 last:border-b-0 last:pb-0">
                         <div class="flex items-center gap-2">
                             <div class="text-lg leading-none">
+                                <!-- Display filled stars for the rating value and empty stars for the rest up to 5. -->
                                 @for($i = 1; $i <= 5; $i++)
                                     <span>{{ $i <= (int)$r->rating ? '★' : '☆' }}</span>
                                 @endfor
                             </div>
-
+                            <!-- Show the reviewer's name and the date of the review. -->
                             @if($r->created_at)
                                 <span class="text-xs text-gray-400 dark:text-gray-500">
                                     {{ $r->created_at->format('d M Y') }}
@@ -141,12 +142,25 @@
                             @endif
 
                         </div>
-
+                        <!-- If the reviewer left a comment, display it below the stars. -->
                         @if(!empty($r->rating_comment))
                             <p class="mt-2 text-gray-700 dark:text-gray-300">
                                 {{ $r->rating_comment }}
                             </p>
                         @endif
+
+                    @auth
+                        <!-- If the logged-in user is the author of the review, show a delete button. -->
+                        @if($r->user_id == auth()->id())
+                            <form action="{{ route('ratings.destroy', $r->rating_id) }}" method="POST" class="mt-2">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="text-red-500 hover:text-red-700 text-sm font-bold">
+                                    Delete Review
+                                </button>
+                            </form>
+                        @endif
+                    @endauth
                     </div>
                 @endforeach
             </div>

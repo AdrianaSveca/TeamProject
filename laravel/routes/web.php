@@ -27,9 +27,8 @@ Route::post('/contact', [ContactsController::class, 'store'])->name('contact.sub
 Route::get('/contact/thank-you', [ContactsController::class, 'showThankYou'])->name('contact.thankyou');
 Route::get('/shop', [ProductsController::class, 'index'])->name('shop.index');
 Route::get('/products/{id}', [ProductsController::class, 'show'])->name('products.show');
-Route::post('/products/{id}/ratings', [RatingsController::class, 'store'])
-    ->middleware('auth')
-    ->name('ratings.store');
+Route::post('/products/{id}/ratings', [RatingsController::class, 'store'])->middleware('auth')->name('ratings.store');
+Route::delete('/ratings/{id}', [RatingsController::class, 'destroy'])->name('ratings.destroy')->middleware('auth');
 
 // --- Quiz Routes ---
 Route::get('/quiz', [App\Http\Controllers\QuizController::class, 'index'])->name('quiz.index');
