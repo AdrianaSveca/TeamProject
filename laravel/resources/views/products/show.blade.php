@@ -136,9 +136,12 @@
                             </div>
                             <!-- Show the reviewer's name and the date of the review. -->
                             @if($r->created_at)
-                                <span class="text-xs text-gray-400 dark:text-gray-500">
-                                    {{ $r->created_at->format('d M Y') }}
-                                </span>
+                            <p class="text-sm font-bold text-gray-700 dark:text-gray-300">
+                                {{ $r->user->name }}
+                            </p>
+                            <span class="text-xs text-gray-400 dark:text-gray-500">
+                                {{ $r->created_at->format('d M Y') }}
+                            </span>
                             @endif
 
                         </div>
