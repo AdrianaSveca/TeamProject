@@ -177,6 +177,14 @@
                                 <a href="{{ route('profile.edit') }}" class="block rounded-md px-3 py-2 text-lg font-medium text-gray-300 hover:bg-white/5 hover:text-[#7FA82E]">Profile</a>
                                 
                                 @if(Auth::user()->role === 'admin') <!-- If the user is an admin, show a link to the admin dashboard in the mobile menu as well. -->
+                                    <a href="{{ route('dashboard') }}" 
+                                       class="block rounded-md px-3 py-2 text-lg font-bold transition duration-150 ease-in-out
+                                       {{ request()->routeIs('dashboard') 
+                                            ? 'text-[#7FA82E]' 
+                                            : 'text-gray-300 hover:text-[#7FA82E]' }}">
+                                        Dashboard
+                                    </a>
+                                
                                     <a href="{{ route('admin.dashboard') }}" 
                                        class="block rounded-md px-3 py-2 text-lg font-bold transition duration-150 ease-in-out
                                        {{ request()->routeIs('admin.dashboard') 

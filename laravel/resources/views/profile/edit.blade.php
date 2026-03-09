@@ -54,17 +54,6 @@
                         @include('profile.partials.delete-user-form')
                     </div>
                     
-                    <div class="absolute top-4 right-4 text-red-600/5 dark:text-red-600/10 pointer-events-none">
-                        <svg class="w-32 h-32" fill="currentColor" viewBox="0 0 24 24"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
-                    </div>
-                <div class="p-8 bg-white dark:bg-[#1a2920] shadow-lg rounded-3xl border-l-4 border-red-600 transition-all duration-300 hover:shadow-xl relative overflow-hidden">
-                    <div class="relative z-10 w-full">
-                        <h2 class="text-xl font-bold text-red-600 mb-4 flex items-center gap-2">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
-                        </h2>
-
-                        @include('profile.partials.delete-user-form')
-                    </div>
                 </div>
             </div>
         </div>

@@ -80,6 +80,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::delete('/admin/discount-codes/{id}', [AdminController::class, 'destroyDiscountCode'])->name('admin.discount-codes.destroy');
     
     // Product management routes
+    Route::get('/admin/products/report', [AdminController::class, 'generateInventoryReport'])->name('admin.products.report');
     Route::get('/admin/products', [AdminController::class, 'products'])->name('admin.products');
     Route::get('/admin/products/create', [AdminController::class, 'createProduct'])->name('admin.products.create');
     Route::post('/admin/products', [AdminController::class, 'storeProduct'])->name('admin.products.store');
@@ -92,8 +93,10 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
     // Order management routes
     Route::get('/admin/orders', [AdminController::class, 'orders'])->name('admin.orders');
+    Route::get('/admin/orders/report', [AdminController::class, 'generateReport'])->name('admin.orders.report');
     Route::get('/admin/orders/{id}', [AdminController::class, 'orderDetails'])->name('admin.order-details');
     Route::post('/admin/orders/{id}/status', [AdminController::class, 'updateOrderStatus'])->name('admin.orders.update-status');
+
     
     // User management routes
     Route::get('/admin/users', [AdminController::class, 'users'])->name('admin.users');

@@ -17,9 +17,18 @@
                             <div class="w-16 h-16 rounded-full bg-[#7FA82E]/10 flex items-center justify-center border border-[#7FA82E]/20">
                                 <svg class="w-8 h-8 text-[#7FA82E]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg>
                             </div>
-                            <div>
+                            <div class="flex-1">
                                 <h2 class="text-3xl font-extrabold text-gray-900 dark:text-white">Manage <span class="text-[#7FA82E]">Products</span></h2>
                                 <p class="text-gray-500 dark:text-gray-400 text-sm">View and manage all products in your store.</p>
+                            </div>
+
+                            <div>
+                                <div>
+                                    <a href="{{ route('admin.products.report') }}" class="inline-flex items-center bg-[#7FA82E] hover:bg-[#6d9126] text-white font-bold py-3 px-6 rounded-full shadow-lg hover:shadow-[#7FA82E]/40 hover:-translate-y-0.5 transition-all duration-300">
+                                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                                        Create Report
+                                    </a>
+                                </div>
                             </div>
                         </div>
 

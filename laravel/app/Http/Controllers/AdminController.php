@@ -9,6 +9,11 @@ use App\Models\DiscountCode;
 use App\Models\Orders;
 use App\Models\Products;
 use App\Models\User;
+use App\Models\Order;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
@@ -73,6 +78,20 @@ class AdminController extends Controller
     {
         $codes = DiscountCode::orderBy('created_at', 'desc')->get();
         return view('admin.discount-codes', compact('codes'));
+    }
+
+    public function generateReport(): Response
+    {
+        $orders = Orders::with(['user', 'items.product'])->orderBy('created_at', 'desc')->get();
+        $pdf = Pdf::loadView('admin.pdf-report', compact('orders'));
+        return $pdf->download('WELLTH_orders_report.pdf');
+    }
+
+    public function generateInventoryReport(): Response
+    {
+        $products = Products::with('category')->orderBy('product_name', 'asc')->get();
+        $pdf = Pdf::loadView('admin.pdf-inventory-report', compact('products'));
+        return $pdf->download('WELLTH_Inventory_Report.pdf');
     }
 
     /**
@@ -283,7 +302,7 @@ class AdminController extends Controller
         User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => \Hash::make($request->password),
+            'password' => Hash::make($request->password),
             'role' => $request->role ?? 'customer',
             'dob' => $request->dob ?? null,
             'gender' => $request->gender ?? null,
@@ -329,7 +348,7 @@ class AdminController extends Controller
         ];
 
         if ($request->filled('password')) {
-            $updateData['password'] = \Hash::make($request->password);
+            $updateData['password'] = Hash::make($request->password);
         }
 
         $user->update($updateData);
