@@ -16,6 +16,7 @@ class ProductsController extends Controller
             'product_description' => 'required|string',
             'product_price' => 'required|numeric',
             'category_id' => 'required|exists:Categories,category_id',
+            'product_stock_level' => 'required|int',
             'product_image' => 'nullable|image|max:2048', // Optional image upload
         ]);
 
@@ -29,6 +30,7 @@ class ProductsController extends Controller
         $product->product_description = $request->product_description;
         $product->product_price = $request->product_price;
         $product->category_id = $request->category_id;
+        $product->product_stock_level = $request->product_stock_level;
 
         if ($request->hasFile('product_image')) {
             
