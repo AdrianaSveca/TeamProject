@@ -5,10 +5,17 @@
         <div class="max-w-7xl mx-auto">
 
             <div class="mb-8">
-                <a href="{{ route('shop.index') }}" class="inline-flex items-center text-sm font-bold text-gray-500 hover:text-[#7FA82E] transition-colors">
-                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
-                    Back to Shop
-                </a>
+                @if(isset($fromAdmin) && $fromAdmin || (Auth::check() && Auth::user()->role === 'admin'))
+                    <a href="{{ route('admin.products') }}" class="inline-flex items-center text-sm font-bold text-gray-500 hover:text-[#7FA82E] transition-colors">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                        Back to Admin Products
+                    </a>
+                @else
+                    <a href="{{ route('shop.index') }}" class="inline-flex items-center text-sm font-bold text-gray-500 hover:text-[#7FA82E] transition-colors">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                        Back to Shop
+                    </a>
+                @endif
             </div>
             <!-- Product Details Card -->
             <div class="bg-white dark:bg-[#1a2920] rounded-3xl shadow-2xl border border-gray-100 dark:border-[#2a4535] overflow-hidden transition-colors duration-300">

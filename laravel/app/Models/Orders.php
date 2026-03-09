@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * This model represents the Orders table.
@@ -16,8 +17,8 @@ class Orders extends Model
 
     protected $fillable = [
         'user_id',
-        'admin_id',
         'order_total',
+        'order_discount',
         'order_status',
         'order_address',
         'days_until_delivery',
@@ -26,6 +27,7 @@ class Orders extends Model
 
     protected $casts = [
         'order_total'          => 'decimal:2',
+        'order_discount'        => 'decimal:2',
         'order_status'         => 'string',
         'days_until_delivery'  => 'integer',
         'order_date'           => 'datetime'
@@ -34,5 +36,10 @@ class Orders extends Model
     public function items(): HasMany
     {
         return $this->hasMany(Order_Items::class, 'order_id', 'order_id');
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 }
