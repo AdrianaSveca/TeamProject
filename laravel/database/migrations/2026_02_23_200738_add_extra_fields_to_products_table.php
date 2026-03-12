@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
 {
-    Schema::table('products', function (Blueprint $table) {
+    Schema::table('products_dropbox', function (Blueprint $table) {
         $table->text('information')->nullable();
         $table->text('directions')->nullable();
         $table->text('ingredients')->nullable();
@@ -22,7 +22,7 @@ return new class extends Migration
 
 public function down(): void
 {
-    Schema::table('products', function (Blueprint $table) {
+    Schema::table('products_dropbox', function (Blueprint $table) {
         $table->dropColumn([
             'information',
             'directions',
