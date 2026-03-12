@@ -82,7 +82,7 @@
                     Find Your Perfect Fit.
                 </h2>
                 <p class="text-sm md:text-base text-slate-600 max-w-md">
-                    Answer a few quick questions — we’ll match you with supplements that fit your goals.
+                    Answer a few quick questions — we’ll match you with supplements, training plans and a diet that fit your goals.
                 </p>
 
                 <a

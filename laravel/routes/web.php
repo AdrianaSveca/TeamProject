@@ -14,6 +14,8 @@ use App\Http\Controllers\QuizController;
 use App\Models\Products;
 use App\Models\Categories;
 use App\Http\Controllers\BasketController;
+use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\WishlistController;
 
 // --- Team's Public Pages ---
 Route::get('/', function () { return view('home'); });
@@ -73,7 +75,13 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::post('/reviews', [ReviewController::class, 'store'])->name('reviews.store');
+
 
 
 
 require __DIR__.'/auth.php';
+
+Route::post('/wishlist/add', [WishlistController::class,'add'])->name('wishlist.add');
+Route::post('/wishlist/remove', [WishlistController::class,'remove'])->name('wishlist.remove');
+Route::get('/wishlist', [WishlistController::class,'index'])->name('wishlist.index');

@@ -14,7 +14,7 @@ class Basket_Items extends Model
 {
     protected $table = 'Basket_Items';
 
-    protected $primaryKey = null;
+    protected $primaryKey = 'basket_item_id';
     public $incrementing = false;
     public $timestamps = true;
 
@@ -22,7 +22,8 @@ class Basket_Items extends Model
         'basket_id',
         'product_id',
         'basket_item_quantity',
-        'basket_item_price'
+        'basket_item_price',
+        'flavour',
     ];
 
     protected $casts = [

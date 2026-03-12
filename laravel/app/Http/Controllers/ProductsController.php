@@ -16,45 +16,57 @@ class ProductsController extends Controller
     {
         $query = Products::query();
 
-        if ($request->filled('search')) { // Search by product name or description
+        // Search by product name or description
+        if ($request->filled('search')) {
             $search = $request->input('search');
+
             $query->where(function($q) use ($search) {
                 $q->where('product_name', 'like', "%{$search}%")
                   ->orWhere('product_description', 'like', "%{$search}%");
             });
         }
 
-        if ($request->filled('category')) { // Filter by category
+        // Filter by category
+        if ($request->filled('category')) {
             $query->where('category_id', $request->input('category'));
         }
 
-        if ($request->filled('max_price')) { // Filter by maximum price
+        // Filter by maximum price
+        if ($request->filled('max_price')) {
             $query->where('product_price', '<=', $request->input('max_price'));
         }
 
-        if ($request->has('sort')) { // Sort products
+        // Sorting
+        if ($request->has('sort')) {
+
             if ($request->sort == 'price_low') {
                 $query->orderBy('product_price', 'asc');
+
             } elseif ($request->sort == 'price_high') {
                 $query->orderBy('product_price', 'desc');
+
             } else {
                 $query->orderBy('created_at', 'desc');
             }
         }
 
-        $products = $query->paginate(12); // Page size set to 12
-        
+        $products = $query->paginate(12);
+
         $categories = Categories::all();
 
         return view('shop', compact('products', 'categories'));
     }
 
     /** 
-     * Display the details of a specific product.
+     * Display a specific product with reviews
     */
-    public function show($id){
-        $product = Products::findorFail($id); // Find product or fail
+    public function show($product_id)
+    {
+        $product = Products::with('reviews','variants')
+            ->where('product_id', $product_id)
+            ->firstOrFail();
 
         return view('products.show', compact('product'));
     }
+
 }

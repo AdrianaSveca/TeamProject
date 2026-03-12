@@ -7,6 +7,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 use App\Models\Products;
 use App\Models\BMI;
+use App\Models\UserBmiResult;
 use Illuminate\Support\Facades\Auth;
 
 class QuizController extends Controller
@@ -486,13 +487,16 @@ $recommendations = $query->inRandomOrder()->limit(3)->get();
 
         // Save Result in database 
         if (Auth::check()) {
-            BMI::create([
+            UserBmiResult::create([
                 'user_id' => Auth::id(),
-                'bmi_height' => $request->height,
-                'bmi_weight' => $request->weight,
-                'bmi_result' => $bmiScore,
-                'bmi_feedback' => $bmiResult,
-                'bmi_date' => now(),
+                'bmi' => $bmiScore,
+                'bmi_category' => $bmiResult,
+                'maintenance_calories' => round($maintenance),
+                'goal_calories' => round($goalCalories),
+                'protein' => round($proteinGrams),
+                'fat' => round($fatGrams),
+                'carbs' => round($carbGrams),
+                'training_plan' => $plan,
             ]);
         }
 
@@ -513,45 +517,74 @@ $recommendations = $query->inRandomOrder()->limit(3)->get();
 
     public function showResults(): View|RedirectResponse
     {
-        // Get the latest BMI record for this user
-        $bmiRecord = BMI::where('user_id', Auth::id())->latest('bmi_date')->first();
+
+        $bmiRecord = UserBmiResult::where('user_id', Auth::id())->latest()->first(); 
 
         if (!$bmiRecord) {
             return redirect()->route('quiz.index');
+        } 
+
+        // Get the latest BMI record for this user
+        $result = UserBmiResult::where('user_id', Auth::id())
+            ->latest()
+            ->first();
+
+        if (!$result) {
+            return view('quiz-results', [
+                'bmiScore' => null,
+                'bmiResult' => null,
+                'bmiStatus' => null,
+                'maintenance' => 0,
+                'goalCalories' => 0,
+                'plan' => 'Retake the quiz to generate your calories and training plan.',
+                'recommendations' => collect(),
+                'proteinGrams' => 0,
+                'fatGrams' => 0,
+                'carbGrams' => 0,
+            ]);
         }
 
         // Recommendations based on BMI
-        $query = Products::query()->with('category');
+        $query = Products::query();
 
-        if ($bmiRecord->bmi_feedback == 'Underweight') {
-            $query->whereHas('category', fn($q) => $q->where('category_name', ['Nutrition', 'Fitness Equipment', 'Supplements', 'Fitness Accessories']));
-        } elseif ($bmiRecord->bmi_feedback == 'Overweight' || $bmiRecord->bmi_feedback == 'Obese') {
-            $query->whereHas('category', fn($q) => $q->where('category_name', ['Fitness Equipment', 'Nutrition', 'Supplements', 'Other']));
+        if ($bmiRecord->bmi_category === 'Obese' || $bmiRecord->bmi_category === 'Overweight') {
+
+            $query->where(function($q) {
+                $q->where('product_name', 'like', '%Meal Replacement%')
+                   ->orWhere('product_name', 'like', '%Granola%')
+                   ->orWhere('product_name', 'like', '%Electrolyte%');
+            });
+
+        } elseif ($bmiRecord->bmi_category === 'Underweight') {
+
+            $query->where(function($q) {
+                $q->where('product_name', 'like', '%Whey%')
+                  ->orWhere('product_name', 'like', '%Creatine%')
+                  ->orWhere('product_name', 'like', '%Pre-Workout%');
+            });
+
         } else {
-            $query->whereHas('category', fn($q) => $q->where('category_name', ['Other', 'Supplements', 'Fitness Accessories', 'Nutrition']));
+
+            $query->where(function($q) {
+                $q->where('product_name', 'like', '%Omega%')
+                  ->orWhere('product_name', 'like', '%Vitamin D3%')
+                  ->orWhere('product_name', 'like', '%Vegan Protein%');
+            });
         }
 
-        $recommendations = $query->limit(3)->get();
-
-        // Safe defaults so updated results doesnt crashe
-        $plan = 'Retake the quiz to generate your calories and training plan.<br>';
-        $maintenance = 0;
-        $goalCalories = 0;
-        $proteinGrams = 0;
-        $fatGrams = 0;
-        $carbGrams = 0;
+$recommendations = $query->inRandomOrder()->limit(3)->get();
 
         return view('quiz-results', [
-            'bmiScore' => $bmiRecord->bmi_result,
-            'bmiResult' => $bmiRecord->bmi_feedback,
-            'bmiStatus' => $bmiRecord->bmi_feedback,
-            'maintenance' => $maintenance,
-            'goalCalories' => $goalCalories,
-            'plan' => $plan,
+            'bmiScore' => $result->bmi,
+            'bmiResult' => $result->bmi_category,
+            'bmiStatus' => $result->bmi_category,
+            'maintenance' => $result->maintenance_calories,
+            'goalCalories' => $result->goal_calories,
+            'plan' => $result->training_plan,
             'recommendations' => $recommendations,
-            'proteinGrams' => $proteinGrams,
-            'fatGrams' => $fatGrams,
-            'carbGrams' => $carbGrams,
+            'proteinGrams' => $result->protein,
+            'fatGrams' => $result->fat,
+            'carbGrams' => $result->carbs,
         ]);
     }
 }
