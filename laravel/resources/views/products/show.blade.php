@@ -116,91 +116,163 @@
             </div>
         </div>
     </div>
-    <!-- Reviews Section -->
-<div class="max-w-7xl mx-auto mt-10">
-    <h2 class="text-2xl font-extrabold text-gray-900 dark:text-white mb-4">Reviews</h2>
 
-    <div class="bg-white dark:bg-[#1a2920] rounded-2xl border border-gray-100 dark:border-[#2a4535] p-6">
-        @if($product->ratings->isEmpty())
-            <p class="text-gray-500 dark:text-gray-400">No reviews yet.</p>
-        @else
-            <div class="space-y-4">
-                @foreach($product->ratings as $r)
-                    <div class="border-b border-gray-100 dark:border-[#2a4535] pb-4 last:border-b-0 last:pb-0">
-                        <div class="flex items-center gap-2">
-                            <div class="text-lg leading-none">
-                                <!-- Display filled stars for the rating value and empty stars for the rest up to 5. -->
+    <!-- Reviews Section -->
+<div class="max-w-7xl mx-auto mt-14 px-4 sm:px-6 lg:px-8">
+    <div class="bg-white dark:bg-[#1a2920] rounded-3xl border border-gray-100 dark:border-[#2a4535] shadow-xl overflow-hidden">
+
+        <div class="px-6 md:px-8 py-6 border-b border-gray-100 dark:border-[#2a4535] bg-gradient-to-r from-[#f8faf8] to-white dark:from-[#1f3328] dark:to-[#1a2920]">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                <div>
+                    <h2 class="text-3xl font-extrabold text-gray-900 dark:text-white">Customer Reviews</h2>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                        See what customers think about this product
+                    </p>
+                </div>
+
+                {{-- averge rating Summary --}}
+                <div class="bg-[#7FA82E]/10 dark:bg-[#7FA82E]/20 rounded-2xl px-5 py-4 min-w-[180px] text-center">
+                    <p class="text-sm font-semibold text-gray-600 dark:text-gray-300">Average Rating</p>
+                    <div class="mt-1 text-2xl font-extrabold text-[#7FA82E]">
+                        {{ number_format($product->ratings->avg('rating') ?? 0, 1) }}/5 
+                    </div>
+                    <p class="text-xs text-gray-500 dark:text-gray-400">
+                        {{ $product->ratings->count() }} {{ $product->ratings->count() == 1 ? 'review' : 'reviews' }}
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="p-6 md:p-8">
+            @if($product->ratings->isEmpty())
+                <div class="rounded-2xl border border-dashed border-gray-300 dark:border-[#355442] p-8 text-center bg-gray-50 dark:bg-[#16241c]">
+                    <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">No reviews yet</p>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 mt-2">
+                        Be the first to share your thoughts about this product.
+                    </p>
+                </div>
+            @else
+                <div class="space-y-5">
+                    @foreach($product->ratings as $r)
+                        <div class="rounded-2xl border border-gray-100 dark:border-[#2a4535] bg-[#fafafa] dark:bg-[#16241c] p-5 shadow-sm hover:shadow-md transition duration-300">
+                            <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
+                                <div class="flex items-start gap-4">
+                                    <div class="w-11 h-11 rounded-full bg-[#7FA82E] text-white font-bold flex items-center justify-center text-sm shadow-md">
+                                        {{ strtoupper(substr($r->user->name ?? 'U', 0, 1)) }}
+                                    </div>
+
+                                    <div>
+                                        <div class="flex items-center gap-2 flex-wrap">
+                                            <p class="font-bold text-gray-900 dark:text-white">
+                                                {{ $r->user->name ?? 'User' }}
+                                            </p>
+
+                                            @if($r->created_at)
+                                                <span class="text-xs text-gray-400 dark:text-gray-500">
+                                                    • {{ $r->created_at->format('d M Y') }}
+                                                </span>
+                                            @endif
+                                        </div>
+
+                                        <div class="flex items-center gap-1 mt-1 text-lg text-yellow-400">
+                                            @for($i = 1; $i <= 5; $i++)
+                                                <span>{{ $i <= (int)$r->rating ? '★' : '☆' }}</span>
+                                            @endfor
+                                            <span class="ml-2 text-sm font-semibold text-gray-600 dark:text-gray-300">
+                                                {{ (int)$r->rating }}/5
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                @auth
+                                    @if($r->user_id == auth()->id())
+                                        <form action="{{ route('ratings.destroy', $r->rating_id) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="text-sm font-semibold text-red-500 hover:text-red-700 transition">
+                                                Delete
+                                            </button>
+                                        </form>
+                                    @endif
+                                @endauth
+                            </div>
+
+                            @if(!empty($r->rating_comment))
+                                <p class="mt-4 text-gray-700 dark:text-gray-300 leading-relaxed">
+                                    {{ $r->rating_comment }}
+                                </p>
+                            @else
+                                <p class="mt-4 italic text-sm text-gray-400 dark:text-gray-500">
+                                    No written comment provided.
+                                </p>
+                            @endif
+                        </div>
+                    @endforeach
+                </div>
+            @endif
+
+            @auth
+                <div class="mt-10 pt-8 border-t border-gray-100 dark:border-[#2a4535]">
+                    <div class="mb-5">
+                        <h3 class="text-2xl font-extrabold text-gray-900 dark:text-white">Leave a Review</h3>
+                        <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                            Share your experience with this product.
+                        </p>
+                    </div>
+
+                    <form method="POST" action="{{ route('ratings.store', $product->product_id) }}" class="space-y-6">
+                        @csrf
+
+                        <div>
+                            <label class="block text-sm font-bold text-gray-800 dark:text-gray-200 mb-3">
+                                Your Rating
+                            </label>
+
+                            <div class="flex flex-wrap gap-3">
                                 @for($i = 1; $i <= 5; $i++)
-                                    <span>{{ $i <= (int)$r->rating ? '★' : '☆' }}</span>
+                                    <label class="cursor-pointer">
+                                        <input type="radio" name="rating" value="{{ $i }}" class="sr-only peer" required>
+                                        <span class="px-4 py-2 rounded-full border border-gray-300 dark:border-[#355442] bg-white dark:bg-[#16241c] text-gray-700 dark:text-gray-300 font-semibold peer-checked:bg-[#7FA82E] peer-checked:text-white peer-checked:border-[#7FA82E] hover:border-[#7FA82E] transition">
+                                            {{ $i }} ★
+                                        </span>
+                                    </label>
                                 @endfor
                             </div>
-                            <!-- Show the reviewer's name and the date of the review. -->
-                            @if($r->created_at)
-                            <p class="text-sm font-bold text-gray-700 dark:text-gray-300">
-                                {{ $r->user->name }}
-                            </p>
-                            <span class="text-xs text-gray-400 dark:text-gray-500">
-                                {{ $r->created_at->format('d M Y') }}
-                            </span>
-                            @endif
-
                         </div>
-                        <!-- If the reviewer left a comment, display it below the stars. -->
-                        @if(!empty($r->rating_comment))
-                            <p class="mt-2 text-gray-700 dark:text-gray-300">
-                                {{ $r->rating_comment }}
-                            </p>
-                        @endif
 
-                    @auth
-                        <!-- If the logged-in user is the author of the review, show a delete button. -->
-                        @if($r->user_id == auth()->id())
-                            <form action="{{ route('ratings.destroy', $r->rating_id) }}" method="POST" class="mt-2">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="text-red-500 hover:text-red-700 text-sm font-bold">
-                                    Delete Review
-                                </button>
-                            </form>
-                        @endif
-                    @endauth
-                    </div>
-                @endforeach
-            </div>
-        @endif
+                        <div>
+                            <label for="rating_comment" class="block text-sm font-bold text-gray-800 dark:text-gray-200 mb-3">
+                                Comment <span class="text-gray-400 font-medium">(optional)</span>
+                            </label>
+                            <textarea
+                                id="rating_comment"
+                                name="rating_comment"
+                                rows="4"
+                                placeholder="Tell us what you liked, how it worked for you, or anything others should know..."
+                                class="w-full rounded-2xl border border-gray-300 dark:border-[#355442] bg-white dark:bg-[#16241c] text-gray-800 dark:text-gray-200 px-4 py-3 focus:ring-2 focus:ring-[#7FA82E] focus:border-[#7FA82E] outline-none transition resize-none"
+                            ></textarea>
+                        </div>
 
-        @auth
-            <div class="mt-6 pt-6 border-t border-gray-100 dark:border-[#2a4535]">
-                <h3 class="font-bold mb-2">Leave a review</h3>
-
-                <form method="POST" action="{{ route('ratings.store', $product->product_id) }}">
-                    @csrf
-
-                    <div class="mb-3">
-                        <label>Rating:</label><br>
-                        <label><input type="radio" name="rating" value="1" required> 1 ★</label>
-                        <label><input type="radio" name="rating" value="2"> 2 ★</label>
-                        <label><input type="radio" name="rating" value="3"> 3 ★</label>
-                        <label><input type="radio" name="rating" value="4"> 4 ★</label>
-                        <label><input type="radio" name="rating" value="5"> 5 ★</label>
-                    </div>
-
-                    <div class="mb-3">
-                        <label>Comment (optional):</label><br>
-                        <textarea name="rating_comment" rows="3" style="width:100%"></textarea>
-                    </div>
-
-                    <button type="submit">Submit Review</button>
-                </form>
-            </div>
-        @endauth
-
-        @guest
-            <p class="mt-6 pt-6 border-t border-gray-100 dark:border-[#2a4535]">
-                Please <a href="{{ route('login') }}">log in</a> to leave a review.
-            </p>
-        @endguest
+                        <div>
+                            <button type="submit" class="inline-flex items-center justify-center bg-[#7FA82E] hover:bg-[#6d9126] text-white font-extrabold px-6 py-3 rounded-full shadow-lg hover:shadow-[#7FA82E]/30 hover:-translate-y-0.5 transition-all duration-300">
+                                Submit Review
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            @else
+                <div class="mt-10 pt-8 border-t border-gray-100 dark:border-[#2a4535]">
+                    <p class="text-gray-600 dark:text-gray-300">
+                        Please
+                        <a href="{{ route('login') }}" class="font-bold text-[#7FA82E] hover:underline">
+                            log in
+                        </a>
+                        to leave a review.
+                    </p>
+                </div>
+            @endauth
+        </div>
     </div>
 </div>
-
 </x-layout>
