@@ -1,5 +1,5 @@
-<!-- This is the main web routes file for the Laravel application, defining all the routes for public pages, user dashboard, admin dashboard, product management, order processing, and quiz functionality. -->
 <?php
+// This is the main web routes file for the Laravel application, defining all the routes for public pages, user dashboard, admin dashboard, product management, order processing, and quiz functionality.
 
 use App\Http\Controllers\ContactsController;
 use App\Http\Controllers\ProfileController;
@@ -14,8 +14,7 @@ use App\Http\Controllers\QuizController;
 use App\Models\Products;
 use App\Models\Categories;
 use App\Http\Controllers\BasketController;
-use App\Http\Controllers\ReviewController;
-use App\Http\Controllers\WishlistController;
+use App\Http\Controllers\OrderTrackingController;
 
 // --- Team's Public Pages ---
 Route::get('/', function () { return view('home'); });
@@ -26,8 +25,13 @@ Route::get('/joinus', function () { return view('JoinUs'); });
 Route::get('/contact', [ContactsController::class, 'index'])->name('contact.index');
 Route::post('/contact', [ContactsController::class, 'store'])->name('contact.submit');
 Route::get('/contact/thank-you', [ContactsController::class, 'showThankYou'])->name('contact.thankyou');
+Route::get('/faq', function () { return view('faq'); })->name('faq');
 Route::get('/shop', [ProductsController::class, 'index'])->name('shop.index');
 Route::get('/products/{id}', [ProductsController::class, 'show'])->name('products.show');
+
+// Public track order (order ID + email)
+Route::get('/track-order', [OrderTrackingController::class, 'showForm'])->name('track-order.form');
+Route::post('/track-order', [OrderTrackingController::class, 'lookup'])->name('track-order.lookup');
 
 // --- Quiz Routes ---
 Route::get('/quiz', [App\Http\Controllers\QuizController::class, 'index'])->name('quiz.index');
@@ -45,6 +49,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard/chatbot', function () { 
         return view('dashboard.chatbot'); 
     })->name('dashboard.chatbot');
+
+    Route::get('/dashboard/track-order', [DashboardController::class, 'trackOrderForm'])->name('dashboard.track-order');
+    Route::post('/dashboard/track-order', [DashboardController::class, 'trackOrderLookup'])->name('dashboard.track-order.lookup');
 });
 
 
@@ -58,6 +65,8 @@ Route::middleware(['auth'])->group(function () {
 
 
     Route::get('/checkout', [OrdersController::class, 'checkout'])->name('checkout');
+    Route::post('/checkout/apply-discount', [OrdersController::class, 'applyDiscount'])->name('checkout.apply-discount');
+    Route::get('/checkout/remove-discount', [OrdersController::class, 'removeDiscount'])->name('checkout.remove-discount');
     Route::post('/orders/place', [OrdersController::class, 'placeOrder'])->name('orders.place');
     Route::get('/orders/{order}/confirmation', [OrdersController::class, 'confirmation'])->name('orders.confirmation');
     Route::get('/dashboard/orders/{id}', [DashboardController::class, 'showOrder'])->name('dashboard.order-details');
@@ -66,6 +75,36 @@ Route::middleware(['auth'])->group(function () {
 // Admin routes, accessible only to users with the 'admin' role.
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+    Route::get('/admin/discount-codes', [AdminController::class, 'discountCodes'])->name('admin.discount-codes');
+    Route::post('/admin/discount-codes', [AdminController::class, 'storeDiscountCode'])->name('admin.discount-codes.store');
+    Route::delete('/admin/discount-codes/{id}', [AdminController::class, 'destroyDiscountCode'])->name('admin.discount-codes.destroy');
+    
+    // Product management routes
+    Route::get('/admin/products/report', [AdminController::class, 'generateInventoryReport'])->name('admin.products.report');
+    Route::get('/admin/products', [AdminController::class, 'products'])->name('admin.products');
+    Route::get('/admin/products/create', [AdminController::class, 'createProduct'])->name('admin.products.create');
+    Route::post('/admin/products', [AdminController::class, 'storeProduct'])->name('admin.products.store');
+    Route::get('/admin/products/{id}/edit', [AdminController::class, 'editProduct'])->name('admin.products.edit');
+    Route::put('/admin/products/{id}', [AdminController::class, 'updateProduct'])->name('admin.products.update');
+    Route::delete('/admin/products/{id}', [AdminController::class, 'destroyProduct'])->name('admin.products.destroy');
+    Route::post('/admin/products', [ProductsController::class, 'store'])->name('admin.products.store');
+    Route::put('/admin/products/{id}', [ProductsController::class, 'store'])->name('admin.products.update');
+
+
+    // Order management routes
+    Route::get('/admin/orders', [AdminController::class, 'orders'])->name('admin.orders');
+    Route::get('/admin/orders/report', [AdminController::class, 'generateReport'])->name('admin.orders.report');
+    Route::get('/admin/orders/{id}', [AdminController::class, 'orderDetails'])->name('admin.order-details');
+    Route::post('/admin/orders/{id}/status', [AdminController::class, 'updateOrderStatus'])->name('admin.orders.update-status');
+
+    
+    // User management routes
+    Route::get('/admin/users', [AdminController::class, 'users'])->name('admin.users');
+    Route::get('/admin/users/create', [AdminController::class, 'createUser'])->name('admin.users.create');
+    Route::post('/admin/users', [AdminController::class, 'storeUser'])->name('admin.users.store');
+    Route::get('/admin/users/{id}/edit', [AdminController::class, 'editUser'])->name('admin.users.edit');
+    Route::put('/admin/users/{id}', [AdminController::class, 'updateUser'])->name('admin.users.update');
+    Route::delete('/admin/users/{id}', [AdminController::class, 'destroyUser'])->name('admin.users.destroy');
 });
 
 // Profile management routes for authenticated users. (Change user profile details, delete account etc.)
