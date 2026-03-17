@@ -22,8 +22,6 @@
 Homestead.json
 Homestead.yaml
 Thumbs.db
-<<<<<<< HEAD
-=======
 
 # Cache directories
 /bootstrap/cache/*
@@ -52,4 +50,3 @@ Thumbs.db
 # OS
 .DS_Store
 Thumbs.db
->>>>>>> origin/fat
