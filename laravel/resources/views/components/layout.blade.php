@@ -88,6 +88,20 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6 {{ request()->is('basket') ? 'text-[#7FA82E]' : 'text-gray-300 group-hover:text-[#7FA82E]' }}"> 
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
                                 </svg>
+
+                                @auth
+@php
+$basketCount = \App\Models\Basket_Items::whereHas('basket', function ($q) {
+$q->where('user_id', auth()->id());
+})->count();
+@endphp
+
+@if($basketCount > 0)
+<span class="absolute -top-1 -right-1 min-w-[18px] h-[18px] px-1 flex items-center justify-center bg-red-500 text-white text-[10px] rounded-full">
+{{ $basketCount }}
+</span>
+@endif
+@endauth
                             </a>
                             
                             <button type="button" @click="toggleTheme()" class="p-2 rounded-full hover:bg-white/10 text-gray-300 hover:text-[#7FA82E] transition duration-150">
@@ -123,10 +137,12 @@
                                             </button>
                                         </x-slot>
                                         <x-slot name="content">
-                                            <x-dropdown-link :href="route('profile.edit')">{{ __('Profile') }}</x-dropdown-link>
+                                            <x-dropdown-link
+                                                :href="route('profile.edit')">{{ __('Profile') }}</x-dropdown-link>
                                             <form method="POST" action="{{ route('logout') }}">
                                                 @csrf
-                                                <x-dropdown-link :href="route('logout')" onclick="event.preventDefault(); this.closest('form').submit();">{{ __('Log Out') }}</x-dropdown-link>
+                                                <x-dropdown-link :href="route('logout')"
+                                                    onclick="event.preventDefault(); this.closest('form').submit();">{{ __('Log Out') }}</x-dropdown-link>
                                             </form>
                                         </x-slot>
                                     </x-dropdown>
@@ -147,19 +163,49 @@
                     </div>
                 </div>
             </div>
-
-            <div :class="{'block': open, 'hidden': ! open}" class="hidden md:hidden bg-green-900 border-t border-white/10">
+            <!-- Responsive Mobile Menu -->
+            <div :class="{ 'block': open, 'hidden': !open }" class="hidden md:hidden">
                 <div class="space-y-1 px-2 pt-2 pb-3 sm:px-3">
-                    <a href="/shop" class="block rounded-md px-3 py-3 text-lg font-bold transition duration-150 ease-in-out {{ request()->is('shop') ? 'text-[#7FA82E]' : 'text-gray-300 hover:bg-white/5 hover:text-[#7FA82E]' }}">Shop</a>
-                    <a href="/quiz" class="block rounded-md px-3 py-3 text-lg font-bold transition duration-150 ease-in-out {{ request()->is('quiz') ? 'text-[#7FA82E]' : 'text-gray-300 hover:bg-white/5 hover:text-[#7FA82E]' }}">Quiz</a>
-                    <a href="/about" class="block rounded-md px-3 py-3 text-lg font-bold transition duration-150 ease-in-out {{ request()->is('about') ? 'text-[#7FA82E]' : 'text-gray-300 hover:bg-white/5 hover:text-[#7FA82E]' }}">About</a>
-                    <a href="/contact" class="block rounded-md px-3 py-3 text-lg font-bold transition duration-150 ease-in-out {{ request()->is('contact') ? 'text-[#7FA82E]' : 'text-gray-300 hover:bg-white/5 hover:text-[#7FA82E]' }}">Contact</a>
-                    <a href="{{ route('faq') }}" class="block rounded-md px-3 py-3 text-lg font-bold transition duration-150 ease-in-out {{ request()->is('faq') ? 'text-[#7FA82E]' : 'text-gray-300 hover:bg-white/5 hover:text-[#7FA82E]' }}">FAQ</a>
-                    
-                    <div class="border-t border-white/10 my-2"></div>
+                    <a href="/shop"
+                        class="block rounded-md px-3 py-2 text-base font-medium transition duration-150 ease-in-out {{ request()->is('shop') ? 'text-[#7FA82E] font-bold' : 'text-gray-300 hover:bg-white/5 hover:text-[#7FA82E]' }}">Shop</a>
+                    <a href="/quiz"
+                        class="block rounded-md px-3 py-2 text-base font-medium transition duration-150 ease-in-out {{ request()->is('quiz') ? 'text-[#7FA82E] font-bold' : 'text-gray-300 hover:bg-white/5 hover:text-[#7FA82E]' }}">Quiz</a>
+                    <a href="/about"
+                        class="block rounded-md px-3 py-2 text-base font-medium transition duration-150 ease-in-out {{ request()->is('about') ? 'text-[#7FA82E] font-bold' : 'text-gray-300 hover:bg-white/5 hover:text-[#7FA82E]' }}">About</a>
+                    <a href="/contact"
+                        class="block rounded-md px-3 py-2 text-base font-medium transition duration-150 ease-in-out {{ request()->is('contact') ? 'text-[#7FA82E] font-bold' : 'text-gray-300 hover:bg-white/5 hover:text-[#7FA82E]' }}">Contact</a>
+                    <a href="/basket"
+                        class="block rounded-md px-3 py-2 text-base font-medium transition duration-150 ease-in-out flex items-center {{ request()->is('basket') ? 'text-[#7FA82E] font-bold' : 'text-gray-300 hover:bg-white/5 hover:text-[#7FA82E]' }}">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-5 h-5 mr-2">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
+                        </svg>
+                        @auth
+                            @if(\App\Models\Basket_Items::whereHas('basket', fn($q) => $q->where('user_id', auth()->id()))->count())
+                                <span class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full px-1">
+                                    {{ \App\Models\Basket_Items::whereHas('basket', fn($q) => $q->where('user_id', auth()->id()))->count() }}
+                                </span>
+                            @endif
+                        @endauth
 
-                    <a href="/basket" class="block rounded-md px-3 py-3 text-lg font-bold transition duration-150 ease-in-out flex items-center {{ request()->is('basket') ? 'text-[#7FA82E]' : 'text-gray-300 hover:bg-white/5 hover:text-[#7FA82E]' }}">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6 mr-3"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" /></svg> Basket
+                        Basket
+                    </a>
+                    <a href="/wishlist"
+                        class="block rounded-md px-3 py-2 text-base font-medium transition duration-150 ease-in-out flex items-center {{ request()->is('wishlist') ? 'text-[#7FA82E] font-bold' : 'text-gray-300 hover:bg-white/5 hover:text-[#7FA82E]' }}">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24"
+                            stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M4.318 6.318a4.5 4.5 0 016.364 0L12 7.636l1.318-1.318a4.5 4.5 0 116.364 6.364L12 21 4.318 12.682a4.5 4.5 0 010-6.364" />
+                        </svg>
+                        @auth
+                            @if(\App\Models\WishlistItem::where('user_id', auth()->id())->count())
+                                <span class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full px-1">
+                                    {{ \App\Models\WishlistItem::where('user_id', auth()->id())->count() }}
+                                </span>
+                            @endif
+                        @endauth
+                        Wishlist
                     </a>
                     
                     <button @click="toggleTheme()" class="flex w-full items-center rounded-md px-3 py-3 text-lg font-bold text-gray-300 hover:bg-white/5 hover:text-[#7FA82E] transition-colors">

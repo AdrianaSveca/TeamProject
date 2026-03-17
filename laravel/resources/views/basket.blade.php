@@ -7,55 +7,75 @@
                 Your <span class="text-[#7FA82E]">Basket</span>
             </h1>
 
-            @if(isset($basket) && $basket->items->count() > 0) <!-- Check if basket has items -->
+            @if($basket && $basket->items->count() > 0)
+
                 <div class="flex flex-col lg:flex-row gap-8">
                     
                     <div class="lg:w-2/3 space-y-6">
                         @foreach($basket->items as $item)
-                            <div class="bg-white dark:bg-[#1a2920] rounded-3xl p-6 shadow-lg border border-gray-100 dark:border-[#2a4535] flex flex-col sm:flex-row items-center gap-6 transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+
+                            <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col sm:flex-row items-center gap-6 transition hover:shadow-md">
                                 
-                                <div class="w-32 h-32 flex-shrink-0 bg-gray-50 dark:bg-[#121e16] rounded-2xl overflow-hidden border border-gray-100 dark:border-[#2a4535] flex items-center justify-center">
+                                <!-- IMAGE -->
+                                <div class="w-32 h-32 flex-shrink-0 bg-gray-100 rounded-xl overflow-hidden">
                                     @if($item->product->product_image)
                                         <img src="{{ asset($item->product->product_image) }}" 
-                                             alt="{{ $item->product->product_name }}" 
-                                             class="w-full h-full object-contain p-2">
-                                    @else <!-- No Image Available -->
-                                        <div class="text-gray-400 dark:text-gray-500 text-xs font-medium">No Image</div>
+                                             class="w-full h-full object-cover">
+                                    @else
+                                        <div class="w-full h-full flex items-center justify-center text-gray-400 text-xs">
+                                            No Image
+                                        </div>
                                     @endif
                                 </div>
 
-                                <div class="flex-1 w-full text-center sm:text-left">
-                                    <div class="flex flex-col sm:flex-row justify-between items-start gap-2">
+                                <!-- PRODUCT INFO -->
+                                <div class="flex-1 text-center sm:text-left">
+
+                                    <div class="flex justify-between items-start">
                                         <div>
-                                            <span class="inline-block bg-[#7FA82E]/10 text-[#7FA82E] text-[10px] font-bold px-2.5 py-1 rounded-full mb-2 border border-[#7FA82E]/20">
-                                                {{ $item->product->category->category_name ?? 'Product' }} <!-- Product Category -->
+
+                                            <span class="inline-block bg-[#1f5b38] text-white text-[10px] px-2 py-0.5 rounded-full mb-1">
+                                                {{ $item->product->category->category_name ?? 'Product' }}
                                             </span>
-                                            <h3 class="text-xl font-bold text-gray-900 dark:text-white leading-tight">
-                                                <a href="{{ route('products.show', $item->product_id) }}" class="hover:text-[#7FA82E] transition-colors">
-                                                    {{ $item->product->product_name }} <!-- Product Name -->
+
+                                            <h3 class="text-xl font-bold text-gray-900">
+                                                <a href="{{ route('products.show', $item->product_id) }}">
+                                                    {{ $item->product->product_name }}
                                                 </a>
                                             </h3>
-                                            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1 line-clamp-1">
-                                                {{ $item->product->product_description }} <!-- Product Description -->
+
+                                            <!-- SIZE -->
+                                            @if($item->variant)
+                                                <p class="text-sm text-gray-500">
+                                                    Size: <span class="font-medium">{{ $item->variant->size }}</span>
+                                                </p>
+                                            @endif
+
+                                            <!-- FLAVOUR -->
+                                            @if($item->flavour)
+                                                <p class="text-sm text-gray-500">
+                                                    Flavour: <span class="font-medium">{{ $item->flavour }}</span>
+                                                </p>
+                                            @endif
+
+                                            <p class="text-sm text-gray-500 mt-1">
+                                                {{ $item->product->product_description }}
                                             </p>
-                                        </div>
-                                        
-                                        <div class="hidden sm:block text-right"> <!-- Quantity Controls and Price -->
-                                            <div class="text-lg font-bold text-[#7FA82E]">
-                                                £{{ number_format($item->basket_item_quantity * $item->basket_item_price, 2) }}
-                                            </div>
-                                            <div class="text-xs text-gray-400 dark:text-gray-500">
-                                                £{{ number_format($item->basket_item_price, 2) }} each
-                                            </div>
+
                                         </div>
                                     </div>
 
-                                    <div class="flex flex-col sm:flex-row items-center justify-between mt-6 gap-4">
-                                        
-                                        <div class="flex items-center bg-gray-100 dark:bg-[#121e16] rounded-xl p-1 border border-transparent dark:border-[#2a4535]">
+                                    <div class="flex flex-col sm:flex-row items-center justify-between mt-4 gap-4">
+
+                                        <!-- QUANTITY -->
+                                        <div class="flex items-center bg-gray-100 rounded-lg p-1">
+
+                                            <!-- DECREASE -->
                                             <form action="{{ route('basket.update') }}" method="POST">
-                                                @csrf <!-- Decrease Quantity Button -->
+                                                @csrf
                                                 <input type="hidden" name="product_id" value="{{ $item->product_id }}">
+                                                <input type="hidden" name="variant_id" value="{{ $item->variant_id }}">
+                                                <input type="hidden" name="flavour" value="{{ $item->flavour }}">
                                                 <input type="hidden" name="action" value="decrease">
                                                 <button type="submit" 
                                                     class="w-8 h-8 flex items-center justify-center rounded-lg bg-white dark:bg-[#1a2920] text-gray-600 dark:text-gray-300 shadow-sm hover:text-red-500 dark:hover:text-red-400 disabled:opacity-50 transition-colors"
@@ -68,9 +88,12 @@
                                                 {{ $item->basket_item_quantity }}
                                             </span>
 
+                                            <!-- INCREASE -->
                                             <form action="{{ route('basket.update') }}" method="POST">
-                                                @csrf <!-- Increase Quantity Button -->
+                                                @csrf
                                                 <input type="hidden" name="product_id" value="{{ $item->product_id }}">
+                                                <input type="hidden" name="variant_id" value="{{ $item->variant_id }}">
+                                                <input type="hidden" name="flavour" value="{{ $item->flavour }}">
                                                 <input type="hidden" name="action" value="increase">
                                                 <button type="submit" 
                                                     class="w-8 h-8 flex items-center justify-center rounded-lg bg-white dark:bg-[#1a2920] text-gray-600 dark:text-gray-300 shadow-sm hover:text-[#7FA82E] dark:hover:text-[#7FA82E] disabled:opacity-50 transition-colors"
@@ -78,6 +101,7 @@
                                                     +
                                                 </button>
                                             </form>
+
                                         </div>
 
                                         <div class="flex items-center gap-4 w-full sm:w-auto justify-between sm:justify-end">
@@ -90,19 +114,24 @@
                                                 </div>
                                             </div>
 
-                                            <form action="{{ route('basket.remove') }}" method="POST"> <!-- Remove Item Button -->
+                                            <!-- REMOVE -->
+                                            <form action="{{ route('basket.remove') }}" method="POST">
                                                 @csrf
-                                                <input type="hidden" name="product_id" value="{{ $item->product_id }}">
-                                                <button type="submit" class="text-gray-400 hover:text-red-500 dark:text-gray-500 dark:hover:text-red-400 transition-colors p-2 rounded-full hover:bg-red-50 dark:hover:bg-red-900/20" title="Remove item">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
-                                                    </svg>
+                                                <input type="hidden" name="basket_item_id" value="{{ $item->basket_item_id }}">
+
+                                                <button type="submit" class="text-red-500">
+                                                    ✕
                                                 </button>
                                             </form>
+
                                         </div>
+
                                     </div>
+
                                 </div>
+
                             </div>
+
                         @endforeach
                     </div>
 
@@ -166,6 +195,7 @@
                             </div>
                         </div>
                     </div>
+
                 </div>
 
             @else <!-- If basket is empty... -->
@@ -184,7 +214,9 @@
                         Start Shopping
                     </a>
                 </div>
+
             @endif
+
         </div>
     </div>
 </x-layout>

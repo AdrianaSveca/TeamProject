@@ -14,7 +14,7 @@ class CategoriesTableSeeder extends Seeder
     public function run(): void
     {
 
-        DB::table('Categories')->insert([
+        DB::table('categories')->insert([
             [
                 'category_name' => 'Supplements',
                 'category_description' => 'Protein Powders, Creatine and Other Fitness Supplements.'
