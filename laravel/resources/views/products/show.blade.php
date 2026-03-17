@@ -1,9 +1,24 @@
 <!-- This is the product detail page that displays comprehensive information about a specific product -->
 <x-layout>
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 md:p-10">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+    <div class="min-h-screen py-12 px-4 sm:px-6 lg:px-8 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto">
+
+            <div class="mb-8">
+                @if(isset($fromAdmin) && $fromAdmin || (Auth::check() && Auth::user()->role === 'admin'))
+                    <a href="{{ route('admin.products') }}" class="inline-flex items-center text-sm font-bold text-gray-500 hover:text-[#7FA82E] transition-colors">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                        Back to Admin Products
+                    </a>
+                @else
+                    <a href="{{ route('shop.index') }}" class="inline-flex items-center text-sm font-bold text-gray-500 hover:text-[#7FA82E] transition-colors">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                        Back to Shop
+                    </a>
+                @endif
+            </div>
+            <!-- Product Details Card -->
+            <div class="bg-white dark:bg-[#1a2920] rounded-3xl shadow-2xl border border-gray-100 dark:border-[#2a4535] overflow-hidden transition-colors duration-300">
+                <div class="grid grid-cols-1 md:grid-cols-2">
 
                     <!-- IMAGE -->
                     <div class="bg-gray-100 rounded-lg overflow-hidden h-[590px] flex items-center justify-center">
@@ -13,7 +28,11 @@
                         @else
                             <span class="text-gray-400">No Image Available</span>
                         @endif
+                        
+                        <div class="absolute inset-0 bg-radial-gradient from-[#7FA82E]/5 to-transparent pointer-events-none"></div>
                     </div>
+                    <!-- Product Info Section -->
+                    <div class="p-8 md:p-12 flex flex-col justify-center">
 
                     <!-- PRODUCT INFO -->
                     <div class="flex flex-col justify-center">
@@ -57,7 +76,7 @@
                             £0.00 / serving
                         </div>
 
-                        <div class="prose text-gray-600 mb-8">
+                        <div class="prose prose-lg text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
                             <p>{{ $product->product_description }}</p>
                         </div>
 

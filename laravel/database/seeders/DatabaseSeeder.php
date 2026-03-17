@@ -35,6 +35,7 @@ class DatabaseSeeder extends Seeder
             AdminSeeder::class,
             CategoriesTableSeeder::class,
             ProductsTableSeeder::class,
+            DemoDataSeeder::class,
             BMIResultsTableSeeder::class,
             BMIResultProductsTableSeeder::class,
         ]);
