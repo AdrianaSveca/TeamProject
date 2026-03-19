@@ -130,7 +130,7 @@
                     </p>
                 </div>
 
-                {{-- averge rating Summary --}}
+                <!-- average rating Summary -->
                 <div class="bg-[#7FA82E]/10 dark:bg-[#7FA82E]/20 rounded-2xl px-5 py-4 min-w-[180px] text-center">
                     <p class="text-sm font-semibold text-gray-600 dark:text-gray-300">Average Rating</p>
                     <div class="mt-1 text-2xl font-extrabold text-[#7FA82E]">
