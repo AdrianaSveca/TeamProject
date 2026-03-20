@@ -2,6 +2,7 @@
 // This is the main web routes file for the Laravel application, defining all the routes for public pages, user dashboard, admin dashboard, product management, order processing, and quiz functionality.
 
 use App\Http\Controllers\ContactsController;
+use App\Http\Controllers\ChatbotController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
@@ -46,9 +47,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard/orders/active', [DashboardController::class, 'activeOrders'])->name('dashboard.active-orders');
     Route::get('/dashboard/orders/history', [DashboardController::class, 'orderHistory'])->name('dashboard.order-history');
 
-    Route::get('/dashboard/chatbot', function () { 
-        return view('dashboard.chatbot'); 
+    Route::get('/dashboard/chatbot', function () {
+        return view('dashboard.chatbot');
     })->name('dashboard.chatbot');
+    Route::post('/dashboard/chatbot/message', [ChatbotController::class, 'chat'])
+        ->name('dashboard.chatbot.message');
 
     Route::get('/dashboard/track-order', [DashboardController::class, 'trackOrderForm'])->name('dashboard.track-order');
     Route::post('/dashboard/track-order', [DashboardController::class, 'trackOrderLookup'])->name('dashboard.track-order.lookup');
