@@ -13,13 +13,19 @@ return new class extends Migration
     {
         Schema::create('Performance_Metrics', function (Blueprint $table) {
             $table->id('metric_id');
-            
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-
-
-            $table->decimal('fully_loaded_time_s')->nullable();
-            $table->decimal('error_rate')->nullable();
+            $table->foreignId('user_id')->nullable()->constrained('users')->nullOnDelete();
+            $table->string('route');
+            $table->string('method', 10);
+            $table->integer('status_code');
+            $table->integer('response_time_ms');
+            $table->boolean('error_occurred')->default(false);
+            $table->string('ip_address')->nullable();
+            $table->text('user_agent')->nullable();
             $table->timestamps();
+
+            $table->index('user_id');
+            $table->index('created_at');
+            $table->index('route');
         });
     }
 
