@@ -21,7 +21,7 @@ class ChatbotController extends Controller
         $response = $this->deepseek->ask($message);
 
         return response()->json([
-            'reply' => $response['choices'][0]['message']['content'] ?? 'No response'
+            'reply' => $response['choices'][0]['message']['content'] ?? 'No response. The API account balance needs to be topped up.'
         ]);
     }
 }
