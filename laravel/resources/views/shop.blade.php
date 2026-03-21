@@ -11,7 +11,18 @@
                 opacity: 1;
                 transform: translateY(0);
             }
+}
+        @keyframes marquee {
+            0% { transform: translateX(155%); }
+            100% { transform: translateX(-50%); }
         }
+
+        .animate-marquee {
+            display: inline-block;
+            white-space: nowrap;
+            animation: marquee 6s linear infinite;
+        }
+    
     </style>
 
     <div class="relative w-screen left-[calc(-50vw+50%)] -mt-6 h-auto">
@@ -35,6 +46,14 @@
 
             </div>
     </div>
+    <!-- Free Shipping Marquee -->
+<div class="relative w-screen left-[calc(-50vw+50%)] overflow-hidden bg-[#1f5b38] dark:bg-[#121e16] border-b border-[#2a4535]">
+    <div class="animate-marquee text-[#7FA82E] font-bold text-lg py-1">
+        <span>🚚 Free shipping over £40! &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><span><span>
+        <span>🚚 Free shipping over £40! &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><span><span>
+        <span>🚚 Free shipping over £40! &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><span><span>
+    </div>
+</div>
     <!-- Main Content -->
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
@@ -171,4 +190,46 @@
             </div>
         </div>
     </main>
+  <!-- Sale Alert -->
+<div id="promoAlert" 
+     class="fixed bottom-5 right-5 bg-[#7FA82E] text-white rounded-xl shadow-lg p-4 flex items-center gap-3 opacity-0 transform translate-x-40 transition-all duration-500 z-50 text-lg animate-pulse">
+    <!-- Fire Emoji Icon -->
+    <span class="flex-shrink-0 text-2xl">🔥</span>
+
+    <div>
+        <p class="font-bold">Flash Sale!</p>
+        <p class="text-sm">Get 10% off if you place an order before 12am today!</p>
+    </div>
+
+    <button id="closeAlert" class="ml-auto text-white/70 hover:text-white font-bold">&times;</button>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const alertBox = document.getElementById('promoAlert');
+    const closeBtn = document.getElementById('closeAlert');
+
+    if (!alertBox || !closeBtn) return;
+
+    // Slide in after 1 second
+    setTimeout(() => {
+        alertBox.style.transform = 'translateX(0)';
+        alertBox.style.opacity = '1';
+    }, 1000);
+
+    // Automatically go after 8 seconds
+    setTimeout(() => {
+        alertBox.style.transform = 'translateX(40px)';
+        alertBox.style.opacity = '0';
+        setTimeout(() => alertBox.remove(), 500); 
+    }, 8000);
+
+    // Close button
+    closeBtn.addEventListener('click', () => {
+        alertBox.style.transform = 'translateX(40px)';
+        alertBox.style.opacity = '0';
+        setTimeout(() => alertBox.remove(), 500);
+    });
+});
+</script>
 </x-layout>

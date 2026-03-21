@@ -4,10 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-/**
- * This model represents the Products table.
- * It defines the attributes and relationships associated with a product.
- */
+
+ // This model represents the Products table.
+ //It defines the attributes and relationships associated with a product.
+ //
 class Products extends Model
 {
     protected $table = 'Products';
@@ -19,6 +19,8 @@ class Products extends Model
     'product_description',
     'product_price',
     'product_image',
+    'product_image_2', 
+    'product_image_3',
     'product_stock_level',
     'category_id'
     ];

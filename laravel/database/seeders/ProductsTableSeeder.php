@@ -19,6 +19,8 @@ class ProductsTableSeeder extends Seeder
                 'product_description' => 'High-quality protein supplement',
                 'product_price' => 39.99,
                 'product_image' => 'products/Whey_Protein_Isolate.png',
+                'product_image_2' => 'products/WELLTH_protein_back.png',
+                'product_image_3' => null,
                 'category_id' => 1,
             ],
             [
@@ -26,6 +28,8 @@ class ProductsTableSeeder extends Seeder
                 'product_description' => 'Pure micronized creatine',
                 'product_price' => 24.99,
                 'product_image' => 'products/Creatine_Monohydrate.png',
+                'product_image_2' => 'products/WELLTH_protein_back.png',
+                'product_image_3' => null,
                 'category_id' => 1,
             ],
             [
@@ -33,6 +37,8 @@ class ProductsTableSeeder extends Seeder
                 'product_description' => 'Heart health & anti-inflammation',
                 'product_price' => 15.99,
                 'product_image' => 'products/Omega_3_Fish_Oil_Capsules.png',
+                'product_image_2' => 'products/WELLTH_Omega-3_ingre.png',
+                'product_image_3' => null,
                 'category_id' => 1,
             ],
             [
@@ -40,6 +46,8 @@ class ProductsTableSeeder extends Seeder
                 'product_description' => 'Enhances focus and performance',
                 'product_price' => 19.99,
                 'product_image' => 'products/Pre_Workout_Energy_Blast.png',
+                'product_image_2' => 'products/WELLTH_Pre-Workout_b.png',
+                'product_image_3' => null,
                 'category_id' => 1,
             ],
             [
@@ -47,6 +55,8 @@ class ProductsTableSeeder extends Seeder
                 'product_description' => 'Immune and bone health support',
                 'product_price' => 12.99,
                 'product_image' => 'products/Vitamin_D3_5000IU.png',
+                'product_image_2' => 'products/WELLTH_Vitamin_D3_al.png',
+                'product_image_3' => null,
                 'category_id' => 1,
             ],
             [
@@ -54,6 +64,8 @@ class ProductsTableSeeder extends Seeder
                 'product_description' => 'High-protein natural spread',
                 'product_price' => 10.99,
                 'product_image' => 'products/Organic_Almond_Butter.png',
+                'product_image_2' => 'products/WELLTH_Almond_Butter.png',
+                'product_image_3' => null,
                 'category_id' => 2,
             ],
             [
@@ -61,6 +73,8 @@ class ProductsTableSeeder extends Seeder
                 'product_description' => 'Breakfast fuel with added fibre',
                 'product_price' => 8.99,
                 'product_image' => 'products/High_Protein_Granola_Mix.png',
+                'product_image_2' => 'products/WELLTH_Granola_Mix_b.png',
+                'product_image_3' => null,
                 'category_id' => 2,
             ],
             [
@@ -68,6 +82,8 @@ class ProductsTableSeeder extends Seeder
                 'product_description' => 'Balanced macronutrient formula',
                 'product_price' => 29.99,
                 'product_image' => 'products/Meal_Replacement_Shake_Pack.png',
+                'product_image_2' => 'products/WELLTH_Strawberry_Sh.png',
+                'product_image_3' => 'products/WELLTH_Vanilla_Shake.png',
                 'category_id' => 2,
             ],
             [
@@ -75,6 +91,8 @@ class ProductsTableSeeder extends Seeder
                 'product_description' => 'Restores essential minerals',
                 'product_price' => 14.99,
                 'product_image' => 'products/Electrolyte_Hydration_Mix.png',
+                'product_image_2' => 'products/Hydration_mix_back.png',
+                'product_image_3' => null,
                 'category_id' => 2,
             ],
             [
@@ -82,6 +100,8 @@ class ProductsTableSeeder extends Seeder
                 'product_description' => 'Plant-based energy snack',
                 'product_price' => 22.99,
                 'product_image' => 'products/Vegan_Protein_Bars_Box_of_12.png',
+                'product_image_2' => 'products/Back_of_vegan_protei.png',
+                'product_image_3' => null,
                 'category_id' => 2,
             ],
             [
